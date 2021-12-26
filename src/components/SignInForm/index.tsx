@@ -21,17 +21,17 @@ const SignInForm = () => {
   };
 
   return (
-    <div className='space-y-8 w-full border-2 border-gray-200 rounded-md p-10'>
+    <div className='space-y-8 w-full border-2 border-gray-200 rounded-md p-10 bg-white'>
       <h2 className='text-lg font-bold text-gray-700 text-center'>
         サインイン
       </h2>
 
       <FormProvider {...methods}>
         <form
-          className='flex flex-col items-center space-y-8'
+          className='flex flex-col items-center space-y-8 w-full'
           onSubmit={handleSubmit(onSubmit)}
         >
-          <label className='w-96'>
+          <label className='w-full'>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700">
               メールアドレス
             </span>
@@ -47,7 +47,7 @@ const SignInForm = () => {
             )}
           </label>
 
-          <label className='w-96'>
+          <label className='w-full'>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700">
               パスワード
             </span>
