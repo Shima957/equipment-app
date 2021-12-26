@@ -5,7 +5,7 @@ type Props = {
   inputType: 'email' | 'password' | 'text';
   placeholder?: string;
   rhfRegisterName: string;
-  rhfRequired?: boolean;
+  rhfRequired?: string;
   error?: string;
 };
 

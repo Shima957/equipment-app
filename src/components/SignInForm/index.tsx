@@ -39,11 +39,11 @@ const SignInForm = () => {
               inputType='email'
               placeholder='メールアドレス'
               rhfRegisterName='email'
-              rhfRequired={true}
+              rhfRequired={'メールアドレスは必須です'}
               error={errors.email?.type}
             />
             {errors.email?.type === 'required' && (
-              <p className='text-red-500'>メールアドレスは必須です</p>
+              <p className='text-red-500'>{errors.email.message}</p>
             )}
           </label>
 
@@ -55,16 +55,16 @@ const SignInForm = () => {
               inputType='password'
               placeholder='パスワード'
               rhfRegisterName='password'
-              rhfRequired={true}
+              rhfRequired={'パスワードは必須です'}
               error={errors.password?.type}
             />
             {errors.password?.type === 'required' && (
-              <p className='text-red-500'>パスワードは必須です</p>
+              <p className='text-red-500'>{errors.password?.message}</p>
             )}
           </label>
 
           <PrimaryButton buttonType='submit' isLoading={isSubmitting}>
-            サインイン
+            ログイン
           </PrimaryButton>
         </form>
       </FormProvider>
