@@ -1,8 +1,10 @@
-import Input from '@/components/Input';
+import EmailInput from '@/components/Input/EmailInput';
+import PasswordInput from '../Input/PasswordInput';
 import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
+import FormErrorMessage from '../Text/FormErrorMessage';
 
 export type FormValue = {
   email: string;
@@ -22,9 +24,7 @@ const SignInForm = () => {
 
   return (
     <div className='space-y-8 w-full border-2 border-gray-200 rounded-md p-10 bg-white'>
-      <h2 className='text-lg font-bold text-gray-700 text-center'>
-        サインイン
-      </h2>
+      <h2 className='text-xl font-bold text-gray-700 text-center'>ログイン</h2>
 
       <FormProvider {...methods}>
         <form
@@ -32,34 +32,25 @@ const SignInForm = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <label className='w-full'>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               メールアドレス
             </span>
-            <Input
-              inputType='email'
-              placeholder='メールアドレス'
-              rhfRegisterName='email'
-              rhfRequired={'メールアドレスは必須です'}
-              error={errors.email?.type}
-            />
+            <EmailInput />
             {errors.email?.type === 'required' && (
-              <p className='text-red-500'>{errors.email.message}</p>
+              <FormErrorMessage>{errors.email.message}</FormErrorMessage>
             )}
           </label>
 
           <label className='w-full'>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               パスワード
             </span>
-            <Input
-              inputType='password'
-              placeholder='パスワード'
-              rhfRegisterName='password'
-              rhfRequired={'パスワードは必須です'}
-              error={errors.password?.type}
-            />
+            <PasswordInput />
             {errors.password?.type === 'required' && (
-              <p className='text-red-500'>{errors.password?.message}</p>
+              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
+            )}
+            {errors.password?.type === 'minLength' && (
+              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
             )}
           </label>
 

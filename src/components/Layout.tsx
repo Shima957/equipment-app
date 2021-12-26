@@ -5,9 +5,9 @@ const Layout: FC = ({ children }) => {
   return (
     <div className=' bg-slate-100'>
       <Header />
-      <div className='max-w-screen-xl mx-auto pt-20 h-[calc(100vh-76px-70px)]'>
-        <main>{children}</main>
-      </div>
+      <main className='max-w-screen-xl mx-auto py-20 h-[calc(100vh-76px-70px)]'>
+        {children}
+      </main>
     </div>
   );
 };
