@@ -1,12 +1,18 @@
+import AuthListener from '@/components/AuthListener';
 import Layout from '@/components/Layout';
 import '@/styles/tailwind.css';
 import type { AppProps } from 'next/app';
+import { RecoilRoot } from 'recoil';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <RecoilRoot>
+      <AuthListener>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthListener>
+    </RecoilRoot>
   );
 }
 

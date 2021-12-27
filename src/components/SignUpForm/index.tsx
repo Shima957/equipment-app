@@ -7,9 +7,11 @@ import { useForm, FormProvider } from 'react-hook-form';
 import FormErrorMessage from '../Text/FormErrorMessage';
 import { supabase } from '@/lib/supabase';
 import ConfirmPassword from '../Input/ConfirmPassword';
+import UserNameInput from '../Input/UserNameInput';
 
 export type FormValue = {
   email: string;
+  userName: string;
   password: string;
   confirm: string;
 };
@@ -44,6 +46,15 @@ const SignUpForm = () => {
           className='flex flex-col items-center space-y-8 w-full'
           onSubmit={handleSubmit(onSubmit)}
         >
+          <label className='w-full'>
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+              ユーザーネーム
+            </span>
+            <UserNameInput />
+            {errors.userName?.type === 'required' && (
+              <FormErrorMessage>{errors.userName.message}</FormErrorMessage>
+            )}
+          </label>
           <label className='w-full'>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               メールアドレス

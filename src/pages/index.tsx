@@ -1,5 +1,10 @@
+import userSession from '@/atoms/atoms';
+import { useRecoilValue } from 'recoil';
+
 const Home = () => {
-  return <h1>home</h1>;
+  const session = useRecoilValue(userSession);
+
+  return <h1>{session?.user?.email}</h1>;
 };
 
 export default Home;
