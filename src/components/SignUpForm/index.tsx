@@ -22,7 +22,7 @@ const SignUpForm = () => {
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
-    const { error } = await supabase.auth.signIn({
+    const { error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
     });
