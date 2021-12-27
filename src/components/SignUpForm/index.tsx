@@ -18,15 +18,21 @@ const SignUpForm = () => {
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
-    const { error } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-    });
-    console.error(error);
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+      });
+      if (error) throw error;
+      reset();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
