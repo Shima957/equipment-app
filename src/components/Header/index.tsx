@@ -1,6 +1,6 @@
 import paths from '@/paths';
 import Link from 'next/link';
-import PrimaryButton from '../Button/PrimaryButton';
+import PrimaryLink from '../Button/LinkButton/PrimaryLink';
 
 const Header = () => {
   return (
@@ -10,9 +10,7 @@ const Header = () => {
           <Link href={paths.home}>My U Gear</Link>
         </h1>
         <nav className='flex items-center space-x-2 w-32'>
-          <PrimaryButton buttonType='button'>
-            <Link href={paths.signIn}>ログイン</Link>
-          </PrimaryButton>
+          <PrimaryLink link={paths.signIn}>ログイン</PrimaryLink>
         </nav>
       </div>
     </header>
