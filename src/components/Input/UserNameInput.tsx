@@ -11,7 +11,7 @@ const UserNameInput = () => {
     <input
       type='text'
       placeholder='ユーザーネーム'
-      {...register('userName', { required: 'ユーザーネームは必須です' })}
+      {...register('name', { required: 'ユーザーネームは必須です' })}
       className={`w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none sm:text-sm focus:ring-1 ${
         errors.password?.type
           ? 'border-red-500 focus:ring-red-500 '

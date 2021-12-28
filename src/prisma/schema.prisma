@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String
-  name String
-  uid String
+  id String @id @db.Uuid
+  username String
+  avatorUrl String?
+  email String @unique
 }

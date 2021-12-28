@@ -8,15 +8,18 @@ import FormErrorMessage from '../Text/FormErrorMessage';
 import { supabase } from '@/lib/supabase';
 import ConfirmPassword from '../Input/ConfirmPassword';
 import UserNameInput from '../Input/UserNameInput';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export type FormValue = {
   email: string;
-  userName: string;
+  name: string;
   password: string;
   confirm: string;
 };
 
 const SignUpForm = () => {
+  const route = useRouter();
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
@@ -26,12 +29,23 @@ const SignUpForm = () => {
 
   const onSubmit = async (data: FormValue) => {
     try {
-      const { error } = await supabase.auth.signUp({
+      // ユーザー登録
+      const { user, error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
       });
       if (error) throw error;
+
+      const sendData = {
+        id: user?.id as string,
+        email: user?.email as string,
+        username: data.name,
+      };
+
+      // dbにユーザー情報を保存
+      await axios.post('/api/createUserDb', sendData);
       reset();
+      route.replace('/sendconfirmemail');
     } catch (error) {
       console.error(error);
     }
@@ -51,8 +65,8 @@ const SignUpForm = () => {
               ユーザーネーム
             </span>
             <UserNameInput />
-            {errors.userName?.type === 'required' && (
-              <FormErrorMessage>{errors.userName.message}</FormErrorMessage>
+            {errors.name?.type === 'required' && (
+              <FormErrorMessage>{errors.name.message}</FormErrorMessage>
             )}
           </label>
           <label className='w-full'>

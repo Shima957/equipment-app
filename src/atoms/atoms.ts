@@ -2,7 +2,7 @@ import { Session } from "@supabase/supabase-js";
 import { atom } from "recoil";
 
 const userSession = atom<Session | null>({
-  key: 'session',
+  key: 'userSession',
   default: null
 })
 
