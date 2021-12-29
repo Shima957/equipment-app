@@ -3,7 +3,7 @@ import paths from '@/paths';
 
 const Footer = () => {
   return (
-    <footer className='bg-white py-6'>
+    <footer className='bg-white py-6 px=4'>
       <div className='max-w-screen-xl mx-auto'>
         <h2 className='font-bold text-lg'>
           <Link href={paths.home}>My U Gear</Link>

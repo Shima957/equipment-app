@@ -4,14 +4,21 @@ import Spiner from '../Loading/Spiner';
 type Props = {
   buttonType: 'button' | 'submit';
   isLoading?: boolean;
+  onClick?: () => void;
 };
 
-const PrimaryButton: FC<Props> = ({ children, buttonType, isLoading }) => {
+const PrimaryButton: FC<Props> = ({
+  children,
+  buttonType,
+  isLoading,
+  onClick,
+}) => {
   return (
     <button
       type={buttonType}
       className={`w-full flex justify-center py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-sky-500 hover:bg-sky-600 active:bg-sky-700 focus:ring-sky-300 disabled:opacity-50`}
       disabled={isLoading}
+      onClick={onClick}
     >
       {isLoading && (
         <div className='mr-2'>

@@ -43,7 +43,7 @@ const SignUpForm = () => {
       };
 
       // dbにユーザー情報を保存
-      await axios.post('/api/createUserDb', sendData);
+      await axios.post('/api/signup', sendData);
       reset();
       route.replace('/sendconfirmemail');
     } catch (error) {
