@@ -1,9 +1,9 @@
-import { Session } from "@supabase/supabase-js";
+import { User } from "@prisma/client";
 import { atom } from "recoil";
 
-const userSession = atom<Session | null>({
-  key: 'userSession',
+const userState = atom<User | null>({
+  key: 'userState',
   default: null
 })
 
-export default userSession
+export default userState

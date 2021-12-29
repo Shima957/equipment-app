@@ -5,7 +5,7 @@ const middleware = async (req: NextRequest) => {
   const token = req.cookies['sb:token']
   const pathname = req.nextUrl.pathname
 
-  if (token && pathname === (paths.signIn && paths.signUp)) {
+  if (token && pathname === paths.signIn || pathname === paths.signUp) {
     return NextResponse.redirect(paths.home)
   }
 }

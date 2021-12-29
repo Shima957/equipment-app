@@ -1,4 +1,4 @@
-import userSession from '@/atoms/atoms';
+import userState from '@/atoms/atoms';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
 import Link from 'next/link';
@@ -7,7 +7,7 @@ import PrimaryLink from '../Button/LinkButton/PrimaryLink';
 import PrimaryButton from '../Button/PrimaryButton';
 
 const Header = () => {
-  const session = useRecoilValue(userSession);
+  const user = useRecoilValue(userState);
 
   return (
     <header className='py-4 px-4 bg-gray-800'>
@@ -16,7 +16,7 @@ const Header = () => {
           <Link href={paths.home}>My U Gear</Link>
         </h1>
         <nav className='flex items-center space-x-2 w-32'>
-          {!session ? (
+          {!user ? (
             <PrimaryLink link={paths.signIn}>ログイン</PrimaryLink>
           ) : (
             <PrimaryButton buttonType='button' onClick={() => auth.signOut()}>
