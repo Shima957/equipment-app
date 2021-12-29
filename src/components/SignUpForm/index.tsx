@@ -1,13 +1,12 @@
-import EmailInput from '@/components/Input/EmailInput';
-import PasswordInput from '../Input/PasswordInput';
+import EmailInput from '@/components/AuthInput/EmailInput';
+import PasswordInput from '../AuthInput/PasswordInput';
 import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
-import FormErrorMessage from '../Text/FormErrorMessage';
 import { supabase } from '@/lib/supabase';
-import ConfirmPassword from '../Input/ConfirmPassword';
-import UserNameInput from '../Input/UserNameInput';
+import ConfirmPassword from '../AuthInput/ConfirmPassword';
+import UserNameInput from '../AuthInput/UserNameInput';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
@@ -24,7 +23,7 @@ const SignUpForm = () => {
   const {
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
@@ -65,18 +64,12 @@ const SignUpForm = () => {
               ユーザーネーム
             </span>
             <UserNameInput />
-            {errors.name?.type === 'required' && (
-              <FormErrorMessage>{errors.name.message}</FormErrorMessage>
-            )}
           </label>
           <label className='w-full'>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               メールアドレス
             </span>
             <EmailInput />
-            {errors.email?.type === 'required' && (
-              <FormErrorMessage>{errors.email.message}</FormErrorMessage>
-            )}
           </label>
 
           <label className='w-full'>
@@ -84,12 +77,6 @@ const SignUpForm = () => {
               パスワード
             </span>
             <PasswordInput />
-            {errors.password?.type === 'required' && (
-              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-            )}
-            {errors.password?.type === 'minLength' && (
-              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-            )}
           </label>
 
           <label className='w-full'>
@@ -97,12 +84,6 @@ const SignUpForm = () => {
               パスワードの確認
             </span>
             <ConfirmPassword />
-            {errors.confirm?.type === 'validate' && (
-              <FormErrorMessage>{errors.confirm.message}</FormErrorMessage>
-            )}
-            {errors.confirm?.type === 'required' && (
-              <FormErrorMessage>{errors.confirm.message}</FormErrorMessage>
-            )}
           </label>
 
           <PrimaryButton buttonType='submit' isLoading={isSubmitting}>

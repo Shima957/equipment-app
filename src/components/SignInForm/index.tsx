@@ -1,10 +1,9 @@
-import EmailInput from '@/components/Input/EmailInput';
-import PasswordInput from '../Input/PasswordInput';
+import EmailInput from '@/components/AuthInput/EmailInput';
+import PasswordInput from '../AuthInput/PasswordInput';
 import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
-import FormErrorMessage from '../Text/FormErrorMessage';
 import { supabase } from '@/lib/supabase';
 
 export type FormValue = {
@@ -17,7 +16,7 @@ const SignInForm = () => {
   const {
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
@@ -47,9 +46,6 @@ const SignInForm = () => {
               メールアドレス
             </span>
             <EmailInput />
-            {errors.email?.type === 'required' && (
-              <FormErrorMessage>{errors.email.message}</FormErrorMessage>
-            )}
           </label>
 
           <label className='w-full'>
@@ -57,12 +53,6 @@ const SignInForm = () => {
               パスワード
             </span>
             <PasswordInput />
-            {errors.password?.type === 'required' && (
-              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-            )}
-            {errors.password?.type === 'minLength' && (
-              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-            )}
           </label>
 
           <PrimaryButton buttonType='submit' isLoading={isSubmitting}>
