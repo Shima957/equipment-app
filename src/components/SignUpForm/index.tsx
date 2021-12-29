@@ -4,7 +4,7 @@ import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
-import { supabase } from '@/lib/supabase';
+import { auth } from '@/lib/supabase';
 import ConfirmPassword from '../AuthInput/ConfirmPassword';
 import UserNameInput from '../AuthInput/UserNameInput';
 import axios from 'axios';
@@ -29,7 +29,7 @@ const SignUpForm = () => {
   const onSubmit = async (data: FormValue) => {
     try {
       // ユーザー登録
-      const { user, error } = await supabase.auth.signUp({
+      const { user, error } = await auth.signUp({
         email: data.email,
         password: data.password,
       });
@@ -42,7 +42,7 @@ const SignUpForm = () => {
       };
 
       // dbにユーザー情報を保存
-      await axios.post('/api/signup', sendData);
+      await axios.post('/api/createuserdb', sendData);
       reset();
       route.replace('/sendconfirmemail');
     } catch (error) {

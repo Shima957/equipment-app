@@ -4,7 +4,7 @@ import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
-import { supabase } from '@/lib/supabase';
+import { auth } from '@/lib/supabase';
 
 export type FormValue = {
   email: string;
@@ -21,7 +21,7 @@ const SignInForm = () => {
 
   const onSubmit = async (data: FormValue) => {
     try {
-      const { error } = await supabase.auth.signIn({
+      const { error } = await auth.signIn({
         email: data.email,
         password: data.password,
       });

@@ -1,5 +1,5 @@
 import userSession from '@/atoms/atoms';
-import { supabase } from '@/lib/supabase';
+import { auth } from '@/lib/supabase';
 import paths from '@/paths';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
@@ -8,8 +8,6 @@ import PrimaryButton from '../Button/PrimaryButton';
 
 const Header = () => {
   const session = useRecoilValue(userSession);
-
-  const signOut = () => supabase.auth.signOut();
 
   return (
     <header className='py-4 px-4 bg-gray-800'>
@@ -21,7 +19,7 @@ const Header = () => {
           {!session ? (
             <PrimaryLink link={paths.signIn}>ログイン</PrimaryLink>
           ) : (
-            <PrimaryButton buttonType='button' onClick={signOut}>
+            <PrimaryButton buttonType='button' onClick={() => auth.signOut()}>
               ログアウト
             </PrimaryButton>
           )}

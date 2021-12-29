@@ -265,7 +265,7 @@
 
 "@supabase/gotrue-js@^1.21.7":
   version "1.21.7"
-  resolved "https://registry.npmjs.org/@supabase/gotrue-js/-/gotrue-js-1.21.7.tgz"
+  resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-1.21.7.tgz#ec3fdf2199a28fb65c1ae94a3c10032536c0aa4e"
   integrity sha512-YnL4cO3Q+ugatWEtgCEnLt+Wwi0VpOVTPSSjSSUho2x3cH7+juRBTrVbYky/W6YVgAw/ZJrVUFPh/NcUCUhdmw==
   dependencies:
     cross-fetch "^3.0.6"

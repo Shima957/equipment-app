@@ -1,6 +1,7 @@
 import userSession from '@/atoms/atoms';
-import { supabase } from '@/lib/supabase';
+import { auth } from '@/lib/supabase';
 import paths from '@/paths';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
@@ -10,15 +11,22 @@ const AuthListener: FC = ({ children }) => {
   const setSession = useSetRecoilState(userSession);
 
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN') {
-        setSession(session);
-        router.push(paths.home);
+    const { data: authlistener } = auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_IN') {
+          await axios.post('/api/setAuthCookie', { event, session });
+          setSession(session);
+          router.replace(paths.home);
+        }
+        if (event === 'SIGNED_OUT') {
+          await axios.post('/api/setAuthCookie', { event, session });
+          setSession(session);
+        }
       }
-    });
+    );
 
-    return () => data?.unsubscribe();
-  }, [router]);
+    return () => authlistener?.unsubscribe();
+  }, [router, setSession]);
 
   return <div>{children}</div>;
 };
