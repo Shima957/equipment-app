@@ -5,6 +5,7 @@ import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
+import { useRouter } from 'next/router';
 
 export type FormValue = {
   email: string;
@@ -12,11 +13,11 @@ export type FormValue = {
 };
 
 const SignInForm = () => {
+  const route = useRouter();
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
-    reset,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isSubmitted },
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
@@ -26,7 +27,7 @@ const SignInForm = () => {
         password: data.password,
       });
       if (error) throw error;
-      reset();
+      if (isSubmitted) route.replace(paths.home);
     } catch (error) {
       console.error(error);
     }
