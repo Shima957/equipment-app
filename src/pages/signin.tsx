@@ -7,7 +7,7 @@ const SignIn = () => {
     <div className='w-[500px] mx-auto'>
       <SignInForm />
       <div className='mt-10 w-1/2 mx-auto'>
-        <SecondaryLink link={paths.signUp}>アカウント作成</SecondaryLink>
+        <SecondaryLink href={paths.signUp}>アカウント作成</SecondaryLink>
       </div>
     </div>
   );

@@ -4,8 +4,9 @@ import paths from '@/paths';
 const SendConfirmEmail = () => {
   return (
     <div className='flex flex-col items-center w-60 mx-auto space-y-3'>
-      <h2>登録確認のメールを送信しました。</h2>
-      <PrimaryLink link={paths.home}>ホームへ</PrimaryLink>
+      <h1>登録ありがとうございました。</h1>
+      <h2>確認メールを送信しました。</h2>
+      <PrimaryLink href={paths.home}>ホームへ</PrimaryLink>
     </div>
   );
 };

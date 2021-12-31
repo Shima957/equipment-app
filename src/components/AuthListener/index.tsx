@@ -1,4 +1,4 @@
-import userState from '@/atoms/atoms';
+import userState from '@/globalState/LoginUser';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
 import axios from 'axios';
@@ -24,8 +24,6 @@ const AuthListener: FC = ({ children }) => {
       }
       if (event === 'TOKEN_REFRESHED') {
         await axios.post('/api/setAuthCookie', { event, session });
-        const res = await axios.get(`/api/getUserDb/${session?.user?.id}`);
-        setUser(res.data);
       }
     });
 

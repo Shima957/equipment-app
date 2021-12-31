@@ -1,4 +1,4 @@
-import userState from '@/atoms/atoms';
+import userState from '@/globalState/LoginUser';
 import { useRecoilValue } from 'recoil';
 import { Menu } from '@headlessui/react';
 import { auth } from '@/lib/supabase';
@@ -18,7 +18,7 @@ const DropMenu = () => {
   return (
     <Menu.Items
       as='ul'
-      className='absolute right-2 top-11 w-36 border rounded-md drop-shadow-md py-1 bg-white'
+      className='absolute top-11 right-3 w-44 border rounded-md drop-shadow-md py-1 bg-white '
     >
       {menuItems.map((menuItem, index) => (
         <Menu.Item key={index} as='li' className='py-1'>
