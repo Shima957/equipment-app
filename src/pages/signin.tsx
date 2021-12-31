@@ -1,5 +1,5 @@
 import SignInForm from '@/components/SignInForm';
-import SecondaryLink from '@/components/Button/LinkButton/SecondaryLink';
+import GreenButton from '@/components/Button/LinkButton/GreenButton';
 import paths from '@/paths';
 
 const SignIn = () => {
@@ -7,7 +7,7 @@ const SignIn = () => {
     <div className='w-[500px] mx-auto'>
       <SignInForm />
       <div className='mt-10 w-1/2 mx-auto'>
-        <SecondaryLink href={paths.signUp}>アカウント作成</SecondaryLink>
+        <GreenButton href={paths.signUp}>アカウント作成</GreenButton>
       </div>
     </div>
   );

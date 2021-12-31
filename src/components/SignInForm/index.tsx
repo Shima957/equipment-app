@@ -1,5 +1,5 @@
-import EmailInput from '@/components/AuthInput/EmailInput';
-import PasswordInput from '../AuthInput/PasswordInput';
+import EmailInput from '@/components/Input/Auth/EmailInput';
+import PasswordInput from '../Input/Auth/PasswordInput';
 import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
@@ -42,21 +42,21 @@ const SignInForm = () => {
           className='flex flex-col items-center space-y-8 w-full'
           onSubmit={handleSubmit(onSubmit)}
         >
-          <label className='w-full'>
+          <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               メールアドレス
             </span>
             <EmailInput />
           </label>
 
-          <label className='w-full'>
+          <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               パスワード
             </span>
             <PasswordInput />
           </label>
 
-          <PrimaryButton buttonType='submit' isLoading={isSubmitting}>
+          <PrimaryButton buttonType='submit' isLoading={isSubmitting} size='lg'>
             ログイン
           </PrimaryButton>
         </form>

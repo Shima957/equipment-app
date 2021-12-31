@@ -6,10 +6,12 @@ import AccountNav from '../AccountNav';
 import PrimaryButton from '../Button/PrimaryButton';
 import PrimaryLink from '../Button/LinkButton/PrimaryLink';
 import SubmitNewModalState from '@/globalState/SubmitNewModalState';
+import SubmitNew from '../Modal/SubmitNew';
 
 const Header = () => {
   const user = useRecoilValue(LoginUser);
   const onOpenModal = useSetRecoilState(SubmitNewModalState);
+  const modalState = useRecoilValue(SubmitNewModalState);
 
   return (
     <header className='py-4 px-4 bg-gray-800'>
@@ -26,8 +28,9 @@ const Header = () => {
                 <PrimaryButton
                   buttonType='button'
                   onClick={() => onOpenModal(true)}
+                  size='md'
                 >
-                  Gearを追加
+                  Gearを作成
                 </PrimaryButton>
               </div>
               <AccountNav />
@@ -35,6 +38,7 @@ const Header = () => {
           )}
         </nav>
       </div>
+      {modalState && <SubmitNew />}
     </header>
   );
 };

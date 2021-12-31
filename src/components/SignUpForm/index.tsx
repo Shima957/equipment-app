@@ -1,12 +1,12 @@
-import EmailInput from '@/components/AuthInput/EmailInput';
-import PasswordInput from '../AuthInput/PasswordInput';
+import EmailInput from '@/components/Input/Auth/EmailInput';
+import PasswordInput from '../Input/Auth/PasswordInput';
 import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
-import ConfirmPassword from '../AuthInput/ConfirmPassword';
-import UserNameInput from '../AuthInput/UserNameInput';
+import ConfirmPassword from '../Input/Auth/ConfirmPassword';
+import UserNameInput from '../Input/Auth/UserNameInput';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
@@ -59,34 +59,34 @@ const SignUpForm = () => {
           className='flex flex-col items-center space-y-8 w-full'
           onSubmit={handleSubmit(onSubmit)}
         >
-          <label className='w-full'>
+          <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               ユーザーネーム
             </span>
             <UserNameInput />
           </label>
-          <label className='w-full'>
+          <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               メールアドレス
             </span>
             <EmailInput />
           </label>
 
-          <label className='w-full'>
+          <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               パスワード
             </span>
             <PasswordInput />
           </label>
 
-          <label className='w-full'>
+          <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               パスワードの確認
             </span>
             <ConfirmPassword />
           </label>
 
-          <PrimaryButton buttonType='submit' isLoading={isSubmitting}>
+          <PrimaryButton buttonType='submit' isLoading={isSubmitting} size='lg'>
             登録
           </PrimaryButton>
         </form>
