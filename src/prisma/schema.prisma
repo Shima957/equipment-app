@@ -15,10 +15,10 @@ model User {
 }
 
 model DAW {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   category String
   name     String
   maker    String
   webUrl   String
-  imgUrl   String
+  imgUrl   String?
 }

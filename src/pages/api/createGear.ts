@@ -7,7 +7,7 @@ const requestBodyScheme = z.object({
   name: z.string(),
   maker: z.string(),
   webUrl: z.string(),
-  imgUrl: z.string()
+  imgUrl: z.string().nullable()
 })
 
 const createGear: NextApiHandler = async (req, res) => {
