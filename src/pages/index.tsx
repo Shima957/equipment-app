@@ -17,11 +17,7 @@ const Home: NextPage<{ userData: User }> = ({ userData }) => {
     }
   }, [setUser, userData]);
 
-  return (
-    <div>
-      <h1>hello</h1>
-    </div>
-  );
+  return <div>hello</div>;
 };
 
 export default Home;
