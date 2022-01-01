@@ -8,8 +8,17 @@ datasource db {
 }
 
 model User {
-  id String @id @db.Uuid
-  username String
+  id        String  @id @db.Uuid
+  username  String
   avatorUrl String?
-  email String @unique
+  email     String  @unique
+}
+
+model DAW {
+  id       Int    @id @default(autoincrement())
+  category String
+  name     String
+  maker    String
+  webUrl   String
+  imgUrl   String
 }

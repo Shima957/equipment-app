@@ -1,10 +1,24 @@
-const Select = () => {
+import { VFC } from 'react';
+import { useFormContext } from 'react-hook-form';
+
+type Props = {
+  options: string[];
+  registerName: string;
+};
+
+const Select: VFC<Props> = ({ options, registerName }) => {
+  const { register } = useFormContext();
+
   return (
     <div className='relative inline-block w-full text-gray-700'>
       <select
         className='w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md appearance-none focus:ring-1 focus:border-sky-500 focus:ring-sky-500 focus:outline-none'
-        placeholder='Gearカテゴリー'
-      ></select>
+        {...register(registerName)}
+      >
+        {options.map((option, index) => (
+          <option key={index}>{option}</option>
+        ))}
+      </select>
       <div className='absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none'>
         <svg className='w-4 h-4 fill-current' viewBox='0 0 20 20'>
           <path

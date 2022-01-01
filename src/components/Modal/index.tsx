@@ -1,9 +1,9 @@
 import { FC, Fragment } from 'react';
-import SubmitNewModalState from '@/globalState/SubmitNewModalState';
+import createGearModalState from '@/globalState/createGearModalState';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRecoilState } from 'recoil';
 const Modal: FC = ({ children }) => {
-  const [modalState, setModalState] = useRecoilState(SubmitNewModalState);
+  const [modalState, setModalState] = useRecoilState(createGearModalState);
   const closeModal = () => setModalState(false);
 
   return (

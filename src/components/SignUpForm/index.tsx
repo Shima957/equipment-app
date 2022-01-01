@@ -9,24 +9,18 @@ import ConfirmPassword from '../Input/Auth/ConfirmPassword';
 import UserNameInput from '../Input/Auth/UserNameInput';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
-export type FormValue = {
-  email: string;
-  name: string;
-  password: string;
-  confirm: string;
-};
+import { SignUpFormValue } from '@/types';
 
 const SignUpForm = () => {
   const route = useRouter();
-  const methods = useForm<FormValue>();
+  const methods = useForm<SignUpFormValue>();
   const {
     handleSubmit,
     reset,
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async (data: FormValue) => {
+  const onSubmit = async (data: SignUpFormValue) => {
     try {
       // ユーザー登録
       const { user, error } = await auth.signUp({

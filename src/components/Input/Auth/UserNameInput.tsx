@@ -1,12 +1,12 @@
 import { useFormContext } from 'react-hook-form';
-import { FormValue } from '@/components/SignUpForm';
+import { SignUpFormValue } from '@/types';
 import FormErrorMessage from '@/components/Text/FormErrorMessage';
 
 const UserNameInput = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<FormValue>();
+  } = useFormContext<SignUpFormValue>();
 
   return (
     <>

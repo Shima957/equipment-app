@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import type { FormValue } from '@/components/SignUpForm';
+import { SignUpFormValue } from '@/types';
 import FormErrorMessage from '@/components/Text/FormErrorMessage';
 
 const ConfirmPassword = () => {
@@ -7,7 +7,7 @@ const ConfirmPassword = () => {
     register,
     getValues,
     formState: { errors },
-  } = useFormContext<FormValue>();
+  } = useFormContext<SignUpFormValue>();
 
   return (
     <>

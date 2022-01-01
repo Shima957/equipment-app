@@ -5,13 +5,13 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import AccountNav from '../AccountNav';
 import PrimaryButton from '../Button/PrimaryButton';
 import PrimaryLink from '../Button/LinkButton/PrimaryLink';
-import SubmitNewModalState from '@/globalState/SubmitNewModalState';
-import SubmitNew from '../Modal/SubmitNew';
+import createGearModalState from '@/globalState/createGearModalState';
+import CreateGear from '../Modal/CreateGear';
 
 const Header = () => {
   const user = useRecoilValue(LoginUser);
-  const onOpenModal = useSetRecoilState(SubmitNewModalState);
-  const modalState = useRecoilValue(SubmitNewModalState);
+  const onOpenModal = useSetRecoilState(createGearModalState);
+  const modalState = useRecoilValue(createGearModalState);
 
   return (
     <header className='py-4 px-4 bg-gray-800'>
@@ -38,7 +38,7 @@ const Header = () => {
           )}
         </nav>
       </div>
-      {modalState && <SubmitNew />}
+      {modalState && <CreateGear />}
     </header>
   );
 };

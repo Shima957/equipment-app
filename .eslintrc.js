@@ -19,7 +19,7 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/no-unused-vars': ['error'],
-    'no-console': ["warn", {allow: ["error"]}],
+    'no-console': ['warn', { allow: ['error'] }],
     'padding-line-between-statements': [
       'error',
       {
