@@ -57,7 +57,7 @@ const CreateGear = () => {
   };
 
   const onSubmit = async (data: CreateGearValue) => {
-    psotGearData(data);
+    await psotGearData(data);
     onClose();
   };
 
