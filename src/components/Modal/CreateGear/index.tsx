@@ -16,23 +16,28 @@ import FormErrorMessage from '@/components/Text/FormErrorMessage';
 const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
   const onClose = () => setModalState(false);
+
   const methods = useForm<CreateGearValue>();
   const {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = methods;
 
+  const post = async (data: CreateGearValue, fileName: string | null) => {
+    const sendData = {
+      category: data.category,
+      name: data.name,
+      maker: data.maker,
+      webUrl: data.url ? data.url : null,
+      imgUrl: fileName,
+    };
+    await axios.post('/api/createGear', sendData);
+  };
+
   const psotGearData = async (data: CreateGearValue) => {
     if (data.img.length === 0) {
       try {
-        const sendData = {
-          category: data.category,
-          name: data.name,
-          maker: data.maker,
-          webUrl: data.url,
-          imgUrl: null,
-        };
-        await axios.post('/api/createGear', sendData);
+        post(data, null);
       } catch (error) {
         console.error(error);
       }
@@ -44,15 +49,7 @@ const CreateGear = () => {
           .from('gears')
           .upload(fileName, data.img[0]);
         if (error) throw error;
-
-        const sendData = {
-          category: data.category,
-          name: data.name,
-          maker: data.maker,
-          webUrl: data.url,
-          imgUrl: fileName,
-        };
-        await axios.post('/api/createGear', sendData);
+        post(data, fileName);
       } catch (error) {
         console.error(error);
       }
@@ -61,6 +58,7 @@ const CreateGear = () => {
 
   const onSubmit = async (data: CreateGearValue) => {
     psotGearData(data);
+    onClose();
   };
 
   return (
@@ -76,7 +74,7 @@ const CreateGear = () => {
               <Select options={GearCategory} registerName='category'></Select>
             </label>
             <label>
-              <span>Gear</span>
+              <span>Gear名</span>
               <TextInput
                 registerName='name'
                 required='Gear名は必須です'
@@ -101,12 +99,8 @@ const CreateGear = () => {
               <span>製品Url</span>
               <TextInput
                 registerName='url'
-                required='製品Urlは必須です'
                 error={errors.url?.type === 'required'}
               />
-              {errors.url?.type === 'required' && (
-                <FormErrorMessage>{errors.url.message}</FormErrorMessage>
-              )}
             </label>
             <label>
               <span>Gear画像</span>

@@ -19,6 +19,15 @@ model DAW {
   category String
   name     String
   maker    String
-  webUrl   String
+  webUrl   String?
+  imgUrl   String?
+}
+
+model Speacker {
+  id       Int     @id @default(autoincrement())
+  category String
+  name     String
+  maker    String
+  webUrl   String?
   imgUrl   String?
 }

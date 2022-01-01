@@ -14,6 +14,6 @@ export type CreateGearValue = {
   category: string;
   name: string;
   maker: string;
-  url: string;
-  img: File[];
+  url: string | null;
+  img: File[]
 }
