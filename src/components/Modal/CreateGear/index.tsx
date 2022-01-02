@@ -4,7 +4,7 @@ import FileInput from '@/components/Input/FileInput';
 import TextInput from '@/components/Input/TextInput';
 import Select from '@/components/Select';
 import createGearModalState from '@/globalState/createGearModalState';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Modal from '../index';
 import GearCategory from '@/util/GearCategory';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -16,6 +16,7 @@ import FormErrorMessage from '@/components/Text/FormErrorMessage';
 const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
   const onClose = () => setModalState(false);
+  const modalSate = useRecoilValue(createGearModalState);
 
   const methods = useForm<CreateGearValue>();
   const {
@@ -62,13 +63,13 @@ const CreateGear = () => {
   };
 
   return (
-    <Modal>
+    <Modal closeModal={onClose} modalSate={modalSate}>
+      <h2 className='text-xl font-bold text-gray-700 text-center'>
+        Gearを作成
+      </h2>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col space-y-6'>
-            <h2 className='text-xl font-bold text-gray-700 text-center'>
-              Gearを作成
-            </h2>
             <label>
               <span>Gearカテゴリー</span>
               <Select options={GearCategory} registerName='category'></Select>

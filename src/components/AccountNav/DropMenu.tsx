@@ -2,14 +2,16 @@ import loginUserSate from '@/globalState/LoginUser';
 import { useRecoilValue } from 'recoil';
 import { Menu } from '@headlessui/react';
 import { auth } from '@/lib/supabase';
+import { useRouter } from 'next/router';
 
 const DropMenu = () => {
   const loginUser = useRecoilValue(loginUserSate);
+  const route = useRouter();
 
   const menuItems = [
     {
       title: loginUser?.displayName ?? loginUser?.userId,
-      onClick: () => console.log('user'),
+      onClick: () => route.push(`/${loginUser?.userId}`),
     },
     { title: '設定', onClick: () => console.log('sessting') },
     { title: 'ログアウト', onClick: () => auth.signOut() },

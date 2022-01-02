@@ -1,13 +1,14 @@
 import { FC, Fragment } from 'react';
-import createGearModalState from '@/globalState/createGearModalState';
 import { Dialog, Transition } from '@headlessui/react';
-import { useRecoilState } from 'recoil';
-const Modal: FC = ({ children }) => {
-  const [modalState, setModalState] = useRecoilState(createGearModalState);
-  const closeModal = () => setModalState(false);
 
+type Props = {
+  modalSate: boolean;
+  closeModal: () => void;
+};
+
+const Modal: FC<Props> = ({ children, modalSate, closeModal }) => {
   return (
-    <Transition appear show={modalState} as={Fragment}>
+    <Transition appear show={modalSate} as={Fragment}>
       <Dialog
         as='div'
         className='fixed inset-20 z-10 overflow-y-hidden'

@@ -36,9 +36,6 @@ const AuthListener: FC = ({ children }) => {
         await axios.post('/api/set-auth-cookie', { event, session });
         setUser(null);
       }
-      if (event === 'TOKEN_REFRESHED') {
-        await axios.post('/api/set-auth-cookie', { event, session });
-      }
     });
 
     return () => data?.unsubscribe();
