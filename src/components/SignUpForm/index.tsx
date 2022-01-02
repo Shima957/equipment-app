@@ -1,12 +1,12 @@
 import EmailInput from '@/components/Input/Auth/EmailInput';
 import PasswordInput from '../Input/Auth/PasswordInput';
+import UserIdInput from '../Input/Auth/UserIdInput';
 import Link from 'next/link';
 import PrimaryButton from '../Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
 import ConfirmPassword from '../Input/Auth/ConfirmPassword';
-import UserNameInput from '../Input/Auth/UserNameInput';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SignUpFormValue } from '@/types';
@@ -32,11 +32,11 @@ const SignUpForm = () => {
       const sendData = {
         id: user?.id as string,
         email: user?.email as string,
-        username: data.name,
+        userId: data.userId,
       };
 
       // dbにユーザー情報を保存
-      await axios.post('/api/createuserdb', sendData);
+      await axios.post('/api/create-user-db', sendData);
       reset();
       route.replace('/sendconfirmemail');
     } catch (error) {
@@ -55,9 +55,9 @@ const SignUpForm = () => {
         >
           <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              ユーザーネーム
+              ユーザーID
             </span>
-            <UserNameInput />
+            <UserIdInput />
           </label>
           <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">

@@ -8,10 +8,11 @@ datasource db {
 }
 
 model User {
-  id        String  @id @db.Uuid
-  username  String
-  avatorUrl String?
-  email     String  @unique
+  id          String  @id @db.Uuid
+  userId      String  @unique
+  displayName String?
+  avatorUrl   String?
+  email       String  @unique
 }
 
 model DAW {

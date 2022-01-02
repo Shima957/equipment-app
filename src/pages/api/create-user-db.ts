@@ -4,8 +4,8 @@ import * as z from 'zod'
 
 const requestBodyScheme = z.object({
   id: z.string(),
-  username: z.string(),
-  email: z.string()
+  email: z.string(),
+  userId: z.string(),
 })
 
 const createUserDb: NextApiHandler = async (req, res) => {
@@ -14,8 +14,8 @@ const createUserDb: NextApiHandler = async (req, res) => {
     await prisma.user.create({
       data: {
         id: result.id,
-        username: result.username,
-        email: result.email
+        email: result.email,
+        userId: result.userId,
       }
     })
 

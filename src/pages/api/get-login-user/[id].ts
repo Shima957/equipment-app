@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma"
 import { NextApiHandler } from "next"
 
-const getUserDb: NextApiHandler = async (req, res) => {
+const getLoginUser: NextApiHandler = async (req, res) => {
 
   const { query: { id } } = req
 
@@ -14,4 +14,4 @@ const getUserDb: NextApiHandler = async (req, res) => {
   res.json(user)
 }
 
-export default getUserDb
+export default getLoginUser

@@ -1,14 +1,14 @@
-import userState from '@/globalState/LoginUser';
+import loginUserSate from '@/globalState/LoginUser';
 import { useRecoilValue } from 'recoil';
 import { Menu } from '@headlessui/react';
 import { auth } from '@/lib/supabase';
 
 const DropMenu = () => {
-  const userData = useRecoilValue(userState);
+  const loginUser = useRecoilValue(loginUserSate);
 
   const menuItems = [
     {
-      title: userData?.username,
+      title: loginUser?.displayName ?? loginUser?.userId,
       onClick: () => console.log('user'),
     },
     { title: '設定', onClick: () => console.log('sessting') },

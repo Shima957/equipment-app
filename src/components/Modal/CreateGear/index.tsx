@@ -31,7 +31,7 @@ const CreateGear = () => {
       webUrl: data.url ? data.url : null,
       imgUrl: fileName,
     };
-    await axios.post('/api/createGear', sendData);
+    await axios.post('/api/create-gear', sendData);
   };
 
   const psotGearData = async (data: CreateGearValue) => {

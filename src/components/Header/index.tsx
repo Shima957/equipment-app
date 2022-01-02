@@ -1,4 +1,4 @@
-import LoginUser from '@/globalState/LoginUser';
+import LoginUserState from '@/globalState/LoginUser';
 import paths from '@/paths';
 import Link from 'next/link';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -9,7 +9,7 @@ import createGearModalState from '@/globalState/createGearModalState';
 import CreateGear from '../Modal/CreateGear';
 
 const Header = () => {
-  const user = useRecoilValue(LoginUser);
+  const LoginUser = useRecoilValue(LoginUserState);
   const onOpenModal = useSetRecoilState(createGearModalState);
   const modalState = useRecoilValue(createGearModalState);
 
@@ -20,7 +20,7 @@ const Header = () => {
           <Link href={paths.home}>My U Gear</Link>
         </h1>
         <nav className='flex items-center space-x-2 w-32'>
-          {!user ? (
+          {!LoginUser ? (
             <PrimaryLink href={paths.signIn}>ログイン</PrimaryLink>
           ) : (
             <div className='flex items-center space-x-2'>

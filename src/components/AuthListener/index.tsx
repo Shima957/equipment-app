@@ -1,34 +1,48 @@
 import userState from '@/globalState/LoginUser';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
-import axios from 'axios';
+import { User } from '@prisma/client';
+import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 const AuthListener: FC = ({ children }) => {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
 
+  const hadAuthCookie = useCallback(async () => {
+    const res: AxiosResponse<User | null> = await axios.get(
+      '/api/get-auth-cookie'
+    );
+    if (res.data) {
+      const loginUser = await axios.get(`/api/get-login-user/${res.data?.id}`);
+      setUser(loginUser.data);
+    }
+  }, [setUser]);
+
   useEffect(() => {
+    hadAuthCookie();
     const { data } = auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN') {
-        await axios.post('/api/setAuthCookie', { event, session });
-        const res = await axios.get(`/api/getUserDb/${session?.user?.id}`);
+        await axios.post('/api/set-auth-cookie', { event, session });
+        const res: AxiosResponse<User | null> = await axios.get(
+          `/api/get-login-user/${session?.user?.id}`
+        );
         setUser(res.data);
         router.replace(paths.home);
       }
       if (event === 'SIGNED_OUT') {
-        await axios.post('/api/setAuthCookie', { event, session });
+        await axios.post('/api/set-auth-cookie', { event, session });
         setUser(null);
       }
       if (event === 'TOKEN_REFRESHED') {
-        await axios.post('/api/setAuthCookie', { event, session });
+        await axios.post('/api/set-auth-cookie', { event, session });
       }
     });
 
     return () => data?.unsubscribe();
-  }, [router, setUser]);
+  }, [hadAuthCookie, router, setUser]);
 
   return <div>{children}</div>;
 };
