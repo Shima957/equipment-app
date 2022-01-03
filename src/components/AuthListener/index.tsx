@@ -29,8 +29,8 @@ const AuthListener: FC = ({ children }) => {
         const res: AxiosResponse<User | null> = await axios.get(
           `/api/get-login-user/${session?.user?.id}`
         );
-        setUser(res.data);
         router.replace(paths.home);
+        setUser(res.data);
       }
       if (event === 'SIGNED_OUT') {
         await axios.post('/api/set-auth-cookie', { event, session });

@@ -13,13 +13,6 @@ model User {
   displayName String?
   avatorUrl   String?
   email       String  @unique
-  Post        Post[]
-}
-
-model Post {
-  id       Int    @id @default(autoincrement())
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
 }
 
 model DAW {

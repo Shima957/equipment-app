@@ -17,3 +17,12 @@ export type CreateGearValue = {
   url: string | null;
   img: File[]
 }
+
+export type GearData = {
+  id: number;
+  category: string;
+  name: string;
+  maker: string;
+  webUrl: string;
+  imgUrl: string
+}

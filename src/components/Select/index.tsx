@@ -1,12 +1,13 @@
-import { VFC } from 'react';
+import { ChangeEvent, VFC, memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 type Props = {
   options: string[];
   registerName: string;
+  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
-const Select: VFC<Props> = ({ options, registerName }) => {
+const Select: VFC<Props> = ({ options, registerName, onChange }) => {
   const { register } = useFormContext();
 
   return (
@@ -14,9 +15,12 @@ const Select: VFC<Props> = ({ options, registerName }) => {
       <select
         className='w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md appearance-none focus:ring-1 focus:border-sky-500 focus:ring-sky-500 focus:outline-none'
         {...register(registerName)}
+        onChange={onChange}
       >
         {options.map((option, index) => (
-          <option key={index}>{option}</option>
+          <option key={index} value={option}>
+            {option}
+          </option>
         ))}
       </select>
       <div className='absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none'>
@@ -32,4 +36,4 @@ const Select: VFC<Props> = ({ options, registerName }) => {
   );
 };
 
-export default Select;
+export default memo(Select);
