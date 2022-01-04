@@ -15,7 +15,7 @@ const createUserDb: NextApiHandler = async (req, res) => {
       data: {
         id: result.id,
         email: result.email,
-        userId: result.userId,
+        userId: result.userId
       }
     })
 

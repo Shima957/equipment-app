@@ -13,9 +13,17 @@ model User {
   displayName String?
   avatorUrl   String?
   email       String  @unique
+  post        Post[]
 }
 
-model DAW {
+model Post {
+  id       Int    @id @default(autoincrement())
+  authorId String @unique @db.Uuid
+  User     User   @relation(fields: [authorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  daw      Json[]
+}
+
+model Daw {
   id       Int     @id @default(autoincrement())
   category String
   name     String

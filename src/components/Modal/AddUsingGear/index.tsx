@@ -8,32 +8,34 @@ import SecondaryButton from '@/components/Button/SecondaryButton';
 import PrimaryButton from '@/components/Button/PrimaryButton';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { GearData } from '@/types';
+import FormErrorMessage from '@/components/Text/FormErrorMessage';
+import LoginUserState from '@/globalState/LoginUser';
+
+type FormValue = { category: string; name: string };
 
 const AddUsingGear = () => {
   const setModalState = useSetRecoilState(addGearModalState);
   const onClose = () => setModalState(false);
   const modalState = useRecoilValue(addGearModalState);
+  const user = useRecoilValue(LoginUserState);
 
-  const [gears, setGears] = useState<string[]>([]);
+  const [gears, setGears] = useState<GearData[]>();
 
-  const methods = useForm<{ category: string; gear: string }>();
+  const methods = useForm<FormValue>();
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
 
-  const getGear = async (value: string) => {
-    const res: AxiosResponse<{ name: string }[]> = await axios.get(
-      `/api/get-gear/${value}`
+  const getGear = async (category: string) => {
+    const res: AxiosResponse<GearData[]> = await axios.get(
+      `/api/get-gear/${category}`
     );
 
     if (res.status === 200) {
-      const gear = res.data.map((data) => {
-        return data.name;
-      });
-
-      setGears(gear);
+      setGears(res.data);
     }
   };
 
@@ -45,7 +47,18 @@ const AddUsingGear = () => {
     getGear('DAW');
   }, []);
 
-  const onSubmit = () => {
+  const onSubmit = async (data: FormValue) => {
+    const res: AxiosResponse<GearData[]> = await axios.get(
+      `/api/get-gear/${data.category}`
+    );
+
+    if (res.status === 200) {
+      const gear = res.data.filter((gear) => gear.name === data.name);
+      axios.post('/api/submit-using-gear', {
+        gear: gear[0],
+        authorId: user?.id,
+      });
+    }
     onClose();
   };
 
@@ -58,24 +71,31 @@ const AddUsingGear = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col space-y-6'>
             <label>
-              <span>Gearカテゴリー</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                Gearカテゴリー
+              </span>
               <Select
                 options={GearCategory}
                 registerName='category'
+                required='Gearのカテゴリーを選んでください'
                 onChange={onChange}
               ></Select>
             </label>
             <label>
-              <span>Gear</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                Gear
+              </span>
               <div className='relative inline-block w-full text-gray-700'>
+                {/* Selectコンポーネント使うと挙動がおかしくなる。今後修正 */}
                 <select
                   className='w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md appearance-none focus:ring-1 focus:border-sky-500 focus:ring-sky-500 focus:outline-none'
-                  {...register('gear')}
-                  onChange={onChange}
+                  {...register('name', {
+                    required: '追加するGearを選んでください',
+                  })}
                 >
-                  {gears.map((gear, index) => (
-                    <option key={index} value={gear}>
-                      {gear}
+                  {gears?.map((gear, index) => (
+                    <option key={index} value={gear.name}>
+                      {gear.name}
                     </option>
                   ))}
                 </select>
@@ -89,6 +109,9 @@ const AddUsingGear = () => {
                   </svg>
                 </div>
               </div>
+              {errors.name?.type === 'required' && (
+                <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+              )}
             </label>
             <div className='flex justify-end space-x-2'>
               <SecondaryButton buttonType='button' size='min' onClick={onClose}>

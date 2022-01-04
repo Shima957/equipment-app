@@ -23,29 +23,27 @@ const Header = () => {
         <h1 className='text-white text-2xl font-bold'>
           <Link href={paths.home}>My U Gear</Link>
         </h1>
-        <nav className='flex items-center space-x-2 w-32'>
+        <nav className='flex items-center space-x-2'>
           {!LoginUser ? (
-            <PrimaryLink href={paths.signIn}>ログイン</PrimaryLink>
+            <PrimaryLink href={paths.signIn} size='md'>
+              ログイン
+            </PrimaryLink>
           ) : (
             <div className='flex items-center space-x-2'>
-              <div className='w-36'>
-                <PrimaryButton
-                  buttonType='button'
-                  onClick={() => onOpenAddGearModal(true)}
-                  size='md'
-                >
-                  Gearを追加
-                </PrimaryButton>
-              </div>
-              <div className='w-36'>
-                <PrimaryButton
-                  buttonType='button'
-                  onClick={() => onOpenCreateGearModal(true)}
-                  size='md'
-                >
-                  Gearを作成
-                </PrimaryButton>
-              </div>
+              <PrimaryButton
+                buttonType='button'
+                onClick={() => onOpenAddGearModal(true)}
+                size='md'
+              >
+                Gearを追加
+              </PrimaryButton>
+              <PrimaryButton
+                buttonType='button'
+                onClick={() => onOpenCreateGearModal(true)}
+                size='md'
+              >
+                Gearを作成
+              </PrimaryButton>
               <AccountNav />
             </div>
           )}

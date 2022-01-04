@@ -10,7 +10,7 @@ type result = {
 
 const createGearDb = async (result: result) => {
   if (result.category === 'DAW') {
-    await prisma.dAW.create({
+    await prisma.daw.create({
       data: {
         category: result.category,
         name: result.name,

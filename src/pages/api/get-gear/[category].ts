@@ -4,13 +4,10 @@ import prisma from '@/lib/prisma'
 const getGear: NextApiHandler = async (req, res) => {
   const { category } = req.query
   if (category === 'DAW') {
-    const daw = await prisma.dAW.findMany({
+    const daw = await prisma.daw.findMany({
       where: {
         category: category
       },
-      select: {
-        name: true
-      }
     })
 
     return res.json(daw)
@@ -21,9 +18,6 @@ const getGear: NextApiHandler = async (req, res) => {
       where: {
         category: category
       },
-      select: {
-        name: true
-      }
     })
     res.json(speaker)
   }
