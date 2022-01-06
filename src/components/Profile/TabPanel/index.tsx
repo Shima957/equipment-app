@@ -12,7 +12,7 @@ const TabPanel: VFC<Props> = ({ gear }) => {
       key={gear?.id}
     >
       <div className='flex space-x-6'>
-        {/* <img className='w-60 h-60' src={gear?.imgUrl as string} /> */}
+        {gear?.imgUrl ? <img className='w-60 h-60' src={gear?.imgUrl} /> : null}
         <div className='space-y-4 mt-10'>
           <div className='flex items-center space-x-2'>
             <p>製品:</p>

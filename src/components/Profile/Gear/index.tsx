@@ -1,15 +1,36 @@
 import { Gears } from '@prisma/client';
-import { Fragment, VFC } from 'react';
+import { Fragment, useEffect, useState, VFC } from 'react';
 import { Tab } from '@headlessui/react';
 import GearCategory from '@/util/GearCategory';
 import TabPanel from '../TabPanel';
+import { supabase } from '@/lib/supabase';
 
 type Props = {
   gears: (Gears | null)[];
 };
 
 const Gear: VFC<Props> = ({ gears }) => {
-  const daw = gears.filter((gear) => gear?.category === 'DAW');
+  const [newGears, setNewGears] = useState<(Gears | null)[]>([]);
+  const filterGear = (category: string) => {
+    const filtered = newGears.filter((data) => data?.category === category);
+
+    return filtered;
+  };
+
+  useEffect(() => {
+    gears.map(async (gear) => {
+      if (gear?.imgUrl) {
+        const { data } = await supabase.storage
+          .from('gears')
+          .download(gear.imgUrl);
+        const url = URL.createObjectURL(data as Blob);
+        gear.imgUrl = url;
+        setNewGears((pre) => [...pre, gear]);
+      } else {
+        setNewGears((pre) => [...pre, gear]);
+      }
+    });
+  }, [gears]);
 
   return (
     <Tab.Group>
@@ -29,11 +50,13 @@ const Gear: VFC<Props> = ({ gears }) => {
         ))}
       </Tab.List>
       <Tab.Panels>
-        <Tab.Panel className='space-y-4'>
-          {daw.map((daw) => (
-            <TabPanel gear={daw} key={daw?.id} />
-          ))}
-        </Tab.Panel>
+        {GearCategory.map((category, index) => (
+          <Tab.Panel className='space-y-4' key={index}>
+            {filterGear(category).map((data) => (
+              <TabPanel gear={data} key={data?.id} />
+            ))}
+          </Tab.Panel>
+        ))}
         <Tab.Panel></Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
