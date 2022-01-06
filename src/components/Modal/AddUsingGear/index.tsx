@@ -8,9 +8,9 @@ import SecondaryButton from '@/components/Button/SecondaryButton';
 import PrimaryButton from '@/components/Button/PrimaryButton';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { GearData } from '@/types';
 import FormErrorMessage from '@/components/Text/FormErrorMessage';
 import LoginUserState from '@/globalState/LoginUser';
+import { Gears } from '@prisma/client';
 
 type FormValue = { category: string; name: string };
 
@@ -20,7 +20,7 @@ const AddUsingGear = () => {
   const modalState = useRecoilValue(addGearModalState);
   const user = useRecoilValue(LoginUserState);
 
-  const [gears, setGears] = useState<GearData[]>();
+  const [gears, setGears] = useState<Gears[]>();
 
   const methods = useForm<FormValue>();
   const {
@@ -30,7 +30,7 @@ const AddUsingGear = () => {
   } = methods;
 
   const getGear = async (category: string) => {
-    const res: AxiosResponse<GearData[]> = await axios.get(
+    const res: AxiosResponse<Gears[]> = await axios.get(
       `/api/get-gear/${category}`
     );
 
@@ -48,7 +48,7 @@ const AddUsingGear = () => {
   }, []);
 
   const onSubmit = async (data: FormValue) => {
-    const res: AxiosResponse<GearData[]> = await axios.get(
+    const res: AxiosResponse<Gears[]> = await axios.get(
       `/api/get-gear/${data.category}`
     );
 
@@ -56,7 +56,7 @@ const AddUsingGear = () => {
       const gear = res.data.filter((gear) => gear.name === data.name);
       axios.post('/api/submit-using-gear', {
         gear: gear[0],
-        authorId: user?.id,
+        authorId: user?.userId,
       });
     }
     onClose();

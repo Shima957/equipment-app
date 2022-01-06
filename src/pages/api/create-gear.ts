@@ -1,4 +1,4 @@
-import createGearDb from "@/util/createGearDb";
+import prisma from "@/lib/prisma";
 import { NextApiHandler } from "next";
 import * as z from 'zod'
 
@@ -13,7 +13,28 @@ const requestBodyScheme = z.object({
 const createGear: NextApiHandler = async (req, res) => {
   try {
     const result = requestBodyScheme.parse(req.body)
-    createGearDb(result)
+    if (result.imgUrl) {
+      await prisma.gears.create({
+        data: {
+          category: result.category,
+          name: result.name,
+          maker: result.maker,
+          webUrl: result.webUrl,
+          imgUrl: result.imgUrl
+        }
+      })
+    } else {
+      await prisma.gears.create({
+        data: {
+          category: result.category,
+          name: result.name,
+          maker: result.maker,
+          webUrl: result.webUrl,
+          imgUrl: null
+        }
+      })
+    }
+
     res.status(200).end()
   } catch (error) {
     console.error(error)

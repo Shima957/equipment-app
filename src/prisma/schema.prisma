@@ -17,26 +17,19 @@ model User {
 }
 
 model Post {
-  id       Int    @id @default(autoincrement())
-  authorId String @unique @db.Uuid
-  User     User   @relation(fields: [authorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  daw      Json[]
+  id       Int     @id @default(autoincrement())
+  authorId String
+  User     User    @relation(fields: [authorId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
+  Gears    Gears[] @relation(fields: [gearsId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  gearsId  Int?
 }
 
-model Daw {
+model Gears {
   id       Int     @id @default(autoincrement())
   category String
   name     String
   maker    String
   webUrl   String?
   imgUrl   String?
-}
-
-model Speacker {
-  id       Int     @id @default(autoincrement())
-  category String
-  name     String
-  maker    String
-  webUrl   String?
-  imgUrl   String?
+  post     Post[]
 }

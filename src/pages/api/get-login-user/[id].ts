@@ -3,8 +3,8 @@ import { NextApiHandler } from "next"
 
 const getLoginUser: NextApiHandler = async (req, res) => {
 
-  const { id } = req.query
 
+  const { id } = req.query
   const user = await prisma.user.findUnique({
     where: {
       id: id as string

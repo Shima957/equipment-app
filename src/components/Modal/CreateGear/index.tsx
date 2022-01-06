@@ -35,7 +35,7 @@ const CreateGear = () => {
     await axios.post('/api/create-gear', sendData);
   };
 
-  const psotGearData = async (data: CreateGearValue) => {
+  const setImgFile = async (data: CreateGearValue) => {
     if (data.img.length === 0) {
       try {
         post(data, null);
@@ -58,7 +58,7 @@ const CreateGear = () => {
   };
 
   const onSubmit = async (data: CreateGearValue) => {
-    await psotGearData(data);
+    await setImgFile(data);
     onClose();
   };
 

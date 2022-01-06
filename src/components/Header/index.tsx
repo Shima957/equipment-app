@@ -24,11 +24,12 @@ const Header = () => {
           <Link href={paths.home}>My U Gear</Link>
         </h1>
         <nav className='flex items-center space-x-2'>
-          {!LoginUser ? (
+          {!LoginUser && (
             <PrimaryLink href={paths.signIn} size='md'>
               ログイン
             </PrimaryLink>
-          ) : (
+          )}
+          {LoginUser && (
             <div className='flex items-center space-x-2'>
               <PrimaryButton
                 buttonType='button'

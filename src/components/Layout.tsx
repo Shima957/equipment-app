@@ -9,7 +9,9 @@ const Layout: FC = ({ children }) => {
       <main className='max-w-screen-xl mx-auto py-20 h-[calc(100vh-76px-76px)] px-4'>
         {children}
       </main>
-      <Footer />
+      <div className='mt-20'>
+        <Footer />
+      </div>
     </div>
   );
 };
