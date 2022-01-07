@@ -1,4 +1,5 @@
 import { Gears } from '@prisma/client';
+import Image from 'next/image';
 import { VFC } from 'react';
 
 type Props = {
@@ -12,7 +13,12 @@ const TabPanel: VFC<Props> = ({ gear }) => {
       key={gear?.id}
     >
       <div className='flex space-x-6'>
-        {gear?.imgUrl ? <img className='w-60 h-60' src={gear?.imgUrl} /> : null}
+        <Image
+          src={gear?.imgUrl ?? '/no-image.png'}
+          width='240px'
+          height='240px'
+          alt='gearImage'
+        />
         <div className='space-y-4 mt-10'>
           <div className='flex items-center space-x-2'>
             <p>製品:</p>
