@@ -11,6 +11,7 @@ import axios, { AxiosResponse } from 'axios';
 import FormErrorMessage from '@/components/Text/FormErrorMessage';
 import LoginUserState from '@/globalState/LoginUser';
 import { Gears } from '@prisma/client';
+import { XIcon } from '@heroicons/react/outline';
 
 type FormValue = { category: string; name: string };
 
@@ -64,9 +65,16 @@ const AddUsingGear = () => {
 
   return (
     <Modal closeModal={onClose} modalSate={modalState}>
-      <h2 className='text-xl font-bold text-gray-700 text-center'>
-        Gearを追加
-      </h2>
+      <div className='flex justify-between items-center mb-6'>
+        <h2 className='text-xl font-bold text-gray-700'>Gearを追加</h2>
+        <button
+          type='button'
+          onClick={onClose}
+          className='p-1 rounded-md text-gray-500 focus:ring-sky-300 focus:outline-none focus:ring'
+        >
+          <XIcon className='h-6 w-6' />
+        </button>
+      </div>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col space-y-6'>

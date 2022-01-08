@@ -12,6 +12,7 @@ import { CreateGearValue } from '@/types';
 import { supabase } from '@/lib/supabase';
 import axios from 'axios';
 import FormErrorMessage from '@/components/Text/FormErrorMessage';
+import { XIcon } from '@heroicons/react/outline';
 
 const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
@@ -64,8 +65,15 @@ const CreateGear = () => {
 
   return (
     <Modal closeModal={onClose} modalSate={modalSate}>
-      <div className='flex justify-center items-center'>
+      <div className='flex justify-between items-center mb-6'>
         <h2 className='text-xl font-bold text-gray-700'>Gearを作成</h2>
+        <button
+          type='button'
+          onClick={onClose}
+          className='p-1 rounded-md text-gray-500 focus:ring-sky-300 focus:outline-none focus:ring'
+        >
+          <XIcon className='h-6 w-6' />
+        </button>
       </div>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
