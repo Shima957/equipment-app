@@ -1,3 +1,5 @@
+import { ApiError } from "@supabase/gotrue-js";
+
 export type SignInFormValue = {
   email: string;
   password: string;
@@ -17,3 +19,10 @@ export type CreateGearValue = {
   url: string | null;
   img: File[]
 }
+
+export type MenuItems = {
+  title: string | undefined;
+  onClick?: () => (void | Promise<boolean> | Promise<{
+    error: ApiError | null;
+  }>)
+};

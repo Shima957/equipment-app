@@ -1,3 +1,6 @@
+import DropDown from '@/components/DropDown';
+import { Menu } from '@headlessui/react';
+import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Gears } from '@prisma/client';
 import Image from 'next/image';
 import { VFC } from 'react';
@@ -7,6 +10,11 @@ type Props = {
 };
 
 const TabPanel: VFC<Props> = ({ gear }) => {
+  const menuItems = [
+    { title: 'Gearを編集', onClick: () => console.log(1) },
+    { title: '削除', onClick: () => console.log(1) },
+  ];
+
   return (
     <div
       className='py-4 px-8 border border-gray-300 bg-white rounded-md shadow-sm'
@@ -28,14 +36,24 @@ const TabPanel: VFC<Props> = ({ gear }) => {
             <p>メーカー:</p>
             <p className='font-bold'>{gear?.maker}</p>
           </div>
-          {gear?.webUrl ? (
-            <a
-              className='block p-2 w-24 text-center rounded-md bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer'
-              href={gear?.webUrl}
-            >
-              製品ページ
-            </a>
-          ) : null}
+          <div className='flex items-center'>
+            {gear?.webUrl ? (
+              <a
+                className='block p-2 w-24 text-center rounded-md bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer'
+                href={gear?.webUrl}
+              >
+                製品ページ
+              </a>
+            ) : null}
+            <Menu as='div' className='relative'>
+              <Menu.Button>
+                <DotsVerticalIcon className='h-6 w-6' />
+              </Menu.Button>
+              <div className='absolute top-8 -right-16'>
+                <DropDown menuItems={menuItems} />
+              </div>
+            </Menu>
+          </div>
         </div>
       </div>
     </div>

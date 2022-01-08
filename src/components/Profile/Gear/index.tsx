@@ -34,7 +34,7 @@ const Gear: VFC<Props> = ({ gears }) => {
 
   return (
     <Tab.Group>
-      <Tab.List className='flex p-2 space-x-2 bg-blue-900/20 rounded-xl whitespace-nowrap overflow-x-scroll overflow-y-hidden scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-300'>
+      <Tab.List className='flex p-2 space-x-2 bg-blue-900/20 rounded-xl whitespace-nowrap overflow-x-scroll overflow-y-hidden scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-300 '>
         {GearCategory.map((category, index) => (
           <Tab as={Fragment} key={index}>
             {({ selected }) => (
@@ -49,12 +49,20 @@ const Gear: VFC<Props> = ({ gears }) => {
           </Tab>
         ))}
       </Tab.List>
-      <Tab.Panels>
+      <Tab.Panels className='w-1/2 mx-auto'>
         {GearCategory.map((category, index) => (
           <Tab.Panel className='space-y-4' key={index}>
-            {filterGear(category).map((data) => (
-              <TabPanel gear={data} key={data?.id} />
-            ))}
+            {filterGear(category).length === 0 ? (
+              <div className=' h-60 flex justify-center items-center'>
+                <h2 className='font-bold text-lg text-slate-600'>
+                  Gearがありません
+                </h2>
+              </div>
+            ) : (
+              filterGear(category).map((data) => (
+                <TabPanel gear={data} key={data?.id} />
+              ))
+            )}
           </Tab.Panel>
         ))}
         <Tab.Panel></Tab.Panel>
