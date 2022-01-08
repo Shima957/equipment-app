@@ -36,7 +36,7 @@ const TabPanel: VFC<Props> = ({ gear, openModal }) => {
             <p>メーカー:</p>
             <p className='font-bold'>{gear?.maker}</p>
           </div>
-          <div className='flex items-center'>
+          <div className='flex items-center space-x-2'>
             {gear?.webUrl ? (
               <a
                 className='block p-2 w-24 text-center rounded-md bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer'
@@ -46,7 +46,7 @@ const TabPanel: VFC<Props> = ({ gear, openModal }) => {
               </a>
             ) : null}
             <Menu as='div' className='relative'>
-              <Menu.Button>
+              <Menu.Button className='p-1'>
                 <DotsVerticalIcon className='h-6 w-6' />
               </Menu.Button>
               <Menu.Items
