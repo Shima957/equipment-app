@@ -64,9 +64,9 @@ const CreateGear = () => {
 
   return (
     <Modal closeModal={onClose} modalSate={modalSate}>
-      <h2 className='text-xl font-bold text-gray-700 text-center'>
-        Gearを作成
-      </h2>
+      <div className='flex justify-center items-center'>
+        <h2 className='text-xl font-bold text-gray-700'>Gearを作成</h2>
+      </div>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col space-y-6'>

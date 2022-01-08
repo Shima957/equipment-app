@@ -1,4 +1,3 @@
-import DropDown from '@/components/DropDown';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Gears } from '@prisma/client';
@@ -7,12 +6,13 @@ import { VFC } from 'react';
 
 type Props = {
   gear: Gears | null;
+  openModal: () => void;
 };
 
-const TabPanel: VFC<Props> = ({ gear }) => {
+const TabPanel: VFC<Props> = ({ gear, openModal }) => {
   const menuItems = [
     { title: 'Gearを編集', onClick: () => console.log(1) },
-    { title: '削除', onClick: () => console.log(1) },
+    { title: '削除', onClick: openModal },
   ];
 
   return (
@@ -49,9 +49,26 @@ const TabPanel: VFC<Props> = ({ gear }) => {
               <Menu.Button>
                 <DotsVerticalIcon className='h-6 w-6' />
               </Menu.Button>
-              <div className='absolute top-8 -right-16'>
-                <DropDown menuItems={menuItems} />
-              </div>
+              <Menu.Items
+                as='ul'
+                className='absolute top-8 -right-16 w-44 border rounded-md drop-shadow-md py-1 bg-white '
+              >
+                {menuItems.map((item, index) => (
+                  <Menu.Item as='li' className='py-1' key={index}>
+                    {({ active }) => (
+                      <button
+                        type='button'
+                        onClick={item.onClick}
+                        className={`${
+                          active && 'bg-sky-500 text-white'
+                        } w-full text-left p-1`}
+                      >
+                        {item.title}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
             </Menu>
           </div>
         </div>

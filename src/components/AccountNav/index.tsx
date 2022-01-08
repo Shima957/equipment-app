@@ -1,6 +1,6 @@
 import { UserIcon } from '@heroicons/react/outline';
 import { Menu } from '@headlessui/react';
-import DropDown from '../DropDown';
+import DropDown from './DropDown';
 import { useRecoilValue } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
 import { useRouter } from 'next/router';
