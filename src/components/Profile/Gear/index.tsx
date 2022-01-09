@@ -40,9 +40,11 @@ const Gear: VFC<Props> = ({ gears }) => {
         const { data } = await supabase.storage
           .from('gears')
           .download(gear.imgUrl);
-        const url = window.URL.createObjectURL(data as Blob);
-        gear.imgUrl = url;
-        setUsingGears((pre) => [...pre, gear]);
+        if (data) {
+          const url = window.URL.createObjectURL(data as Blob);
+          gear.imgUrl = url;
+          setUsingGears((pre) => [...pre, gear]);
+        }
       } else {
         setUsingGears((pre) => [...pre, gear]);
       }
