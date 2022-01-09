@@ -1,18 +1,22 @@
+import LoginUserState from '@/globalState/LoginUser';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Gears } from '@prisma/client';
 import Image from 'next/image';
 import { VFC } from 'react';
+import { useRecoilValue } from 'recoil';
 
 type Props = {
   gear: Gears | null;
-  openModal: () => void;
+  removeGear: (gearId: number | undefined) => void;
 };
 
-const TabPanel: VFC<Props> = ({ gear, openModal }) => {
+const TabPanel: VFC<Props> = ({ gear, removeGear }) => {
+  const LoginUser = useRecoilValue(LoginUserState);
+
   const menuItems = [
     { title: 'Gearを編集', onClick: () => console.log(1) },
-    { title: '削除', onClick: openModal },
+    { title: '削除', onClick: removeGear },
   ];
 
   return (
@@ -45,31 +49,34 @@ const TabPanel: VFC<Props> = ({ gear, openModal }) => {
                 製品ページ
               </a>
             ) : null}
-            <Menu as='div' className='relative'>
-              <Menu.Button className='p-1'>
-                <DotsVerticalIcon className='h-6 w-6' />
-              </Menu.Button>
-              <Menu.Items
-                as='ul'
-                className='absolute top-8 -right-16 w-44 border rounded-md drop-shadow-md py-1 bg-white '
-              >
-                {menuItems.map((item, index) => (
-                  <Menu.Item as='li' className='py-1' key={index}>
-                    {({ active }) => (
-                      <button
-                        type='button'
-                        onClick={item.onClick}
-                        className={`${
-                          active && 'bg-sky-500 text-white'
-                        } w-full text-left p-1`}
-                      >
-                        {item.title}
-                      </button>
-                    )}
-                  </Menu.Item>
-                ))}
-              </Menu.Items>
-            </Menu>
+
+            {LoginUser && (
+              <Menu as='div' className='relative'>
+                <Menu.Button className='p-1'>
+                  <DotsVerticalIcon className='h-6 w-6' />
+                </Menu.Button>
+                <Menu.Items
+                  as='ul'
+                  className='absolute top-8 -right-16 w-44 border rounded-md drop-shadow-md py-1 bg-white '
+                >
+                  {menuItems.map((item, index) => (
+                    <Menu.Item as='li' className='py-1' key={index}>
+                      {({ active }) => (
+                        <button
+                          type='button'
+                          onClick={() => item.onClick(gear?.id)}
+                          className={`${
+                            active && 'bg-sky-500 text-white'
+                          } w-full text-left p-1`}
+                        >
+                          {item.title}
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
+                </Menu.Items>
+              </Menu>
+            )}
           </div>
         </div>
       </div>

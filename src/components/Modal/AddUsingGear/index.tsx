@@ -12,6 +12,7 @@ import FormErrorMessage from '@/components/Text/FormErrorMessage';
 import LoginUserState from '@/globalState/LoginUser';
 import { Gears } from '@prisma/client';
 import { XIcon } from '@heroicons/react/outline';
+import addActionState from '@/globalState/addGearAction';
 
 type FormValue = { category: string; name: string };
 
@@ -19,7 +20,8 @@ const AddUsingGear = () => {
   const setModalState = useSetRecoilState(addGearModalState);
   const onClose = () => setModalState(false);
   const modalState = useRecoilValue(addGearModalState);
-  const user = useRecoilValue(LoginUserState);
+  const loginUser = useRecoilValue(LoginUserState);
+  const changeAddAction = useSetRecoilState(addActionState);
 
   const [gears, setGears] = useState<Gears[]>();
 
@@ -49,16 +51,21 @@ const AddUsingGear = () => {
   }, []);
 
   const onSubmit = async (data: FormValue) => {
+    // 選択されたカテゴリーのGearデータを取得
     const res: AxiosResponse<Gears[]> = await axios.get(
       `/api/get-gear/${data.category}`
     );
 
     if (res.status === 200) {
+      // 取得したデータから選択されたGearに絞り込み
       const gear = res.data.filter((gear) => gear.name === data.name);
+      // データをpostに保存する
       axios.post('/api/submit-using-gear', {
         gear: gear[0],
-        authorId: user?.userId,
+        authorId: loginUser?.userId,
       });
+
+      changeAddAction(true);
     }
     onClose();
   };

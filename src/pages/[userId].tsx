@@ -1,20 +1,43 @@
 import Profile from '@/components/Profile';
+import addActionState from '@/globalState/addGearAction';
 import prisma from '@/lib/prisma';
 import { Gears, User } from '@prisma/client';
+import axios from 'axios';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { VFC } from 'react';
+import { useEffect, useState, useCallback, VFC } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 type Props = {
   user: User | null;
-  gears: (Gears | null)[];
+  gearData: (Gears | null)[];
 };
 
 interface Params extends ParsedUrlQuery {
   userId: string;
 }
 
-const UserPage: VFC<Props> = ({ user, gears }) => {
+const UserPage: VFC<Props> = ({ user, gearData }) => {
+  const addGearAction = useRecoilValue(addActionState);
+  const changeAddAction = useSetRecoilState(addActionState);
+  const [gears, setGears] = useState<(Gears | null)[]>(gearData);
+
+  const getData = useCallback(async () => {
+    const res = await axios.get('/api/get-post-gear', {
+      params: { userId: user?.userId },
+    });
+
+    setGears([]);
+    setGears([...res.data]);
+  }, [user?.userId]);
+
+  useEffect(() => {
+    if (addGearAction) {
+      getData();
+      changeAddAction(false);
+    }
+  }, [addGearAction, changeAddAction, getData]);
+
   return <Profile user={user} gears={gears} />;
 };
 
@@ -71,7 +94,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   return {
     props: {
       user: user,
-      gears: gears,
+      gearData: gears,
     },
   };
 };

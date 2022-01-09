@@ -4,7 +4,6 @@ import { Tab } from '@headlessui/react';
 import GearCategory from '@/util/GearCategory';
 import TabPanel from '../TabPanel';
 import { supabase } from '@/lib/supabase';
-import RemoveUsingGear from '@/components/Modal/RemoveUsingGear';
 import axios from 'axios';
 
 type Props = {
@@ -13,19 +12,21 @@ type Props = {
 
 const Gear: VFC<Props> = ({ gears }) => {
   const [usingGears, setUsingGears] = useState<(Gears | null)[]>([]);
-  const [modalSate, setModalState] = useState(false);
-  const closeModal = () => setModalState(false);
-  const openModal = () => setModalState(true);
-  const filteredGear = (category: string) => {
-    const filtered = usingGears.filter((data) => data?.category === category);
+  const removeGear = (gearId: number | undefined) => {
+    const removedGear = usingGears.filter((gear) => gear?.id !== gearId);
+    setUsingGears(removedGear);
 
-    return filtered;
+    axios.delete('/api/remove-gear', { data: { gearId } });
   };
 
-  const removeGear = (gearId: number | undefined) => {
-    const removedGear = gears.filter((gear) => gear?.id !== gearId);
-    setUsingGears(removedGear);
-    axios.delete('/api/remove-gear', { data: { gearId } });
+  const filteredGear = (category: string) => {
+    return usingGears
+      .filter((data) => data?.category === category)
+      .map((data) => (
+        <>
+          <TabPanel gear={data} key={data?.id} removeGear={removeGear} />
+        </>
+      ));
   };
 
   useEffect(() => {
@@ -71,25 +72,10 @@ const Gear: VFC<Props> = ({ gears }) => {
                   </h2>
                 </div>
               ) : (
-                filteredGear(category).map((data) => (
-                  <>
-                    <TabPanel
-                      gear={data}
-                      openModal={openModal}
-                      key={data?.id}
-                    />
-                    <RemoveUsingGear
-                      modalState={modalSate}
-                      closeModal={closeModal}
-                      removeGear={removeGear}
-                      gearId={data?.id}
-                    />
-                  </>
-                ))
+                filteredGear(category)
               )}
             </Tab.Panel>
           ))}
-          <Tab.Panel></Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </>
