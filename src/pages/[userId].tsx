@@ -23,20 +23,19 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
   const [gears, setGears] = useState<(Gears | null)[]>(gearData);
 
   const getData = useCallback(async () => {
-    const res = await axios.get('/api/get-post-gear', {
-      params: { userId: user?.userId },
-    });
-
-    setGears([]);
-    setGears([...res.data]);
-  }, [user?.userId]);
-
-  useEffect(() => {
     if (addGearAction) {
-      getData();
+      const res = await axios.get('/api/get-post-gear', {
+        params: { userId: user?.userId },
+      });
+
+      setGears(res.data);
       changeAddAction(false);
     }
-  }, [addGearAction, changeAddAction, getData]);
+  }, [addGearAction, changeAddAction, user?.userId]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return <Profile user={user} gears={gears} />;
 };

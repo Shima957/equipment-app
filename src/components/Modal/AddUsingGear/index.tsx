@@ -51,23 +51,30 @@ const AddUsingGear = () => {
   }, []);
 
   const onSubmit = async (data: FormValue) => {
-    // 選択されたカテゴリーのGearデータを取得
-    const res: AxiosResponse<Gears[]> = await axios.get(
-      `/api/get-gear/${data.category}`
-    );
+    try {
+      // 選択されたカテゴリーのGearデータを取得
+      const res: AxiosResponse<Gears[]> = await axios.get(
+        `/api/get-gear/${data.category}`
+      );
 
-    if (res.status === 200) {
-      // 取得したデータから選択されたGearに絞り込み
-      const gear = res.data.filter((gear) => gear.name === data.name);
-      // データをpostに保存する
-      axios.post('/api/submit-using-gear', {
-        gear: gear[0],
-        authorId: loginUser?.userId,
-      });
-
-      changeAddAction(true);
+      if (res.status === 200) {
+        // 取得したデータから選択されたGearに絞り込み
+        const gear = res.data.filter((gear) => gear.name === data.name);
+        // データをpostに保存する
+        const result = await axios.post('/api/submit-using-gear', {
+          gear: gear[0],
+          authorId: loginUser?.userId,
+        });
+        // Gearの追加が行われたことを通知
+        if (result.status === 200) {
+          changeAddAction(true);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onClose();
     }
-    onClose();
   };
 
   return (

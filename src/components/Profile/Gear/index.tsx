@@ -12,6 +12,7 @@ type Props = {
 
 const Gear: VFC<Props> = ({ gears }) => {
   const [usingGears, setUsingGears] = useState<(Gears | null)[]>([]);
+
   const removeGear = (gearId: number | undefined) => {
     const removedGear = usingGears.filter((gear) => gear?.id !== gearId);
     setUsingGears(removedGear);
@@ -30,6 +31,8 @@ const Gear: VFC<Props> = ({ gears }) => {
   };
 
   useEffect(() => {
+    // 追加アクションが起きたら一度中身を空にする
+    setUsingGears([]);
     gears.map(async (gear) => {
       if (gear?.imgUrl) {
         const { data } = await supabase.storage
