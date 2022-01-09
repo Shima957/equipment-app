@@ -20,6 +20,7 @@ const Gear: VFC<Props> = ({ gears }) => {
     axios.delete('/api/remove-gear', { data: { gearId } });
   };
 
+  // カテゴリーでフィルタ
   const filteredGear = (category: string) => {
     return usingGears
       .filter((data) => data?.category === category)
@@ -31,8 +32,9 @@ const Gear: VFC<Props> = ({ gears }) => {
   };
 
   useEffect(() => {
-    // 追加アクションが起きたら一度中身を空にする
+    // 追加アクションが起きたときのために一度中身を空にする
     setUsingGears([]);
+    // gearの画像をダウンロード
     gears.map(async (gear) => {
       if (gear?.imgUrl) {
         const { data } = await supabase.storage

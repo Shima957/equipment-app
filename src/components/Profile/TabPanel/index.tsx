@@ -14,10 +14,7 @@ type Props = {
 const TabPanel: VFC<Props> = ({ gear, removeGear }) => {
   const LoginUser = useRecoilValue(LoginUserState);
 
-  const menuItems = [
-    { title: 'Gearを編集', onClick: () => console.log(1) },
-    { title: '削除', onClick: removeGear },
-  ];
+  const menuItems = [{ title: '削除', onClick: removeGear }];
 
   return (
     <div

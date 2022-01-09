@@ -19,7 +19,6 @@ const RemoveUsingGear: VFC<Props> = ({
 }) => {
   return (
     <Modal modalSate={modalState} closeModal={closeModal}>
-      {gearId}
       <div className='space-y-4'>
         <div className='flex justify-between items-center'>
           <h2 className='text-lg font-bold'>本当に削除しますか？</h2>

@@ -12,7 +12,7 @@ const PostList: VFC<Props> = ({ users }) => {
   return (
     <div>
       {users.map((user) => (
-        <Link href={user.userId} key={user.id}>
+        <Link href={user.userId} key={user.userId}>
           <a className='w-1/5 flex flex-col items-center space-y-2 border-2 border-gray-300 rounded-xl p-4 shadow-sm transition-colors duration-200 hover:bg-gray-300'>
             {user.avatorUrl ? (
               <Image src={user.avatorUrl} width={80} height={80} alt='avator' />
