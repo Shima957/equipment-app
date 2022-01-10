@@ -35,6 +35,7 @@ const AuthListener: FC = ({ children }) => {
       if (event === 'SIGNED_OUT') {
         await axios.post('/api/set-auth-cookie', { event, session });
         setUser(null);
+        router.replace(paths.home);
       }
     });
 

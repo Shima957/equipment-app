@@ -24,7 +24,6 @@ const ChangeEmail = () => {
   const loginUser = useRecoilValue(LoginUserState);
   const updateLoginUser = useSetRecoilState(LoginUserState);
   const [toastState, setToastState] = useState(false);
-  const closeToast = () => setToastState(false);
   const onSubmit = async (data: FormValue) => {
     if (data.email === loginUser?.email) {
       const { user } = await auth.update({ email: data.newEmail });
@@ -33,7 +32,7 @@ const ChangeEmail = () => {
       updateLoginUser(res.data);
       setToastState(true);
       setInterval(() => {
-        closeToast();
+        setToastState(false);
       }, 4000);
       reset();
     } else {
