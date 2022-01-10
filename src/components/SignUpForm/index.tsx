@@ -43,7 +43,7 @@ const SignUpForm = () => {
       route.replace('/sendconfirmemail');
     } catch (error) {
       if (error instanceof Error) {
-        alert('すでに使われているユーザID、メールアドレスです');
+        alert('ユーザID、メールアドレスはすでに使われています');
       }
     }
   };

@@ -21,16 +21,13 @@ const SignInForm = () => {
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
-    try {
-      const { error } = await auth.signIn({
-        email: data.email,
-        password: data.password,
-      });
-      if (error) throw error;
-      if (isSubmitted) route.replace(paths.home);
-    } catch (error) {
-      console.error(error);
-    }
+    const { error } = await auth.signIn({
+      email: data.email,
+      password: data.password,
+    });
+    if (error?.message === 'Invalid login credentials')
+      alert('入力された情報を持つアカウントが見つかりませんでした');
+    if (isSubmitted) route.replace(paths.home);
   };
 
   return (
