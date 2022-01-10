@@ -6,6 +6,7 @@ export type SignInFormValue = {
 export type SignUpFormValue = {
   email: string;
   userId: string;
+  displayName: string;
   password: string;
   confirm: string;
 }
@@ -19,6 +20,6 @@ export type CreateGearValue = {
 }
 
 export type MenuItems = {
-  title: string | undefined;
+  title: string | undefined | null;
   onClick?: (args?: any) => any
 };

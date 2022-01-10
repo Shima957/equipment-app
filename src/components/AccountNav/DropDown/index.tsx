@@ -10,7 +10,7 @@ const DropDown: VFC<Props> = ({ menuItems }) => {
   return (
     <Menu.Items
       as='ul'
-      className='w-44 border rounded-md drop-shadow-md py-1 bg-white '
+      className='w-44 border rounded-md drop-shadow-md py-1 bg-white'
     >
       {menuItems.map((menuItem, index) => (
         <Menu.Item key={index} as='li' className='py-1'>

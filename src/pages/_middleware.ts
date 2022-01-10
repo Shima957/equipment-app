@@ -12,6 +12,10 @@ const middleware = async (req: NextRequest) => {
   if (token && pathname === paths.signUp) {
     return NextResponse.redirect(paths.home)
   }
+
+  if (!token && pathname === paths.setting) {
+    return NextResponse.redirect(paths.home)
+  }
 }
 
 export default middleware

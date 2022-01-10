@@ -69,13 +69,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   const paths = users.map((user) => `/${user.userId}`);
 
-  return { paths, fallback: 'blocking' };
+  return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
   const userId = params?.userId;
+
   // ユーザーデータ取得;
   const user = await prisma.user.findUnique({
     where: {

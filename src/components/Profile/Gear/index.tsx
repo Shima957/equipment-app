@@ -69,7 +69,7 @@ const Gear: VFC<Props> = ({ gears }) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className='w-1/2 mx-auto'>
+        <Tab.Panels className='md:w-1/2 mx-auto w-[350px]'>
           {GearCategory.map((category, index) => (
             <Tab.Panel className='space-y-4' key={index}>
               {filteredGear(category).length === 0 ? (

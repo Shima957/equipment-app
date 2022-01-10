@@ -10,6 +10,7 @@ import ConfirmPassword from '../Input/Auth/ConfirmPassword';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SignUpFormValue } from '@/types';
+import UserNameInput from '../Input/Auth/UserNameInput';
 
 const SignUpForm = () => {
   const route = useRouter();
@@ -31,12 +32,15 @@ const SignUpForm = () => {
 
       const sendData = {
         id: user?.id as string,
+        displayName: data.displayName,
         email: user?.email as string,
         userId: data.userId,
       };
 
       // dbにユーザー情報を保存
-      await axios.post('/api/create-user-db', sendData);
+      const res = await axios.post('/api/create-user-db', sendData);
+      console.log(res);
+
       reset();
       route.replace('/sendconfirmemail');
     } catch (error) {
@@ -53,6 +57,12 @@ const SignUpForm = () => {
           className='flex flex-col items-center space-y-8 w-full'
           onSubmit={handleSubmit(onSubmit)}
         >
+          <label>
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+              ユーザネーム
+            </span>
+            <UserNameInput />
+          </label>
           <label>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
               ユーザーID

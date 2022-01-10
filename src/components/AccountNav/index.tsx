@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
 import { useRouter } from 'next/router';
 import { auth } from '@/lib/supabase';
+import paths from '@/paths';
 
 const AccountNav = () => {
   const loginUser = useRecoilValue(LoginUserState);
@@ -12,10 +13,10 @@ const AccountNav = () => {
 
   const menuItems = [
     {
-      title: loginUser?.displayName ?? loginUser?.userId,
+      title: loginUser?.displayName,
       onClick: () => route.push(`/${loginUser?.userId}`),
     },
-    { title: '設定', onClick: () => console.log('sessting') },
+    { title: '設定', onClick: () => route.push(paths.setting) },
     { title: 'ログアウト', onClick: () => auth.signOut() },
   ];
 

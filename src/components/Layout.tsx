@@ -4,14 +4,12 @@ import Header from './Header';
 
 const Layout: FC = ({ children }) => {
   return (
-    <div className='bg-slate-200'>
+    <div className=' h-screen'>
       <Header />
-      <main className='max-w-screen-xl mx-auto py-20 h-[calc(100vh-76px-76px)] px-4'>
-        {children}
-      </main>
-      <div className='mt-20'>
-        <Footer />
+      <div className='h-full bg-slate-200'>
+        <main className='max-w-screen-xl mx-auto pt-20 px-4 '>{children}</main>
       </div>
+      <Footer />
     </div>
   );
 };
