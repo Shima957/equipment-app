@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id          String  @id @db.Uuid
+  id          String  @id @unique @db.Uuid
   userId      String  @unique
   displayName String?
   avatorUrl   String?

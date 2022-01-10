@@ -38,13 +38,13 @@ const SignUpForm = () => {
       };
 
       // dbにユーザー情報を保存
-      const res = await axios.post('/api/create-user-db', sendData);
-      console.log(res);
-
+      await axios.post('/api/create-user-db', sendData);
       reset();
       route.replace('/sendconfirmemail');
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        alert('すでに使われているユーザID、メールアドレスです');
+      }
     }
   };
 
