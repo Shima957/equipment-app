@@ -1,19 +1,14 @@
 import { FC, Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 
 type Props = {
   toastState: boolean;
-  closeToast: () => void;
 };
 
-const SuccessToast: FC<Props> = ({ toastState, closeToast, children }) => {
+const SuccessToast: FC<Props> = ({ toastState, children }) => {
   return (
     <Transition appear show={toastState} as={Fragment}>
-      <Dialog
-        as='div'
-        className='fixed inset-y-20 left-2 z-10'
-        onClose={closeToast}
-      >
+      <div className='fixed inset-y-20 left-2 z-10'>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -42,7 +37,7 @@ const SuccessToast: FC<Props> = ({ toastState, closeToast, children }) => {
             <div className='text-white max-w-xs '>{children}</div>
           </div>
         </Transition.Child>
-      </Dialog>
+      </div>
     </Transition>
   );
 };

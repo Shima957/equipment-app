@@ -65,7 +65,7 @@ const ChangeEmail = () => {
           </div>
         </form>
       </FormProvider>
-      <SuccessToast toastState={toastState} closeToast={closeToast}>
+      <SuccessToast toastState={toastState}>
         メールアドレスを変更しました
       </SuccessToast>
     </div>
