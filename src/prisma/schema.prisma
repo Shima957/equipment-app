@@ -8,12 +8,14 @@ datasource db {
 }
 
 model User {
-  id          String  @id @unique @db.Uuid
-  userId      String  @unique
-  displayName String?
-  avatorUrl   String?
-  email       String  @unique
-  post        Post[]
+  id           String  @id @unique @db.Uuid
+  userId       String  @unique
+  displayName  String?
+  avatorUrl    String?
+  email        String  @unique
+  twitterId    String?
+  soundCloudId String?
+  post         Post[]
 }
 
 model Post {

@@ -9,6 +9,7 @@ import FileInput from '@/components/Input/FileInput';
 import { User } from '@prisma/client';
 import axios from 'axios';
 import { supabase } from '@/lib/supabase';
+import FormErrorMessage from '@/components/Text/FormErrorMessage';
 
 type Props = {
   user: User | null;
@@ -18,11 +19,16 @@ type Props = {
 
 type FormValue = {
   name: string;
+  twitterId: string;
+  soundCloudId: string;
   avator: File[];
 };
 
 const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
   const displayName = user?.displayName ? user.displayName : undefined;
+  const twitter = user?.twitterId ? user.twitterId : undefined;
+  const soundCloud = user?.soundCloudId ? user.soundCloudId : undefined;
+
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
@@ -34,7 +40,10 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
       id: user?.id,
       name: data.name,
       imgUrl: fileName,
+      twitterId: data.twitterId,
+      soundCloudId: data.soundCloudId,
     };
+
     await axios.post('/api/update-profile', sendData);
   };
 
@@ -83,7 +92,31 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
             <div className='flex flex-col space-y-6'>
               <label>
                 <span>ユーザーネーム</span>
-                <TextInput registerName='name' defaultValue={displayName} />
+                <TextInput
+                  registerName='name'
+                  defaultValue={displayName}
+                  error={errors.name?.type === 'required'}
+                  required='ユーザーネームは必須です'
+                />
+                {errors.name?.type === 'required' && (
+                  <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+                )}
+              </label>
+              <label>
+                <span>Twitter</span>
+                <TextInput
+                  registerName='twitterId'
+                  placeholder='@は不要です'
+                  defaultValue={twitter}
+                />
+              </label>
+              <label>
+                <span>Sound Cloud</span>
+                <TextInput
+                  registerName='soundCloudId'
+                  placeholder='プロフィールUrl'
+                  defaultValue={soundCloud}
+                />
               </label>
               <label>
                 <span>アイコン画像</span>
