@@ -20,9 +20,8 @@ const AuthListener: FC = ({ children }) => {
     if (res.data) {
       const loginUser = await axios.get(`/api/get-login-user/${res.data?.id}`);
       setUser(loginUser.data);
-      setMounted(true);
     }
-  }, [setMounted, setUser]);
+  }, [setUser]);
 
   useEffect(() => {
     hadAuthCookie();
@@ -33,15 +32,14 @@ const AuthListener: FC = ({ children }) => {
           `/api/get-login-user/${session?.user?.id}`
         );
         setUser(res.data);
-        setMounted(true);
       }
       if (event === 'SIGNED_OUT') {
         await axios.post('/api/set-auth-cookie', { event, session });
         setUser(null);
-        setMounted(true);
         router.replace(paths.home);
       }
     });
+    setMounted(true);
 
     return () => data?.unsubscribe();
   }, [hadAuthCookie, router, setMounted, setUser]);
