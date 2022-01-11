@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { VFC } from 'react';
 
 type Props = {
-  users: User[];
+  users: (User | null)[];
 };
 
 const PostList: VFC<Props> = ({ users }) => {
@@ -15,14 +15,14 @@ const PostList: VFC<Props> = ({ users }) => {
       </div>
       <div className='grid grid-cols-6 gap-4'>
         {users.map((user) => (
-          <Link href={user.userId} key={user.userId}>
+          <Link href={user?.userId as string} key={user?.userId}>
             <a className='w-[153px] md:w-full flex flex-col items-center space-y-2 border-2 border-gray-300 rounded-xl p-4 shadow-sm transition-colors duration-200 hover:bg-gray-300'>
               <img
-                src={user.avatorUrl ?? '/user.png'}
+                src={user?.avatorUrl ?? '/user.png'}
                 alt='avator'
                 className='w-20 h-20 rounded-full'
               />
-              <div>{user.displayName ?? user.userId}</div>
+              <div>{user?.displayName ?? user?.userId}</div>
             </a>
           </Link>
         ))}

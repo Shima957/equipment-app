@@ -2,28 +2,30 @@ import PostList from '@/components/PostList';
 import prisma from '@/lib/prisma';
 import { supabase } from '@/lib/supabase';
 import { User } from '@prisma/client';
-import { useEffect, VFC } from 'react';
+import { useLayoutEffect, useState, VFC } from 'react';
 
 type Props = {
   users: User[];
 };
 
 const Home: VFC<Props> = ({ users }) => {
-  useEffect(() => {
+  const [userData, setUserData] = useState<(User | null)[]>([]);
+  useLayoutEffect(() => {
     users.map(async (user) => {
-      if (user.avatorUrl) {
+      if (user?.avatorUrl) {
         const { data } = await supabase.storage
           .from('avator')
           .download(user.avatorUrl);
         if (data) {
           const url = window.URL.createObjectURL(data as Blob);
           user.avatorUrl = url;
+          setUserData((pre) => [...pre, user]);
         }
       }
     });
   }, [users]);
 
-  return <PostList users={users} />;
+  return <PostList users={userData} />;
 };
 
 export default Home;

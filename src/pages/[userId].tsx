@@ -22,6 +22,7 @@ interface Params extends ParsedUrlQuery {
 const UserPage: VFC<Props> = ({ user, gearData }) => {
   const addGearAction = useRecoilValue(addActionState);
   const changeAddAction = useSetRecoilState(addActionState);
+  const [userData, setUserData] = useState<User | null>(null);
   const [gears, setGears] = useState<(Gears | null)[]>(gearData);
   const loginUser = useRecoilValue(LoginUserState);
 
@@ -47,6 +48,7 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
       if (data) {
         const url = window.URL.createObjectURL(data as Blob);
         user.avatorUrl = url;
+        setUserData(user);
       }
     }
   }, [user]);
@@ -56,7 +58,7 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
     getAvatorImg();
   }, [getAvatorImg, getData]);
 
-  return <Profile user={user} gears={gears} />;
+  return <Profile user={userData} gears={gears} />;
 };
 
 export default UserPage;
