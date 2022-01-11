@@ -29,7 +29,6 @@ const AuthListener: FC = ({ children }) => {
         const res: AxiosResponse<User | null> = await axios.get(
           `/api/get-login-user/${session?.user?.id}`
         );
-        router.replace(paths.home);
         setUser(res.data);
       }
       if (event === 'SIGNED_OUT') {

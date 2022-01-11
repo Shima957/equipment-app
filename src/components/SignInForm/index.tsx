@@ -17,7 +17,7 @@ const SignInForm = () => {
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
-    formState: { isSubmitting, isSubmitted },
+    formState: { isSubmitting },
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
@@ -25,9 +25,11 @@ const SignInForm = () => {
       email: data.email,
       password: data.password,
     });
-    if (error?.message === 'Invalid login credentials')
+    if (error?.message === 'Invalid login credentials') {
       alert('入力された情報を持つアカウントが見つかりませんでした');
-    if (isSubmitted) route.replace(paths.home);
+    } else {
+      route.replace(paths.home);
+    }
   };
 
   return (
@@ -61,7 +63,7 @@ const SignInForm = () => {
 
       <div className='text-center'>
         {/* リンクのパスは仮です */}
-        <Link href={paths.home}>
+        <Link href={paths.forgot}>
           <a className='text-sm text-blue-400 underline hover:text-blue-500'>
             パスワードを忘れた場合
           </a>
