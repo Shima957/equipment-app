@@ -25,6 +25,7 @@ const AuthListener: FC = ({ children }) => {
 
   useEffect(() => {
     hadAuthCookie();
+    setMounted(true);
     const { data } = auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN') {
         await axios.post('/api/set-auth-cookie', { event, session });
@@ -39,7 +40,6 @@ const AuthListener: FC = ({ children }) => {
         router.replace(paths.home);
       }
     });
-    setMounted(true);
 
     return () => data?.unsubscribe();
   }, [hadAuthCookie, router, setMounted, setUser]);
