@@ -1,57 +1,26 @@
-import LoginUserState from '@/globalState/LoginUser';
 import paths from '@/paths';
 import Link from 'next/link';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import AccountNav from '../AccountNav';
-import PrimaryButton from '../Button/PrimaryButton';
-import PrimaryLink from '../Button/LinkButton/PrimaryLink';
-import createGearModalState from '@/globalState/createGearModalState';
-import CreateGear from '../Modal/CreateGear';
-import addGearModalState from '@/globalState/addGearModalState';
-import AddUsingGear from '../Modal/AddUsingGear';
+import mountedState from '@/globalState/mounted';
+import { useRecoilValue } from 'recoil';
 
 const Header = () => {
-  const LoginUser = useRecoilValue(LoginUserState);
-  const onOpenCreateGearModal = useSetRecoilState(createGearModalState);
-  const onOpenAddGearModal = useSetRecoilState(addGearModalState);
-  const createModalState = useRecoilValue(createGearModalState);
-  const addModalState = useRecoilValue(addGearModalState);
+  const mounted = useRecoilValue(mountedState);
 
   return (
-    <header className='py-4 px-4 bg-gray-800'>
-      <div className='max-w-screen-xl flex items-center justify-between mx-auto'>
+    <header className='px-4 bg-gray-800'>
+      <div className='max-w-screen-xl h-20 flex items-center justify-between mx-auto'>
         <h1 className='text-white text-2xl font-bold'>
           <Link href={paths.home}>My U Gear</Link>
         </h1>
-        <nav className='flex items-center space-x-2'>
-          {!LoginUser && (
-            <PrimaryLink href={paths.signIn} size='md'>
-              ログイン
-            </PrimaryLink>
-          )}
-          {LoginUser && (
-            <div className='flex items-center space-x-2'>
-              <PrimaryButton
-                buttonType='button'
-                onClick={() => onOpenAddGearModal(true)}
-                size='md'
-              >
-                Gearを追加
-              </PrimaryButton>
-              <PrimaryButton
-                buttonType='button'
-                onClick={() => onOpenCreateGearModal(true)}
-                size='md'
-              >
-                Gearを作成
-              </PrimaryButton>
-              <AccountNav />
-            </div>
-          )}
-        </nav>
+        <div
+          className={`transition-opacity opacity-0 duration-500 ${
+            mounted && 'opacity-100'
+          }`}
+        >
+          <AccountNav />
+        </div>
       </div>
-      {createModalState && <CreateGear />}
-      {addModalState && <AddUsingGear />}
     </header>
   );
 };

@@ -6,10 +6,12 @@ import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
+import mountedState from '@/globalState/mounted';
 
 const AuthListener: FC = ({ children }) => {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
+  const setMounted = useSetRecoilState(mountedState);
 
   const hadAuthCookie = useCallback(async () => {
     const res: AxiosResponse<User | null> = await axios.get(
@@ -18,8 +20,9 @@ const AuthListener: FC = ({ children }) => {
     if (res.data) {
       const loginUser = await axios.get(`/api/get-login-user/${res.data?.id}`);
       setUser(loginUser.data);
+      setMounted(true);
     }
-  }, [setUser]);
+  }, [setMounted, setUser]);
 
   useEffect(() => {
     hadAuthCookie();
@@ -30,16 +33,18 @@ const AuthListener: FC = ({ children }) => {
           `/api/get-login-user/${session?.user?.id}`
         );
         setUser(res.data);
+        setMounted(true);
       }
       if (event === 'SIGNED_OUT') {
         await axios.post('/api/set-auth-cookie', { event, session });
         setUser(null);
+        setMounted(true);
         router.replace(paths.home);
       }
     });
 
     return () => data?.unsubscribe();
-  }, [hadAuthCookie, router, setUser]);
+  }, [hadAuthCookie, router, setMounted, setUser]);
 
   return <div>{children}</div>;
 };
