@@ -21,6 +21,8 @@ const Home: VFC<Props> = ({ users }) => {
           user.avatorUrl = url;
           setUserData(users);
         }
+      } else {
+        setUserData(users);
       }
     });
   }, [users]);

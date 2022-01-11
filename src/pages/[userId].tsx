@@ -50,6 +50,8 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
         user.avatorUrl = url;
         setUserData(user);
       }
+    } else {
+      setUserData(user);
     }
   }, [user]);
 
