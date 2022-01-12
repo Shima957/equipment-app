@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import { User } from '@prisma/client';
 import { VFC } from 'react';
+import Image from 'next/image';
 
 type Props = {
   user: User | null;
@@ -8,10 +8,13 @@ type Props = {
 
 const Avator: VFC<Props> = ({ user }) => {
   return (
-    <img
+    <Image
       src={user?.avatorUrl ?? '/user.png'}
       alt='userIcon'
-      className='rounded-full h-40 w-40'
+      height={140}
+      width={140}
+      objectFit='cover'
+      className='rounded-full bg-center'
     />
   );
 };

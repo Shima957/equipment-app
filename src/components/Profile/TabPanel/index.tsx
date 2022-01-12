@@ -22,13 +22,14 @@ const TabPanel: VFC<Props> = ({ gear, removeGear }) => {
       key={gear?.id}
     >
       <div className='md:flex space-x-6'>
-        <div className='md:shrink-0 h-full'>
+        <div className='md:shrink-0'>
           <Image
             src={gear?.imgUrl ?? '/no-image.png'}
             alt='gearImage'
             width={240}
             height={240}
-            className='h-2/5 object-contain'
+            objectFit='contain'
+            className='h-2/5'
           />
         </div>
         <div className='space-y-4 mt-10'>
