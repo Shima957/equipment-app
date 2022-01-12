@@ -32,11 +32,11 @@ const AccountNav = () => {
 
   return (
     <nav className='flex items-center space-x-2'>
-      {!loginUser && (
+      {!loginUser ? (
         <PrimaryLink href={paths.signIn} size='md'>
           ログイン
         </PrimaryLink>
-      )}
+      ) : null}
       {loginUser && (
         <div className='flex items-center space-x-2 transition-opacity duration-500'>
           <PrimaryButton

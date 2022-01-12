@@ -21,11 +21,11 @@ const AuthListener: FC = ({ children }) => {
       const loginUser = await axios.get(`/api/get-login-user/${res.data?.id}`);
       setUser(loginUser.data);
     }
-  }, [setUser]);
+    setMounted(true);
+  }, [setMounted, setUser]);
 
   useEffect(() => {
     hadAuthCookie();
-    setMounted(true);
     const { data } = auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN') {
         await axios.post('/api/set-auth-cookie', { event, session });
@@ -33,6 +33,7 @@ const AuthListener: FC = ({ children }) => {
           `/api/get-login-user/${session?.user?.id}`
         );
         setUser(res.data);
+        setMounted(true);
       }
       if (event === 'SIGNED_OUT') {
         await axios.post('/api/set-auth-cookie', { event, session });
