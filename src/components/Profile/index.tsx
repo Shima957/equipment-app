@@ -19,7 +19,6 @@ const Profile: VFC<Props> = ({ user, gears }) => {
   const closeModal = () => setModalState(false);
   const openModal = () => setModalState(true);
   const loginUser = useRecoilValue(LoginUserState);
-  console.log(user);
 
   return (
     <div className='space-y-4'>
