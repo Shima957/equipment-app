@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
 import LoginUserState from '@/globalState/LoginUser';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Gears } from '@prisma/client';
 import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
+import Image from 'next/image';
 
 type Props = {
   gear: Gears | null;
@@ -22,20 +22,22 @@ const TabPanel: VFC<Props> = ({ gear, removeGear }) => {
       key={gear?.id}
     >
       <div className='md:flex space-x-6'>
-        <div className='md:shrink-0'>
-          <img
+        <div className='md:shrink-0 h-full'>
+          <Image
             src={gear?.imgUrl ?? '/no-image.png'}
             alt='gearImage'
-            className='h-60 w-60 md:h-full mx-auto'
+            width={240}
+            height={240}
+            className='h-2/5 object-contain'
           />
         </div>
         <div className='space-y-4 mt-10'>
-          <div className='flex items-center space-x-2'>
-            <p>製品:</p>
+          <div>
+            <p>製品</p>
             <h2 className='text-xl font-bold'>{gear?.name}</h2>
           </div>
-          <div className='flex items-center space-x-2'>
-            <p>メーカー:</p>
+          <div>
+            <p>メーカー</p>
             <p className='font-bold'>{gear?.maker}</p>
           </div>
           <div className='flex items-center space-x-2'>
