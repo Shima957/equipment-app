@@ -8,6 +8,7 @@ const GearCategory = [
   "サンプル音源",
   "EQ",
   "Dynamic",
+  "Distortion",
   "Delay",
   "Reverb",
   "Mastering",

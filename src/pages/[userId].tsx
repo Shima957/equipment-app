@@ -119,6 +119,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
       user: user,
       gearData: gears,
     },
-    revalidate: 60,
+    revalidate: 30,
   };
 };
