@@ -2,10 +2,28 @@ import PostList from '@/components/PostList';
 import prisma from '@/lib/prisma';
 import { supabase } from '@/lib/supabase';
 import { User } from '@prisma/client';
+import Head from 'next/head';
 import { useEffect, useState, VFC } from 'react';
 
 type Props = {
   users: User[];
+};
+
+export const getStaticProps = async () => {
+  const users = await prisma.user.findMany({
+    select: {
+      userId: true,
+      displayName: true,
+      avatorUrl: true,
+    },
+  });
+
+  return {
+    props: {
+      users: users,
+    },
+    revalidate: 60,
+  };
 };
 
 const Home: VFC<Props> = ({ users }) => {
@@ -27,24 +45,14 @@ const Home: VFC<Props> = ({ users }) => {
     });
   }, [users]);
 
-  return <PostList users={userData} />;
+  return (
+    <div>
+      <Head>
+        <title>My U Gear</title>
+      </Head>
+      <PostList users={userData} />
+    </div>
+  );
 };
 
 export default Home;
-
-export const getStaticProps = async () => {
-  const users = await prisma.user.findMany({
-    select: {
-      userId: true,
-      displayName: true,
-      avatorUrl: true,
-    },
-  });
-
-  return {
-    props: {
-      users: users,
-    },
-    revalidate: 60,
-  };
-};

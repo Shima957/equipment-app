@@ -9,6 +9,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { useEffect, useState, useCallback, VFC } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { supabase } from '@/lib/supabase';
+import Head from 'next/head';
 
 type Props = {
   user: User | null;
@@ -19,52 +20,7 @@ interface Params extends ParsedUrlQuery {
   userId: string;
 }
 
-const UserPage: VFC<Props> = ({ user, gearData }) => {
-  const addGearAction = useRecoilValue(addActionState);
-  const changeAddAction = useSetRecoilState(addActionState);
-  const [userData, setUserData] = useState<User | null>(null);
-  const [gears, setGears] = useState<(Gears | null)[]>(gearData);
-  const loginUser = useRecoilValue(LoginUserState);
-
-  const getData = useCallback(async () => {
-    if (loginUser) {
-      // 自分のページのみで再取得を行う
-      if (addGearAction && loginUser.userId === user?.userId) {
-        const res = await axios.get('/api/get-post-gear', {
-          params: { userId: user?.userId },
-        });
-
-        setGears(res.data);
-        changeAddAction(false);
-      }
-    }
-  }, [addGearAction, changeAddAction, loginUser, user?.userId]);
-
-  const getAvatorImg = useCallback(async () => {
-    if (user?.avatorUrl) {
-      const { data } = await supabase.storage
-        .from('avator')
-        .download(user?.avatorUrl);
-      if (data) {
-        const url = window.URL.createObjectURL(data as Blob);
-        user.avatorUrl = url;
-        setUserData(user);
-      }
-    } else {
-      setUserData(user);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    getData();
-    getAvatorImg();
-  }, [getAvatorImg, getData]);
-
-  return <Profile user={userData} gears={gears} />;
-};
-
-export default UserPage;
-
+// ユーザーページのパスを生成
 export const getStaticPaths: GetStaticPaths = async () => {
   const users = await prisma.user.findMany({
     select: {
@@ -76,6 +32,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
+// ユーザーデータを取得
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
@@ -122,3 +79,56 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     revalidate: 30,
   };
 };
+
+const UserPage: VFC<Props> = ({ user, gearData }) => {
+  const addGearAction = useRecoilValue(addActionState);
+  const changeAddAction = useSetRecoilState(addActionState);
+  const [userData, setUserData] = useState<User | null>(null);
+  const [gears, setGears] = useState<(Gears | null)[]>(gearData);
+  const loginUser = useRecoilValue(LoginUserState);
+
+  const getData = useCallback(async () => {
+    if (loginUser) {
+      // 自分のページのみで再取得を行う
+      if (addGearAction && loginUser.userId === user?.userId) {
+        const res = await axios.get('/api/get-post-gear', {
+          params: { userId: user?.userId },
+        });
+
+        setGears(res.data);
+        changeAddAction(false);
+      }
+    }
+  }, [addGearAction, changeAddAction, loginUser, user?.userId]);
+
+  const getAvatorImg = useCallback(async () => {
+    if (user?.avatorUrl) {
+      const { data } = await supabase.storage
+        .from('avator')
+        .download(user?.avatorUrl);
+      if (data) {
+        const url = window.URL.createObjectURL(data as Blob);
+        user.avatorUrl = url;
+        setUserData(user);
+      }
+    } else {
+      setUserData(user);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    getData();
+    getAvatorImg();
+  }, [getAvatorImg, getData]);
+
+  return (
+    <div>
+      <Head>
+        <title>{user?.displayName} | My U Gear </title>
+      </Head>
+      <Profile user={userData} gears={gears} />;
+    </div>
+  );
+};
+
+export default UserPage;

@@ -5,6 +5,7 @@ import ErrorToast from '@/components/Toast/ErrorToast';
 import SuccessToast from '@/components/Toast/SuccessToast';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -39,6 +40,9 @@ const Forgot = () => {
 
   return (
     <div className='flex flex-col items-center w-1/2 mx-auto bg-white p-4 space-y-4'>
+      <Head>
+        <title>パスワードをリセット | My U Gear</title>
+      </Head>
       <h2 className='text-xl font-bold'>パスワードを再設定</h2>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
