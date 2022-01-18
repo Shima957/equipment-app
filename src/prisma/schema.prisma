@@ -11,7 +11,7 @@ model User {
   id           String  @id @unique @db.Uuid
   userId       String  @unique
   displayName  String?
-  avatorUrl    String?
+  avatarUrl    String?
   email        String  @unique
   twitterId    String?
   soundCloudId String?

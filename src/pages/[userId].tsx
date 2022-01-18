@@ -101,14 +101,14 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
     }
   }, [addGearAction, changeAddAction, loginUser, user?.userId]);
 
-  const getAvatorImg = useCallback(async () => {
-    if (user?.avatorUrl) {
+  const getAvatarImg = useCallback(async () => {
+    if (user?.avatarUrl) {
       const { data } = await supabase.storage
-        .from('avator')
-        .download(user?.avatorUrl);
+        .from('avatar')
+        .download(user?.avatarUrl);
       if (data) {
         const url = window.URL.createObjectURL(data as Blob);
-        user.avatorUrl = url;
+        user.avatarUrl = url;
         setUserData(user);
       }
     } else {
@@ -118,8 +118,8 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
 
   useEffect(() => {
     getData();
-    getAvatorImg();
-  }, [getAvatorImg, getData]);
+    getAvatarImg();
+  }, [getAvatarImg, getData]);
 
   return (
     <div>

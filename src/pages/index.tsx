@@ -14,7 +14,7 @@ export const getStaticProps = async () => {
     select: {
       userId: true,
       displayName: true,
-      avatorUrl: true,
+      avatarUrl: true,
     },
   });
 
@@ -30,13 +30,13 @@ const Home: VFC<Props> = ({ users }) => {
   const [userData, setUserData] = useState<(User | null)[]>([]);
   useEffect(() => {
     users.map(async (user) => {
-      if (user?.avatorUrl) {
+      if (user?.avatarUrl) {
         const { data } = await supabase.storage
-          .from('avator')
-          .download(user.avatorUrl);
+          .from('avatar')
+          .download(user.avatarUrl);
         if (data) {
           const url = window.URL.createObjectURL(data as Blob);
-          user.avatorUrl = url;
+          user.avatarUrl = url;
           setUserData(users);
         }
       } else {

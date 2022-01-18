@@ -18,8 +18,8 @@ const PostList: VFC<Props> = ({ users }) => {
           <Link href={user?.userId as string} key={user?.userId}>
             <a className='w-[153px] md:w-full flex flex-col items-center space-y-2 border-2 border-gray-300 rounded-xl p-4 shadow-sm transition-colors duration-200 hover:bg-gray-300'>
               <Image
-                src={user?.avatorUrl ?? '/user.png'}
-                alt='avator'
+                src={user?.avatarUrl ?? '/user.png'}
+                alt='avatar'
                 height={100}
                 width={100}
                 objectFit='cover'

@@ -12,7 +12,7 @@ const UpdateProfile: NextApiHandler = async (req, res) => {
       displayName: data.name,
       twitterId: data.twitterId === '' ? null : data.twitterId,
       soundCloudId: data.soundCloudId === '' ? null : data.soundCloudId,
-      avatorUrl: data.imgUrl
+      avatarUrl: data.imgUrl
     }
   })
 

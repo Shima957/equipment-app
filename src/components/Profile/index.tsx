@@ -4,7 +4,7 @@ import { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import SecondaryButton from '../Button/SecondaryButton';
 import UpdateProfile from '../Modal/UpdateProfile';
-import Avator from './Avator';
+import Avatar from './Avatar';
 import Gear from './Gear';
 import { AiOutlineTwitter } from 'react-icons/ai';
 import { RiSoundcloudFill } from 'react-icons/ri';
@@ -24,7 +24,7 @@ const Profile: VFC<Props> = ({ user, gears }) => {
     <div className='space-y-4'>
       <div className='border border-gray-300 rounded-md p-4 w-1/2 mx-auto bg-white shadow-sm space-y-4'>
         <div className='flex flex-col items-center space-y-4'>
-          <Avator user={user} />
+          <Avatar user={user} />
           <h2 className='font-bold text-xl'>{user?.displayName}</h2>
           <div className='flex items-center space-x-2'>
             {user?.twitterId ? (

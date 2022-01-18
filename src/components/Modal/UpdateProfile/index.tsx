@@ -21,7 +21,7 @@ type FormValue = {
   name: string;
   twitterId: string;
   soundCloudId: string;
-  avator: File[];
+  avatar: File[];
 };
 
 const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
@@ -48,7 +48,7 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
   };
 
   const setImgFile = async (data: FormValue) => {
-    if (data.avator.length === 0) {
+    if (data.avatar.length === 0) {
       try {
         post(data, null);
       } catch (error) {
@@ -56,11 +56,11 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
       }
     } else {
       try {
-        const fileExt = data.avator[0].name.split('.').pop();
+        const fileExt = data.avatar[0].name.split('.').pop();
         const fileName = `${Math.random()}.${fileExt}`;
         const { error } = await supabase.storage
-          .from('avator')
-          .upload(fileName, data.avator[0]);
+          .from('avatar')
+          .upload(fileName, data.avatar[0]);
         if (error) throw error;
         post(data, fileName);
       } catch (error) {
@@ -122,12 +122,12 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
                 <span>アイコン画像</span>
                 <div
                   className={`border rounded-md p-2 shadow-sm ${
-                    errors.avator?.[0]?.type === 'required'
+                    errors.avatar?.[0]?.type === 'required'
                       ? 'border-red-500'
                       : 'border-gray-300'
                   }`}
                 >
-                  <FileInput registerName='avator' />
+                  <FileInput registerName='avatar' />
                 </div>
               </label>
               <div className='flex justify-end space-x-2'>
