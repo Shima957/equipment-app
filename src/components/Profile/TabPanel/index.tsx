@@ -46,6 +46,8 @@ const TabPanel: VFC<Props> = ({ gear, removeGear }) => {
               <a
                 className='block p-2 w-24 text-center rounded-md bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer'
                 href={gear?.webUrl}
+                target='_blank'
+                rel='noreferrer'
               >
                 製品ページ
               </a>
