@@ -5,7 +5,8 @@ const paths = {
   new: '/new',
   setting: '/setting',
   forgot: '/forgot',
-  recoverPass: '/recover'
+  recoverPass: '/recover',
+  contact: '/contact'
 }
 
 export default paths

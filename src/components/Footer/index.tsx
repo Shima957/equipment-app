@@ -3,11 +3,14 @@ import paths from '@/paths';
 
 const Footer = () => {
   return (
-    <footer className='bg-white py-6 px-4 flex items-center'>
-      <div className='max-w-screen-xl mx-auto'>
-        <h2 className='font-bold text-lg'>
-          <Link href={paths.home}>My U Gear</Link>
-        </h2>
+    <footer className='bg-white py-6 px-4 '>
+      <div className='max-w-screen-xl mx-auto flex items-center justify-between'>
+        <Link href={paths.home}>
+          <a className='text-xl font-bold'>My U Gear</a>
+        </Link>
+        <Link href={paths.contact}>
+          <a className='text-sm underline'>お問い合わせ</a>
+        </Link>
       </div>
     </footer>
   );
