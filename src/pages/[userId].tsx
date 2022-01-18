@@ -126,7 +126,7 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
       <Head>
         <title>{user?.displayName} | My U Gear </title>
       </Head>
-      <Profile user={userData} gears={gears} />;
+      <Profile user={userData} gears={gears} />
     </div>
   );
 };

@@ -22,7 +22,7 @@ model Post {
   id       Int     @id @default(autoincrement())
   authorId String
   User     User    @relation(fields: [authorId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
-  Gears    Gears[] @relation(fields: [gearsId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  Gears    Gears[] @relation(fields: [gearsId], references: [id])
   gearsId  Int?
 }
 
