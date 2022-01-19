@@ -20,7 +20,7 @@ const UserIdInput = () => {
             : 'focus:border-sky-500 focus:ring-sky-500'
         }`}
       />
-      {errors.userId?.type === 'required' && (
+      {errors.userId && (
         <FormErrorMessage>{errors.userId.message}</FormErrorMessage>
       )}
     </>

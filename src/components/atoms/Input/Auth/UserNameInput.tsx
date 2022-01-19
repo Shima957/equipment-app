@@ -20,7 +20,7 @@ const UserNameInput = () => {
             : 'focus:border-sky-500 focus:ring-sky-500'
         }`}
       />
-      {errors.displayName?.type === 'required' && (
+      {errors.displayName && (
         <FormErrorMessage>{errors.displayName.message}</FormErrorMessage>
       )}
     </>

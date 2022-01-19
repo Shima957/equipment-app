@@ -34,10 +34,7 @@ const PasswordInput = () => {
             : 'focus:border-sky-500 focus:ring-sky-500 '
         }`}
       />
-      {errors.password?.type === 'required' && (
-        <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-      )}
-      {errors.password?.type === 'minLength' && (
+      {errors.password && (
         <FormErrorMessage>{errors.password.message}</FormErrorMessage>
       )}
     </>

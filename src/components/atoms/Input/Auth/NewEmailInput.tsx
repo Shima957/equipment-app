@@ -27,7 +27,7 @@ const NewEmailInput = () => {
             : 'focus:border-sky-500 focus:ring-sky-500 '
         }`}
       />
-      {errors.newEmail?.type === 'required' && (
+      {errors.newEmail && (
         <FormErrorMessage>{errors.newEmail.message}</FormErrorMessage>
       )}
     </>

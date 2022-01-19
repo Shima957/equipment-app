@@ -28,10 +28,7 @@ const ConfirmPassword = () => {
             : 'focus:border-sky-500 focus:ring-sky-500 '
         }`}
       />
-      {errors.confirm?.type === 'validate' && (
-        <FormErrorMessage>{errors.confirm.message}</FormErrorMessage>
-      )}
-      {errors.confirm?.type === 'required' && (
+      {errors.confirm && (
         <FormErrorMessage>{errors.confirm.message}</FormErrorMessage>
       )}
     </>
