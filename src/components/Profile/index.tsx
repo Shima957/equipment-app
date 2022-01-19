@@ -2,7 +2,7 @@ import LoginUserState from '@/globalState/LoginUser';
 import { Gears, User } from '@prisma/client';
 import { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
-import SecondaryButton from '../Button/SecondaryButton';
+import SecondaryButton from '../atoms/Button/SecondaryButton';
 import UpdateProfile from '../Modal/UpdateProfile';
 import Avatar from './Avatar';
 import Gear from './Gear';

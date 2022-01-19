@@ -1,11 +1,11 @@
 import { useFormContext } from 'react-hook-form';
-import FormErrorMessage from '@/components/Text/FormErrorMessage';
+import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 
-const EmailInput = () => {
+const NewEmailInput = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<{ email: string }>();
+  } = useFormContext<{ newEmail: string }>();
 
   return (
     <>
@@ -13,8 +13,8 @@ const EmailInput = () => {
         type='email'
         autoComplete='email'
         placeholder={'メールアドレス'}
-        {...register('email', {
-          required: 'メールアドレスは必須です',
+        {...register('newEmail', {
+          required: '新しいメールアドレスを入力してください',
           pattern: {
             value:
               /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
@@ -22,16 +22,16 @@ const EmailInput = () => {
           },
         })}
         className={`w-96 border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none sm:text-sm focus:ring-1 ${
-          errors.email?.type
+          errors.newEmail?.type
             ? 'border-red-500 focus:ring-red-500 '
             : 'focus:border-sky-500 focus:ring-sky-500 '
         }`}
       />
-      {errors.email?.type === 'required' && (
-        <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+      {errors.newEmail?.type === 'required' && (
+        <FormErrorMessage>{errors.newEmail.message}</FormErrorMessage>
       )}
     </>
   );
 };
 
-export default EmailInput;
+export default NewEmailInput;

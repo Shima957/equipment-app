@@ -1,7 +1,7 @@
-import EmailInput from '@/components/Input/Auth/EmailInput';
-import PasswordInput from '../Input/Auth/PasswordInput';
+import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
+import PasswordInput from '../atoms/Input/Auth/PasswordInput';
 import Link from 'next/link';
-import PrimaryButton from '../Button/PrimaryButton';
+import PrimaryButton from '../atoms/Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
@@ -62,7 +62,6 @@ const SignInForm = () => {
       </FormProvider>
 
       <div className='text-center'>
-        {/* リンクのパスは仮です */}
         <Link href={paths.forgot}>
           <a className='text-sm text-blue-400 underline hover:text-blue-500'>
             パスワードを忘れた場合

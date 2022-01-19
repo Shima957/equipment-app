@@ -1,13 +1,13 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import EmailInput from '@/components/Input/Auth/EmailInput';
-import PrimaryButton from '@/components/Button/PrimaryButton';
+import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
+import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
-import NewEmailInput from '@/components/Input/Auth/NewEmailInput';
+import NewEmailInput from '@/components/atoms/Input/Auth/NewEmailInput';
 import axios from 'axios';
 import { auth } from '@/lib/supabase';
 import { useState } from 'react';
-import SuccessToast from '@/components/Toast/SuccessToast';
+import SuccessToast from '@/components/atoms/Toast/SuccessToast';
 
 type FormValue = {
   email: string;

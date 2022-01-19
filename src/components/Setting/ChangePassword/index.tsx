@@ -1,10 +1,10 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import PrimaryButton from '@/components/Button/PrimaryButton';
-import ConfirmPassword from '@/components/Input/Auth/ConfirmPassword';
-import PasswordInput from '@/components/Input/Auth/PasswordInput';
+import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
+import ConfirmPassword from '@/components/atoms/Input/Auth/ConfirmPassword';
+import PasswordInput from '@/components/atoms/Input/Auth/PasswordInput';
 import { auth } from '@/lib/supabase';
 import { useState } from 'react';
-import SuccessToast from '@/components/Toast/SuccessToast';
+import SuccessToast from '@/components/atoms/Toast/SuccessToast';
 
 type FormValue = {
   password: string;

@@ -1,8 +1,8 @@
-import PrimaryButton from '@/components/Button/PrimaryButton';
-import SecondaryButton from '@/components/Button/SecondaryButton';
-import EmailInput from '@/components/Input/Auth/EmailInput';
-import ErrorToast from '@/components/Toast/ErrorToast';
-import SuccessToast from '@/components/Toast/SuccessToast';
+import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
+import SecondaryButton from '@/components/atoms/Button/SecondaryButton';
+import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
+import ErrorToast from '@/components/atoms/Toast/ErrorToast';
+import SuccessToast from '@/components/atoms/Toast/SuccessToast';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
 import Head from 'next/head';

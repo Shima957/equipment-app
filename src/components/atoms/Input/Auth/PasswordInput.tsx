@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import FormErrorMessage from '@/components/Text/FormErrorMessage';
+import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 
 const PasswordInput = () => {
   const {

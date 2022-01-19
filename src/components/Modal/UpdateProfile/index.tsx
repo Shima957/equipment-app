@@ -1,15 +1,15 @@
 import { XIcon } from '@heroicons/react/outline';
 import { VFC } from 'react';
 import Modal from '../index';
-import SecondaryButton from '@/components/Button/SecondaryButton';
-import TextInput from '@/components/Input/TextInput';
+import SecondaryButton from '@/components/atoms/Button/SecondaryButton';
+import TextInput from '@/components/atoms/Input/TextInput';
 import { FormProvider, useForm } from 'react-hook-form';
-import PrimaryButton from '@/components/Button/PrimaryButton';
-import FileInput from '@/components/Input/FileInput';
+import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
+import FileInput from '@/components/atoms/Input/FileInput';
 import { User } from '@prisma/client';
 import axios from 'axios';
 import { supabase } from '@/lib/supabase';
-import FormErrorMessage from '@/components/Text/FormErrorMessage';
+import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 
 type Props = {
   user: User | null;

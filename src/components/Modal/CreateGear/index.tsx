@@ -1,8 +1,8 @@
-import PrimaryButton from '@/components/Button/PrimaryButton';
-import SecondaryButton from '@/components/Button/SecondaryButton';
-import FileInput from '@/components/Input/FileInput';
-import TextInput from '@/components/Input/TextInput';
-import Select from '@/components/Select';
+import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
+import SecondaryButton from '@/components/atoms/Button/SecondaryButton';
+import FileInput from '@/components/atoms/Input/FileInput';
+import TextInput from '@/components/atoms/Input/TextInput';
+import Select from '@/components/atoms/Select';
 import createGearModalState from '@/globalState/createGearModalState';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Modal from '../index';
@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { CreateGearValue } from '@/types';
 import { supabase } from '@/lib/supabase';
 import axios from 'axios';
-import FormErrorMessage from '@/components/Text/FormErrorMessage';
+import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import { XIcon } from '@heroicons/react/outline';
 
 const CreateGear = () => {

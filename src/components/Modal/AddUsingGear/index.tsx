@@ -1,14 +1,14 @@
 import Modal from '@/components/Modal';
-import Select from '@/components/Select';
+import Select from '@/components/atoms/Select';
 import addGearModalState from '@/globalState/addGearModalState';
 import GearCategory from '@/util/GearCategory';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import SecondaryButton from '@/components/Button/SecondaryButton';
-import PrimaryButton from '@/components/Button/PrimaryButton';
+import SecondaryButton from '@/components/atoms/Button/SecondaryButton';
+import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import FormErrorMessage from '@/components/Text/FormErrorMessage';
+import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import LoginUserState from '@/globalState/LoginUser';
 import { Gears } from '@prisma/client';
 import { XIcon } from '@heroicons/react/outline';

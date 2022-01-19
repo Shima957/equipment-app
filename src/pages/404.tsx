@@ -1,4 +1,4 @@
-import GreenBotton from '@/components/Button/LinkButton/GreenButton';
+import GreenBotton from '@/components/atoms/Button/LinkButton/GreenButton';
 import Head from 'next/head';
 
 const Custom404 = () => {

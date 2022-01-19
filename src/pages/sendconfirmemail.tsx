@@ -1,4 +1,4 @@
-import PrimaryLink from '@/components/Button/LinkButton/PrimaryLink';
+import PrimaryLink from '@/components/atoms/Button/LinkButton/PrimaryLink';
 import paths from '@/paths';
 import Head from 'next/head';
 

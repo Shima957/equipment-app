@@ -1,5 +1,5 @@
 import SignInForm from '@/components/SignInForm';
-import GreenButton from '@/components/Button/LinkButton/GreenButton';
+import GreenButton from '@/components/atoms/Button/LinkButton/GreenButton';
 import paths from '@/paths';
 import Head from 'next/head';
 

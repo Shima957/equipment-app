@@ -1,4 +1,4 @@
-import DengerButton from '@/components/Button/DengerButton';
+import DengerButton from '@/components/atoms/Button/DengerButton';
 import { auth } from '@/lib/supabase';
 import axios from 'axios';
 import { FormProvider, useForm } from 'react-hook-form';
