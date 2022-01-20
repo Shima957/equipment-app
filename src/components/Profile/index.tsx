@@ -4,7 +4,7 @@ import { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import SecondaryButton from '../atoms/Button/SecondaryButton';
 import UpdateProfile from '../Modal/UpdateProfile';
-import Avatar from './Avatar';
+import Avatar from '../atoms/Avatar';
 import Gear from './Gear';
 import { AiOutlineTwitter } from 'react-icons/ai';
 import { RiSoundcloudFill } from 'react-icons/ri';
