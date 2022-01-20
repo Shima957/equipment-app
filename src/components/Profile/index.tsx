@@ -1,6 +1,6 @@
 import LoginUserState from '@/globalState/LoginUser';
 import { Gears, User } from '@prisma/client';
-import { useState, VFC } from 'react';
+import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import SecondaryButton from '../atoms/Button/SecondaryButton';
 import UpdateProfile from '../Modal/UpdateProfile';
@@ -8,6 +8,7 @@ import Avatar from '../atoms/Avatar';
 import Gear from './Gear';
 import { AiOutlineTwitter } from 'react-icons/ai';
 import { RiSoundcloudFill } from 'react-icons/ri';
+import useModal from '@/hooks/useModal';
 
 type Props = {
   user: User | null;
@@ -15,9 +16,7 @@ type Props = {
 };
 
 const Profile: VFC<Props> = ({ user, gears }) => {
-  const [modalSate, setModalState] = useState(false);
-  const closeModal = () => setModalState(false);
-  const openModal = () => setModalState(true);
+  const { modalState, openModal, closeModal } = useModal();
   const loginUser = useRecoilValue(LoginUserState);
 
   return (
@@ -57,7 +56,7 @@ const Profile: VFC<Props> = ({ user, gears }) => {
       </div>
       <Gear gears={gears} />
       <UpdateProfile
-        modalState={modalSate}
+        modalState={modalState}
         closeModal={closeModal}
         user={user}
       />
