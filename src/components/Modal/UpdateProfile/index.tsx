@@ -35,7 +35,7 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
     formState: { errors, isSubmitting },
   } = methods;
 
-  const post = async (data: FormValue, fileName: string | null) => {
+  const post = async (data: FormValue, fileName: string | undefined) => {
     const sendData = {
       id: user?.id,
       name: data.name,
@@ -47,22 +47,25 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
     await axios.post('/api/update-profile', sendData);
   };
 
-  const setImgFile = async (data: FormValue) => {
-    if (data.avatar.length === 0) {
+  const setImgFile = async (formData: FormValue) => {
+    if (formData.avatar.length === 0) {
       try {
-        post(data, null);
+        post(formData, undefined);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
-        const fileExt = data.avatar[0].name.split('.').pop();
+        const fileExt = formData.avatar[0].name.split('.').pop();
         const fileName = `${Math.random()}.${fileExt}`;
         const { error } = await supabase.storage
           .from('avatar')
-          .upload(fileName, data.avatar[0]);
+          .upload(fileName, formData.avatar[0]);
         if (error) throw error;
-        post(data, fileName);
+        const { data } = await supabase.storage
+          .from('avatar')
+          .getPublicUrl(fileName);
+        post(formData, data?.publicURL);
       } catch (error) {
         console.error(error);
       }

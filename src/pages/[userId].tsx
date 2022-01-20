@@ -8,7 +8,6 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { useEffect, useState, useCallback, VFC } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { supabase } from '@/lib/supabase';
 import Head from 'next/head';
 
 type Props = {
@@ -83,7 +82,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 const UserPage: VFC<Props> = ({ user, gearData }) => {
   const addGearAction = useRecoilValue(addActionState);
   const changeAddAction = useSetRecoilState(addActionState);
-  const [userData, setUserData] = useState<User | null>(null);
   const [gears, setGears] = useState<(Gears | null)[]>(gearData);
   const loginUser = useRecoilValue(LoginUserState);
 
@@ -101,32 +99,16 @@ const UserPage: VFC<Props> = ({ user, gearData }) => {
     }
   }, [addGearAction, changeAddAction, loginUser, user?.userId]);
 
-  const getAvatarImg = useCallback(async () => {
-    if (user?.avatarUrl) {
-      const { data } = await supabase.storage
-        .from('avatar')
-        .download(user?.avatarUrl);
-      if (data) {
-        const url = window.URL.createObjectURL(data as Blob);
-        user.avatarUrl = url;
-        setUserData(user);
-      }
-    } else {
-      setUserData(user);
-    }
-  }, [user]);
-
   useEffect(() => {
     getData();
-    getAvatarImg();
-  }, [getAvatarImg, getData]);
+  }, [getData]);
 
   return (
     <div>
       <Head>
         <title>{user?.displayName} | My U Gear </title>
       </Head>
-      <Profile user={userData} gears={gears} />
+      <Profile user={user} gears={gears} />
     </div>
   );
 };
