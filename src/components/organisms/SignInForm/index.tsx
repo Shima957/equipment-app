@@ -1,7 +1,7 @@
 import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
-import PasswordInput from '../atoms/Input/Auth/PasswordInput';
+import PasswordInput from '../../atoms/Input/Auth/PasswordInput';
 import Link from 'next/link';
-import PrimaryButton from '../atoms/Button/PrimaryButton';
+import PrimaryButton from '../../atoms/Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
 import { auth } from '@/lib/supabase';

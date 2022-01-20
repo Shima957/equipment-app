@@ -1,4 +1,4 @@
-import PostList from '@/components/PostList';
+import PostList from '@/components/organisms/PostList';
 import prisma from '@/lib/prisma';
 import { User } from '@prisma/client';
 import Head from 'next/head';

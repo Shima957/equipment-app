@@ -1,4 +1,4 @@
-import SettingLyout from '@/components/Setting';
+import SettingLyout from '@/components/organisms/Setting';
 import Head from 'next/head';
 
 const Setting = () => {

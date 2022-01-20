@@ -1,7 +1,7 @@
 import { Tab } from '@headlessui/react';
-import ChangeEmail from './ChangeEmail';
-import ChangePassowrd from './ChangePassword';
-import DeleteAccount from './DeleteAccount';
+import ChangeEmail from '../../molecules/ChangeEmail';
+import ChangePassowrd from '../../molecules/ChangePassword';
+import DeleteAccount from '../../molecules/DeleteAccount';
 
 const SettingLyout = () => {
   const tabList = [

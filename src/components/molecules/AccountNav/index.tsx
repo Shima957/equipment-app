@@ -1,17 +1,17 @@
 import { UserIcon } from '@heroicons/react/outline';
 import { Menu } from '@headlessui/react';
-import DropDown from './DropDown';
+import DropDown from '../DropDown';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
 import { useRouter } from 'next/router';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
-import PrimaryButton from '../atoms/Button/PrimaryButton';
-import PrimaryLink from '../atoms/Button/LinkButton/PrimaryLink';
+import PrimaryButton from '../../atoms/Button/PrimaryButton';
+import PrimaryLink from '../../atoms/Button/LinkButton/PrimaryLink';
 import createGearModalState from '@/globalState/createGearModalState';
 import addGearModalState from '@/globalState/addGearModalState';
-import CreateGear from '../Modal/CreateGear';
-import AddUsingGear from '../Modal/AddUsingGear';
+import CreateGear from '../../organisms/CreateGear';
+import AddUsingGear from '../../organisms/AddUsingGear';
 
 const AccountNav = () => {
   const route = useRouter();

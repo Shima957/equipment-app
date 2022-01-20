@@ -1,4 +1,4 @@
-import Profile from '@/components/Profile';
+import Profile from '@/components/organisms/Profile';
 import addActionState from '@/globalState/addGearAction';
 import LoginUserState from '@/globalState/LoginUser';
 import prisma from '@/lib/prisma';

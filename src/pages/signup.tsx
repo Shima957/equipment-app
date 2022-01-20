@@ -1,4 +1,4 @@
-import SignUpForm from '@/components/SignUpForm';
+import SignUpForm from '@/components/organisms/SignUpForm';
 import Head from 'next/head';
 
 const SignUp = () => {

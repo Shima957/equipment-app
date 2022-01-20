@@ -1,4 +1,4 @@
-import Modal from '@/components/Modal';
+import Modal from '@/components/molecules/Modal';
 import Select from '@/components/atoms/Select';
 import addGearModalState from '@/globalState/addGearModalState';
 import GearCategory from '@/util/GearCategory';
