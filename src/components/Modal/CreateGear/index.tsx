@@ -25,7 +25,7 @@ const CreateGear = () => {
     formState: { isSubmitting, errors },
   } = methods;
 
-  const post = async (data: CreateGearValue, fileName: string | null) => {
+  const post = async (data: CreateGearValue, fileName: string | undefined) => {
     const sendData = {
       category: data.category,
       name: data.name,
@@ -36,22 +36,25 @@ const CreateGear = () => {
     await axios.post('/api/create-gear', sendData);
   };
 
-  const setImgFile = async (data: CreateGearValue) => {
-    if (data.img.length === 0) {
+  const setImgFile = async (fromData: CreateGearValue) => {
+    if (fromData.img.length === 0) {
       try {
-        post(data, null);
+        post(fromData, undefined);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
-        const fileExt = data.img[0].name.split('.').pop();
+        const fileExt = fromData.img[0].name.split('.').pop();
         const fileName = `${Math.random()}.${fileExt}`;
         const { error } = await supabase.storage
           .from('gears')
-          .upload(fileName, data.img[0]);
+          .upload(fileName, fromData.img[0]);
         if (error) throw error;
-        post(data, fileName);
+        const { data } = await supabase.storage
+          .from('gears')
+          .getPublicUrl(fileName);
+        post(fromData, data?.publicURL);
       } catch (error) {
         console.error(error);
       }

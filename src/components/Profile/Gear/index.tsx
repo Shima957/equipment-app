@@ -3,7 +3,6 @@ import { Fragment, useEffect, useState, VFC } from 'react';
 import { Tab } from '@headlessui/react';
 import GearCategory from '@/util/GearCategory';
 import TabPanel from '../TabPanel';
-import { supabase } from '@/lib/supabase';
 import axios from 'axios';
 
 type Props = {
@@ -22,7 +21,7 @@ const Gear: VFC<Props> = ({ gears }) => {
 
   // カテゴリーでフィルタ
   const filteredGear = (category: string) => {
-    return usingGears
+    return gears
       .filter((data) => data?.category === category)
       .map((data) => (
         <>
@@ -34,21 +33,6 @@ const Gear: VFC<Props> = ({ gears }) => {
   useEffect(() => {
     // 追加アクションが起きたときのために一度中身を空にする
     setUsingGears([]);
-    // gearの画像をダウンロード
-    gears.map(async (gear) => {
-      if (gear?.imgUrl) {
-        const { data } = await supabase.storage
-          .from('gears')
-          .download(gear.imgUrl);
-        if (data) {
-          const url = window.URL.createObjectURL(data as Blob);
-          gear.imgUrl = url;
-          setUsingGears((pre) => [...pre, gear]);
-        }
-      } else {
-        setUsingGears((pre) => [...pre, gear]);
-      }
-    });
   }, [gears]);
 
   return (

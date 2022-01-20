@@ -14,4 +14,3 @@ export const auth = new GoTrueClient({
     apiKey: supabaseAnonKey
   }
 })
-
