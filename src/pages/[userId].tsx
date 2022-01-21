@@ -1,18 +1,14 @@
-import Profile from '@/components/Profile';
-import addActionState from '@/globalState/addGearAction';
-import LoginUserState from '@/globalState/LoginUser';
+import Profile from '@/components/template/Profile';
 import prisma from '@/lib/prisma';
 import { Gears, User } from '@prisma/client';
-import axios from 'axios';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { useEffect, useState, useCallback, VFC } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Head from 'next/head';
+import { VFC } from 'react';
 
 type Props = {
   user: User | null;
-  gearData: (Gears | null)[];
+  gears: (Gears | null)[];
 };
 
 interface Params extends ParsedUrlQuery {
@@ -71,38 +67,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   );
 
   return {
-    props: {
-      user: user,
-      gearData: gears,
-    },
+    props: { user, gears },
     revalidate: 30,
   };
 };
 
-const UserPage: VFC<Props> = ({ user, gearData }) => {
-  const addGearAction = useRecoilValue(addActionState);
-  const changeAddAction = useSetRecoilState(addActionState);
-  const [gears, setGears] = useState<(Gears | null)[]>(gearData);
-  const loginUser = useRecoilValue(LoginUserState);
-
-  const getData = useCallback(async () => {
-    if (loginUser) {
-      // 自分のページのみで再取得を行う
-      if (addGearAction && loginUser.userId === user?.userId) {
-        const res = await axios.get('/api/get-post-gear', {
-          params: { userId: user?.userId },
-        });
-
-        setGears(res.data);
-        changeAddAction(false);
-      }
-    }
-  }, [addGearAction, changeAddAction, loginUser, user?.userId]);
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
-
+const UserPage: VFC<Props> = ({ user, gears }) => {
   return (
     <div>
       <Head>

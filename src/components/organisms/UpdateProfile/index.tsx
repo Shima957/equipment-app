@@ -1,6 +1,6 @@
 import { XIcon } from '@heroicons/react/outline';
 import { VFC } from 'react';
-import Modal from '../index';
+import Modal from '../../molecules/Modal/index';
 import SecondaryButton from '@/components/atoms/Button/SecondaryButton';
 import TextInput from '@/components/atoms/Input/TextInput';
 import { FormProvider, useForm } from 'react-hook-form';

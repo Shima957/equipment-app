@@ -1,4 +1,4 @@
-import Modal from '@/components/Modal';
+import Modal from '@/components/molecules/Modal';
 import Select from '@/components/atoms/Select';
 import addGearModalState from '@/globalState/addGearModalState';
 import GearCategory from '@/util/GearCategory';
@@ -12,7 +12,8 @@ import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import LoginUserState from '@/globalState/LoginUser';
 import { Gears } from '@prisma/client';
 import { XIcon } from '@heroicons/react/outline';
-import addActionState from '@/globalState/addGearAction';
+import { useSWRConfig } from 'swr';
+import useGear from '@/hooks/useGear';
 
 type FormValue = { category: string; name: string };
 
@@ -21,7 +22,8 @@ const AddUsingGear = () => {
   const onClose = () => setModalState(false);
   const modalState = useRecoilValue(addGearModalState);
   const loginUser = useRecoilValue(LoginUserState);
-  const changeAddAction = useSetRecoilState(addActionState);
+  const { data } = useGear(loginUser?.userId);
+  const { mutate } = useSWRConfig();
 
   const [gears, setGears] = useState<Gears[]>();
 
@@ -50,25 +52,22 @@ const AddUsingGear = () => {
     getGear('DAW');
   }, []);
 
-  const onSubmit = async (data: FormValue) => {
+  const onSubmit = async (formData: FormValue) => {
     try {
       // 選択されたカテゴリーのGearデータを取得
       const res: AxiosResponse<Gears[]> = await axios.get(
-        `/api/get-gear/${data.category}`
+        `/api/get-gear/${formData.category}`
       );
 
       if (res.status === 200) {
         // 取得したデータから選択されたGearに絞り込み
-        const gear = res.data.filter((gear) => gear.name === data.name);
+        const gear = res.data.filter((gear) => gear.name === formData.name);
         // データをpostに保存する
-        const result = await axios.post('/api/submit-using-gear', {
+        await axios.post('/api/submit-using-gear', {
           gear: gear[0],
           authorId: loginUser?.userId,
         });
-        // Gearの追加が行われたことを通知
-        if (result.status === 200) {
-          changeAddAction(true);
-        }
+        mutate('/api/get-post-gear', [...(data as Gears[]), gear[0]]);
       }
     } catch (error) {
       console.error(error);

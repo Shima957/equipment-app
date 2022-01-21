@@ -5,7 +5,7 @@ import TextInput from '@/components/atoms/Input/TextInput';
 import Select from '@/components/atoms/Select';
 import createGearModalState from '@/globalState/createGearModalState';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import Modal from '../index';
+import Modal from '../../molecules/Modal/index';
 import GearCategory from '@/util/GearCategory';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CreateGearValue } from '@/types';

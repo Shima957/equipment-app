@@ -11,7 +11,7 @@ type Props = {
   removeGear: (gearId: number | undefined) => void;
 };
 
-const TabPanel: VFC<Props> = ({ gear, removeGear }) => {
+const GearCard: VFC<Props> = ({ gear, removeGear }) => {
   const LoginUser = useRecoilValue(LoginUserState);
 
   const menuItems = [{ title: '削除', onClick: removeGear }];
@@ -87,4 +87,4 @@ const TabPanel: VFC<Props> = ({ gear, removeGear }) => {
   );
 };
 
-export default TabPanel;
+export default GearCard;

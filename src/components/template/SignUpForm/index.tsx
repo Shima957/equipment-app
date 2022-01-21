@@ -1,16 +1,16 @@
 import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
-import PasswordInput from '../atoms/Input/Auth/PasswordInput';
-import UserIdInput from '../atoms/Input/Auth/UserIdInput';
+import PasswordInput from '../../atoms/Input/Auth/PasswordInput';
+import UserIdInput from '../../atoms/Input/Auth/UserIdInput';
 import Link from 'next/link';
-import PrimaryButton from '../atoms/Button/PrimaryButton';
+import PrimaryButton from '../../atoms/Button/PrimaryButton';
 import paths from '@/paths';
 import { useForm, FormProvider } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
-import ConfirmPassword from '../atoms/Input/Auth/ConfirmPassword';
+import ConfirmPassword from '../../atoms/Input/Auth/ConfirmPassword';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SignUpFormValue } from '@/types';
-import UserNameInput from '../atoms/Input/Auth/UserNameInput';
+import UserNameInput from '../../atoms/Input/Auth/UserNameInput';
 
 const SignUpForm = () => {
   const route = useRouter();
