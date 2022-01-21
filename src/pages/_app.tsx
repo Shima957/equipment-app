@@ -1,5 +1,5 @@
-import AuthListener from '@/components/AuthListener';
-import Layout from '@/components/organisms/Layout';
+import AuthListener from '@/components/template/AuthListener';
+import Layout from '@/components/template/Layout';
 import '@/styles/tailwind.css';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
