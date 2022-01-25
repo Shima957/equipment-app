@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
       author_id: user?.user_id,
     },
     select: {
-      gears_id: true,
+      gearsId: true,
     },
   });
 
@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     gearsId.map(async (gear) => {
       const gears = await prisma.gears.findFirst({
         where: {
-          id: gear.gears_id as number,
+          id: gear.gearsId as number,
         },
       });
 
