@@ -1,7 +1,7 @@
 import axios from 'axios';
 import useSWR from 'swr';
 import { useCallback } from 'react';
-import { Gears } from '@prisma/client';
+import { gears } from '@prisma/client';
 
 const useGear = (userId: string | undefined) => {
   const fetcher = useCallback(
@@ -12,7 +12,7 @@ const useGear = (userId: string | undefined) => {
     },
     [userId]
   );
-  const { data } = useSWR<(Gears | null)[]>(
+  const { data } = useSWR<(gears | null)[]>(
     userId ? `/api/get-post-gear` : null,
     fetcher
   );
