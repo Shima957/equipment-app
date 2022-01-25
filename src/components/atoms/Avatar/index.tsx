@@ -1,15 +1,15 @@
-import { User } from '@prisma/client';
+import { users } from '@prisma/client';
 import { VFC } from 'react';
 import Image from 'next/image';
 
 type Props = {
-  user: User | null;
+  user: users | null;
 };
 
 const Avatar: VFC<Props> = ({ user }) => {
   return (
     <Image
-      src={user?.avatarUrl ?? '/user.png'}
+      src={user?.avatar_url ?? '/user.png'}
       alt='userIcon'
       height={140}
       width={140}

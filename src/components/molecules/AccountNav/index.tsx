@@ -23,8 +23,8 @@ const AccountNav = () => {
 
   const menuItems = [
     {
-      title: loginUser?.displayName,
-      onClick: () => route.push(`/${loginUser?.userId}`),
+      title: loginUser?.display_name,
+      onClick: () => route.push(`/${loginUser?.user_id}`),
     },
     { title: '設定', onClick: () => route.push(paths.setting) },
     { title: 'ログアウト', onClick: () => auth.signOut() },

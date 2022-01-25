@@ -1,13 +1,13 @@
 import LoginUserState from '@/globalState/LoginUser';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { Gears } from '@prisma/client';
+import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import Image from 'next/image';
 
 type Props = {
-  gear: Gears | null;
+  gear: gears | null;
   removeGear: (gearId: number | undefined) => void;
 };
 

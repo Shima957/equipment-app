@@ -35,7 +35,7 @@ const Profile: VFC<Props> = ({ user, gears }) => {
           </div>
         </div>
         <div className='flex justify-center md:justify-end'>
-          {loginUser?.userId === user?.user_id && (
+          {loginUser?.user_id === user?.user_id && (
             <SecondaryButton buttonType='button' size='md' onClick={openModal}>
               プロフィールを更新
             </SecondaryButton>

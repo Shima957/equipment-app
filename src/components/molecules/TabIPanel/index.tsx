@@ -1,11 +1,11 @@
 import { Tab } from '@headlessui/react';
-import { Gears } from '@prisma/client';
+import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import GearCard from '@/components/molecules/GearCard';
 
 type Props = {
   tabPanels: string[];
-  gears: (Gears | null)[] | undefined;
+  gears: (gears | null)[] | undefined;
   removeGear: (gearId: number | undefined) => void;
 };
 

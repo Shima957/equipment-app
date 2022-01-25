@@ -1,7 +1,7 @@
-import { User } from "@prisma/client";
+import { users } from "@prisma/client";
 import { atom } from "recoil";
 
-const LoginUserState = atom<User | null>({
+const LoginUserState = atom<users | null>({
   key: 'LoginUser',
   default: null
 })
