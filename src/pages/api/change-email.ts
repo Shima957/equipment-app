@@ -2,7 +2,7 @@ import { NextApiHandler } from "next"
 
 const ChangeEmail: NextApiHandler = async (req, res) => {
   const data = req.body
-  await prisma?.user.update({
+  await prisma?.users.update({
     where: {
       email: data.email
     },

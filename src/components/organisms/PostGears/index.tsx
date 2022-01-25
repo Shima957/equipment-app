@@ -1,4 +1,4 @@
-import { Gears } from '@prisma/client';
+import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import { Tab } from '@headlessui/react';
 import GearCategory from '@/util/GearCategory';
@@ -11,7 +11,7 @@ import useGear from '@/hooks/useGear';
 import { useSWRConfig } from 'swr';
 
 type Props = {
-  gears: (Gears | null)[];
+  gears: (gears | null)[];
 };
 
 const PostGears: VFC<Props> = ({ gears }) => {

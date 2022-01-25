@@ -5,7 +5,7 @@ const getLoginUser: NextApiHandler = async (req, res) => {
 
 
   const { id } = req.query
-  const user = await prisma.user.findUnique({
+  const user = await prisma.users.findUnique({
     where: {
       id: id as string
     }

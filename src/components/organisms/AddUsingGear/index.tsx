@@ -10,7 +10,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import LoginUserState from '@/globalState/LoginUser';
-import { Gears } from '@prisma/client';
+import { gears } from '@prisma/client';
 import { XIcon } from '@heroicons/react/outline';
 import { useSWRConfig } from 'swr';
 import useGear from '@/hooks/useGear';
@@ -25,7 +25,7 @@ const AddUsingGear = () => {
   const { data } = useGear(loginUser?.userId);
   const { mutate } = useSWRConfig();
 
-  const [gears, setGears] = useState<Gears[]>();
+  const [gears, setGears] = useState<gears[]>();
 
   const methods = useForm<FormValue>();
   const {
@@ -35,7 +35,7 @@ const AddUsingGear = () => {
   } = methods;
 
   const getGear = async (category: string) => {
-    const res: AxiosResponse<Gears[]> = await axios.get(
+    const res: AxiosResponse<gears[]> = await axios.get(
       `/api/get-gear/${category}`
     );
 
@@ -55,7 +55,7 @@ const AddUsingGear = () => {
   const onSubmit = async (formData: FormValue) => {
     try {
       // 選択されたカテゴリーのGearデータを取得
-      const res: AxiosResponse<Gears[]> = await axios.get(
+      const res: AxiosResponse<gears[]> = await axios.get(
         `/api/get-gear/${formData.category}`
       );
 
@@ -67,7 +67,7 @@ const AddUsingGear = () => {
           gear: gear[0],
           authorId: loginUser?.userId,
         });
-        mutate('/api/get-post-gear', [...(data as Gears[]), gear[0]]);
+        mutate('/api/get-post-gear', [...(data as gears[]), gear[0]]);
       }
     } catch (error) {
       console.error(error);

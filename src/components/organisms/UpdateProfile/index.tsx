@@ -6,13 +6,13 @@ import TextInput from '@/components/atoms/Input/TextInput';
 import { FormProvider, useForm } from 'react-hook-form';
 import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
 import FileInput from '@/components/atoms/Input/FileInput';
-import { User } from '@prisma/client';
+import { users } from '@prisma/client';
 import axios from 'axios';
 import { supabase } from '@/lib/supabase';
 import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 
 type Props = {
-  user: User | null;
+  user: users | null;
   modalState: boolean;
   closeModal: () => void;
 };
@@ -25,9 +25,9 @@ type FormValue = {
 };
 
 const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
-  const displayName = user?.displayName ? user.displayName : undefined;
-  const twitter = user?.twitterId ? user.twitterId : undefined;
-  const soundCloud = user?.soundCloudId ? user.soundCloudId : undefined;
+  const displayName = user?.display_name ? user.display_name : undefined;
+  const twitter = user?.twitter_id ? user?.twitter_id : undefined;
+  const soundCloud = user?.soundcloud_id ? user.soundcloud_id : undefined;
 
   const methods = useForm<FormValue>();
   const {

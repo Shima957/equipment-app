@@ -1,5 +1,5 @@
 import LoginUserState from '@/globalState/LoginUser';
-import { Gears, User } from '@prisma/client';
+import { gears, users } from '@prisma/client';
 import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import SecondaryButton from '../../atoms/Button/SecondaryButton';
@@ -11,8 +11,8 @@ import TwitterIcon from '@/components/atoms/Icons/TwitterIcon';
 import SoundCloudIcon from '@/components/atoms/Icons/SoundCloudIcon';
 
 type Props = {
-  user: User | null;
-  gears: (Gears | null)[];
+  user: users | null;
+  gears: (gears | null)[];
 };
 
 const Profile: VFC<Props> = ({ user, gears }) => {
@@ -24,18 +24,18 @@ const Profile: VFC<Props> = ({ user, gears }) => {
       <div className='border border-gray-300 rounded-md p-4 w-1/2 mx-auto bg-white shadow-sm space-y-4'>
         <div className='flex flex-col items-center space-y-4'>
           <Avatar user={user} />
-          <h2 className='font-bold text-xl'>{user?.displayName}</h2>
+          <h2 className='font-bold text-xl'>{user?.display_name}</h2>
           <div className='flex items-center space-x-2'>
-            {user?.twitterId ? (
-              <TwitterIcon tiwtterId={user.twitterId} />
+            {user?.twitter_id ? (
+              <TwitterIcon tiwtterId={user?.twitter_id} />
             ) : null}
-            {user?.soundCloudId ? (
-              <SoundCloudIcon soundCloudId={user.soundCloudId} />
+            {user?.soundcloud_id ? (
+              <SoundCloudIcon soundCloudId={user.soundcloud_id} />
             ) : null}
           </div>
         </div>
         <div className='flex justify-center md:justify-end'>
-          {loginUser?.userId === user?.userId && (
+          {loginUser?.userId === user?.user_id && (
             <SecondaryButton buttonType='button' size='md' onClick={openModal}>
               プロフィールを更新
             </SecondaryButton>

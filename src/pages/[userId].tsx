@@ -1,14 +1,14 @@
 import Profile from '@/components/template/Profile';
 import prisma from '@/lib/prisma';
-import { Gears, User } from '@prisma/client';
+import { gears, users } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import Head from 'next/head';
 import { VFC } from 'react';
 
 type Props = {
-  user: User | null;
-  gears: (Gears | null)[];
+  user: users | null;
+  gears: (gears | null)[];
 };
 
 interface Params extends ParsedUrlQuery {
@@ -17,12 +17,12 @@ interface Params extends ParsedUrlQuery {
 
 // ユーザーページのパスを生成
 export const getStaticPaths: GetStaticPaths = async () => {
-  const users = await prisma.user.findMany({
+  const users = await prisma.users.findMany({
     select: {
-      userId: true,
+      user_id: true,
     },
   });
-  const paths = users.map((user) => `/${user.userId}`);
+  const paths = users.map((user) => `/${user.user_id}`);
 
   return { paths, fallback: false };
 };
@@ -34,9 +34,9 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   const userId = params?.userId;
 
   // ユーザーデータ取得;
-  const user = await prisma.user.findUnique({
+  const user = await prisma.users.findUnique({
     where: {
-      userId: userId,
+      user_id: userId,
     },
     include: {
       post: true,
@@ -46,10 +46,10 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   // postからgear参照用Idを取得
   const gearsId = await prisma.post.findMany({
     where: {
-      authorId: user?.userId,
+      author_id: user?.user_id,
     },
     select: {
-      gearsId: true,
+      gears_id: true,
     },
   });
 
@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     gearsId.map(async (gear) => {
       const gears = await prisma.gears.findFirst({
         where: {
-          id: gear.gearsId as number,
+          id: gear.gears_id as number,
         },
       });
 
@@ -76,7 +76,7 @@ const UserPage: VFC<Props> = ({ user, gears }) => {
   return (
     <div>
       <Head>
-        <title>{user?.displayName} | My U Gear </title>
+        <title>{user?.display_name} | My U Gear </title>
       </Head>
       <Profile user={user} gears={gears} />
     </div>

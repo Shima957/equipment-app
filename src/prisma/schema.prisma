@@ -3,35 +3,35 @@ generator client {
 }
 
 datasource db {
-  url      = env("DATABASE_URL")
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model User {
-  id           String  @id @unique @db.Uuid
-  userId       String  @unique
-  displayName  String?
-  avatarUrl    String?
-  email        String  @unique
-  twitterId    String?
-  soundCloudId String?
-  post         Post[]
+model users {
+  id            String  @id @unique @db.Uuid
+  user_id       String  @unique
+  display_name  String?
+  avatar_url    String?
+  email         String  @unique
+  twitter_id    String?
+  soundcloud_id String?
+  post          post[]
 }
 
-model Post {
-  id       Int     @id @default(autoincrement())
-  authorId String
-  User     User    @relation(fields: [authorId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
-  Gears    Gears[] @relation(fields: [gearsId], references: [id])
-  gearsId  Int?
+model post {
+  id        Int     @id @default(autoincrement())
+  author_id String
+  User      users   @relation(fields: [author_id], references: [user_id], onDelete: SetNull, onUpdate: Cascade)
+  Gears     gears[] @relation(fields: [gearsId], references: [id])
+  gearsId   Int?
 }
 
-model Gears {
+model gears {
   id       Int     @id @default(autoincrement())
   category String
   name     String
   maker    String
   webUrl   String?
   imgUrl   String?
-  post     Post[]
+  post     post[]
 }

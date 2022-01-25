@@ -1,7 +1,7 @@
 import userState from '@/globalState/LoginUser';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
-import { User } from '@prisma/client';
+import { users } from '@prisma/client';
 import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useCallback } from 'react';
@@ -14,7 +14,7 @@ const AuthListener: FC = ({ children }) => {
   const setMounted = useSetRecoilState(mountedState);
 
   const hadAuthCookie = useCallback(async () => {
-    const res: AxiosResponse<User | null> = await axios.get(
+    const res: AxiosResponse<users | null> = await axios.get(
       '/api/get-auth-cookie'
     );
     if (res.data) {
@@ -29,7 +29,7 @@ const AuthListener: FC = ({ children }) => {
     const { data } = auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN') {
         await axios.post('/api/set-auth-cookie', { event, session });
-        const res: AxiosResponse<User | null> = await axios.get(
+        const res: AxiosResponse<users | null> = await axios.get(
           `/api/get-login-user/${session?.user?.id}`
         );
         setUser(res.data);
