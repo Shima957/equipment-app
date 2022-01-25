@@ -5,7 +5,7 @@ const SubmitUsingGear: NextApiHandler = async (req, res) => {
   const data = req.body
   await prisma.post.create({
     data: {
-      authorId: data.authorId,
+      author_id: data.authorId,
       gearsId: data.gear.id,
     }
   })

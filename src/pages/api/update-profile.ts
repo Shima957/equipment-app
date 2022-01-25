@@ -4,15 +4,15 @@ import prisma from "@/lib/prisma"
 const UpdateProfile: NextApiHandler = async (req, res) => {
   const data = req.body
 
-  await prisma.user.update({
+  await prisma.users.update({
     where: {
       id: data.id as string
     },
     data: {
-      displayName: data.name,
-      twitterId: data.twitterId === '' ? null : data.twitterId,
-      soundCloudId: data.soundCloudId === '' ? null : data.soundCloudId,
-      avatarUrl: data.imgUrl
+      display_name: data.name,
+      twitter_id: data.twitterId === '' ? null : data.twitterId,
+      soundcloud_id: data.soundCloudId === '' ? null : data.soundCloudId,
+      avatar_url: data.imgUrl
     }
   })
 

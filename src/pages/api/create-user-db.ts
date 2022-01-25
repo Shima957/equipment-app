@@ -13,12 +13,12 @@ const requestBodyScheme = z.object({
 const createUserDb: NextApiHandler = async (req, res) => {
   try {
     const result = requestBodyScheme.parse(req.body)
-    await prisma.user.create({
+    await prisma.users.create({
       data: {
         id: result.id,
-        displayName: result.displayName,
+        display_name: result.displayName,
         email: result.email,
-        userId: result.userId
+        user_id: result.userId
       }
     })
 

@@ -6,22 +6,22 @@ const deleteAccount: NextApiHandler = async (req, res) => {
   const { data } = await auth.api.getUserByCookie(req)
   if (data) {
     await auth.api.deleteUser(data?.id, process.env.NEXT_PUBLIC_ROLE_KEY as string)
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: {
         id: data.id
       },
       select: {
-        userId: true
+        user_id: true
       }
     })
 
     await prisma.post.deleteMany({
       where: {
-        authorId: user?.userId
+        author_id: user?.user_id
       }
     })
 
-    await prisma.user.delete({
+    await prisma.users.delete({
       where: {
         id: data.id
       }

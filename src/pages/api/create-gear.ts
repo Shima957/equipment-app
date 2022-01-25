@@ -19,8 +19,8 @@ const createGear: NextApiHandler = async (req, res) => {
           category: result.category,
           name: result.name,
           maker: result.maker,
-          web_url: result.webUrl,
-          img_url: result.imgUrl
+          webUrl: result.webUrl,
+          imgUrl: result.imgUrl
         }
       })
     } else {
@@ -29,8 +29,8 @@ const createGear: NextApiHandler = async (req, res) => {
           category: result.category,
           name: result.name,
           maker: result.maker,
-          web_url: result.webUrl,
-          img_url: null
+          webUrl: result.webUrl,
+          imgUrl: null
         }
       })
     }

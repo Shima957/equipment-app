@@ -6,7 +6,7 @@ const getPostGear: NextApiHandler = async (req, res) => {
 
   const gearsId = await prisma.post.findMany({
     where: {
-      authorId: userId as string,
+      author_id: userId as string,
     },
     select: {
       gearsId: true,
