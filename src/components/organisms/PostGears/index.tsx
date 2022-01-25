@@ -16,7 +16,7 @@ type Props = {
 
 const PostGears: VFC<Props> = ({ gears }) => {
   const loginUser = useRecoilValue(LoginUserState);
-  const { data } = useGear(loginUser?.userId);
+  const { data } = useGear(loginUser?.user_id);
   const { mutate } = useSWRConfig();
 
   const removeGear = async (gearId: number | undefined) => {

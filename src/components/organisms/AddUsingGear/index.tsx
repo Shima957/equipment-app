@@ -22,7 +22,7 @@ const AddUsingGear = () => {
   const onClose = () => setModalState(false);
   const modalState = useRecoilValue(addGearModalState);
   const loginUser = useRecoilValue(LoginUserState);
-  const { data } = useGear(loginUser?.userId);
+  const { data } = useGear(loginUser?.user_id);
   const { mutate } = useSWRConfig();
 
   const [gears, setGears] = useState<gears[]>();
@@ -65,7 +65,7 @@ const AddUsingGear = () => {
         // データをpostに保存する
         await axios.post('/api/submit-using-gear', {
           gear: gear[0],
-          authorId: loginUser?.userId,
+          authorId: loginUser?.user_id,
         });
         mutate('/api/get-post-gear', [...(data as gears[]), gear[0]]);
       }
