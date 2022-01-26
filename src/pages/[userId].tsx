@@ -24,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   const paths = users.map((user) => `/${user.user_id}`);
 
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 };
 
 // ユーザーデータを取得
