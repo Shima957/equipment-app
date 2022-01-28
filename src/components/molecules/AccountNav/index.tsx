@@ -23,7 +23,7 @@ const AccountNav = () => {
 
   const menuItems = [
     {
-      title: loginUser?.display_name,
+      title: 'マイページ',
       onClick: () => route.push(`/${loginUser?.user_id}`),
     },
     { title: '設定', onClick: () => route.push(paths.setting) },
