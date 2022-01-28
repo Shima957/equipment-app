@@ -1,4 +1,4 @@
-import { ChangeEvent, VFC, memo } from 'react';
+import { ChangeEvent, VFC } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 type Props = {
@@ -37,4 +37,4 @@ const Select: VFC<Props> = ({ options, registerName, required, onChange }) => {
   );
 };
 
-export default memo(Select);
+export default Select;

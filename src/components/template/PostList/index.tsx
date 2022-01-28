@@ -16,7 +16,7 @@ const PostList: VFC<Props> = ({ users }) => {
       <div className='grid grid-cols-6 gap-4'>
         {users.map((user) => (
           <Link href={user?.user_id as string} key={user?.user_id}>
-            <a className='w-[153px] md:w-full flex flex-col items-center space-y-2 border-2 border-gray-300 rounded-xl p-4 shadow-sm transition-colors duration-200 hover:bg-gray-300'>
+            <a className='w-[153px] md:w-full flex flex-col items-center space-y-2 bg-white border-2 border-gray-300 rounded-xl p-4 shadow-sm transition-colors duration-200 hover:bg-gray-100'>
               <Image
                 src={user?.avatar_url ?? '/user.png'}
                 alt='avatar'
