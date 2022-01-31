@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react';
 import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import GearCard from '@/components/molecules/GearCard';
-import Skelton from '../GearCard/Skelton';
+import Skeleton from '../GearCard/Skeleton';
 
 type Props = {
   tabPanels: string[];
@@ -24,7 +24,7 @@ const TabPanel: VFC<Props> = ({ tabPanels, gears, removeGear }) => {
       {tabPanels.map((tabPanel, index) => (
         <Tab.Panel key={index} className='space-y-4'>
           {!gears ? (
-            <Skelton />
+            <Skeleton />
           ) : filteredPanel(tabPanel)?.length === 0 ? (
             <div className=' h-60 flex justify-center items-center'>
               <h2 className='font-bold text-lg text-slate-600'>

@@ -1,4 +1,4 @@
-const Skelton = () => {
+const Skeleton = () => {
   return (
     <div className='py-4 px-8 border border-gray-300 bg-white rounded-md shadow-sm '>
       <div className='md:flex space-x-6 animate-pulse'>
@@ -25,4 +25,4 @@ const Skelton = () => {
   );
 };
 
-export default Skelton;
+export default Skeleton;
