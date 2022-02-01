@@ -78,7 +78,7 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
       const { imageUrl } = await getImageUrl(fileName);
       await updateProfile(data, imageUrl);
     } else {
-      await updateProfile(data, undefined);
+      await updateProfile(data, fileName);
     }
     closeModal();
   };

@@ -25,7 +25,10 @@ const CreateGear = () => {
     formState: { isSubmitting, errors },
   } = methods;
 
-  const post = async (data: CreateGearValue, fileName: string | undefined) => {
+  const postGear = async (
+    data: CreateGearValue,
+    fileName: string | undefined
+  ) => {
     const sendData = {
       category: data.category,
       name: data.name,
@@ -36,33 +39,34 @@ const CreateGear = () => {
     await axios.post('/api/create-gear', sendData);
   };
 
-  const setImgFile = async (fromData: CreateGearValue) => {
+  const getImageUrl = async (fileName: string) => {
+    const { data } = await supabase.storage
+      .from('gears')
+      .getPublicUrl(fileName);
+
+    return { imageUrl: data?.publicURL };
+  };
+
+  const uploadImage = async (fromData: CreateGearValue) => {
     if (fromData.img.length === 0) {
-      try {
-        post(fromData, undefined);
-      } catch (error) {
-        console.error(error);
-      }
+      return { fileName: undefined };
     } else {
-      try {
-        const fileExt = fromData.img[0].name.split('.').pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const { error } = await supabase.storage
-          .from('gears')
-          .upload(fileName, fromData.img[0]);
-        if (error) throw error;
-        const { data } = await supabase.storage
-          .from('gears')
-          .getPublicUrl(fileName);
-        post(fromData, data?.publicURL);
-      } catch (error) {
-        console.error(error);
-      }
+      const fileExtension = fromData.img[0].name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExtension}`;
+      await supabase.storage.from('gears').upload(fileName, fromData.img[0]);
+
+      return { fileName: fileName };
     }
   };
 
   const onSubmit = async (data: CreateGearValue) => {
-    await setImgFile(data);
+    const { fileName } = await uploadImage(data);
+    if (fileName) {
+      const { imageUrl } = await getImageUrl(fileName);
+      await postGear(data, imageUrl);
+    } else {
+      await postGear(data, fileName);
+    }
     onClose();
   };
 
