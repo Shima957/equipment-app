@@ -97,7 +97,6 @@ const SignUpForm = () => {
       </FormProvider>
 
       <div className='text-center'>
-        {/* リンクのパスは仮です */}
         <Link href={paths.signIn}>
           <a className='text-sm text-blue-400 underline hover:text-blue-500'>
             アカウントをお持ちの場合
