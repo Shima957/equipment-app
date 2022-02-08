@@ -82,11 +82,15 @@ const CreateGear = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col space-y-6'>
             <label>
-              <span>Gearカテゴリー</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                Gearカテゴリー
+              </span>
               <Select options={GearCategory} registerName='category'></Select>
             </label>
             <label>
-              <span>Gear名</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                Gear名
+              </span>
               <TextInput
                 registerName='name'
                 required='Gear名は必須です'
@@ -97,7 +101,9 @@ const CreateGear = () => {
               )}
             </label>
             <label>
-              <span>メーカー</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                メーカー
+              </span>
               <TextInput
                 registerName='maker'
                 required='メーカーは必須です'
