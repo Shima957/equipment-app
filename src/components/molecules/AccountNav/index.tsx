@@ -57,7 +57,7 @@ const AccountNav = () => {
             <Menu.Button className='rounded-full p-2 bg-slate-400'>
               <UserIcon className=' text-white h-6 w-6' />
             </Menu.Button>
-            <div className='absolute top-11 -right-14'>
+            <div className='absolute top-11 -left-36'>
               <DropDown menuItems={menuItems} />
             </div>
           </Menu>
