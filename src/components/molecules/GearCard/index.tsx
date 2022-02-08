@@ -21,7 +21,7 @@ const GearCard: VFC<Props> = ({ gear, removeGear }) => {
       className='py-4 px-8 border border-gray-300 bg-white rounded-md shadow-sm '
       key={gear?.id}
     >
-      <div className='md:flex space-x-6'>
+      <div className='md:flex sm:space-x-8'>
         <div className='md:shrink-0'>
           <Image
             src={gear?.imgUrl ?? '/no-image.png'}
@@ -29,10 +29,9 @@ const GearCard: VFC<Props> = ({ gear, removeGear }) => {
             width={240}
             height={240}
             objectFit='contain'
-            className='h-2/5'
           />
         </div>
-        <div className='space-y-4 mt-10'>
+        <div className='space-y-6 mt-8'>
           <div>
             <p>製品</p>
             <h2 className='text-xl font-bold'>{gear?.name}</h2>

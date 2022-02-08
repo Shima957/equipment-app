@@ -2,8 +2,10 @@ import axios from 'axios';
 import useSWR from 'swr';
 import { useCallback } from 'react';
 import { gears } from '@prisma/client';
+import { useRouter } from 'next/router';
 
 const useGear = (userId: string | undefined) => {
+  const route = useRouter();
   const fetcher = useCallback(
     async (url: string) => {
       const res = await axios.get(url, { params: { userId } });
@@ -13,7 +15,7 @@ const useGear = (userId: string | undefined) => {
     [userId]
   );
   const { data } = useSWR<(gears | null)[]>(
-    userId ? `/api/get-post-gear` : null,
+    userId === route.query.userId ? `/api/get-post-gear` : null,
     fetcher
   );
 
