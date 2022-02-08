@@ -25,44 +25,45 @@ const CreateGear = () => {
     formState: { isSubmitting, errors },
   } = methods;
 
-  const post = async (data: GearFormValue, fileName: string | undefined) => {
+  const post = async (data: GearFormValue, imageUrl: string | undefined) => {
     const sendData = {
       category: data.category,
       name: data.name,
       maker: data.maker,
       webUrl: data.url ? data.url : null,
-      imgUrl: fileName,
+      imgUrl: imageUrl,
     };
     await axios.post('/api/create-gear', sendData);
   };
 
-  const setImgFile = async (fromData: GearFormValue) => {
-    if (fromData.img.length === 0) {
-      try {
-        post(fromData, undefined);
-      } catch (error) {
-        console.error(error);
-      }
+  const uploadImage = async (formData: GearFormValue) => {
+    if (formData.img.length === 0) {
+      return { fileName: undefined };
     } else {
-      try {
-        const fileExt = fromData.img[0].name.split('.').pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const { error } = await supabase.storage
-          .from('gears')
-          .upload(fileName, fromData.img[0]);
-        if (error) throw error;
-        const { data } = await supabase.storage
-          .from('gears')
-          .getPublicUrl(fileName);
-        post(fromData, data?.publicURL);
-      } catch (error) {
-        console.error(error);
-      }
+      const fileExt = formData.img[0].name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      await supabase.storage.from('gears').upload(fileName, formData.img[0]);
+
+      return { fileName };
     }
   };
 
+  const getPublicUrl = async (fileName: string) => {
+    const { data } = await supabase.storage
+      .from('gears')
+      .getPublicUrl(fileName);
+
+    return { publicUrl: data?.publicURL };
+  };
+
   const onSubmit = async (data: GearFormValue) => {
-    await setImgFile(data);
+    const { fileName } = await uploadImage(data);
+    if (fileName) {
+      const { publicUrl } = await getPublicUrl(fileName);
+      post(data, publicUrl);
+    } else {
+      post(data, undefined);
+    }
     onClose();
   };
 
