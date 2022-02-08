@@ -8,7 +8,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Modal from '../../molecules/Modal/index';
 import GearCategory from '@/util/GearCategory';
 import { FormProvider, useForm } from 'react-hook-form';
-import { CreateGearValue } from '@/types';
+import { GearFormValue } from '@/types';
 import { supabase } from '@/lib/supabase';
 import axios from 'axios';
 import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
@@ -19,13 +19,13 @@ const CreateGear = () => {
   const onClose = () => setModalState(false);
   const modalSate = useRecoilValue(createGearModalState);
 
-  const methods = useForm<CreateGearValue>();
+  const methods = useForm<GearFormValue>();
   const {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = methods;
 
-  const post = async (data: CreateGearValue, fileName: string | undefined) => {
+  const post = async (data: GearFormValue, fileName: string | undefined) => {
     const sendData = {
       category: data.category,
       name: data.name,
@@ -36,7 +36,7 @@ const CreateGear = () => {
     await axios.post('/api/create-gear', sendData);
   };
 
-  const setImgFile = async (fromData: CreateGearValue) => {
+  const setImgFile = async (fromData: GearFormValue) => {
     if (fromData.img.length === 0) {
       try {
         post(fromData, undefined);
@@ -61,7 +61,7 @@ const CreateGear = () => {
     }
   };
 
-  const onSubmit = async (data: CreateGearValue) => {
+  const onSubmit = async (data: GearFormValue) => {
     await setImgFile(data);
     onClose();
   };

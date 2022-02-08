@@ -11,7 +11,7 @@ export type SignUpFormValue = {
   confirm: string;
 }
 
-export type CreateGearValue = {
+export type GearFormValue = {
   category: string;
   name: string;
   maker: string;
@@ -23,3 +23,5 @@ export type MenuItems = {
   title: string | undefined | null;
   onClick?: (args?: any) => any
 };
+
+export type GearLabel = '製品' | 'メーカー' | '製品Url'

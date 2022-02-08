@@ -9,19 +9,23 @@ import Image from 'next/image';
 type Props = {
   gear: gears | null;
   removeGear: (gearId: number | undefined) => void;
+  moveGearPage: (gearId: number | undefined) => void;
 };
 
-const GearCard: VFC<Props> = ({ gear, removeGear }) => {
+const GearCard: VFC<Props> = ({ gear, removeGear, moveGearPage }) => {
   const LoginUser = useRecoilValue(LoginUserState);
 
-  const menuItems = [{ title: '削除', onClick: removeGear }];
+  const menuItems = [
+    { title: 'Gearを更新', onClick: moveGearPage },
+    { title: '削除', onClick: removeGear },
+  ];
 
   return (
     <div
       className='py-4 px-8 border border-gray-300 bg-white rounded-md shadow-sm '
       key={gear?.id}
     >
-      <div className='md:flex sm:space-x-8'>
+      <div className='md:flex space-x-6'>
         <div className='md:shrink-0'>
           <Image
             src={gear?.imgUrl ?? '/no-image.png'}
@@ -31,7 +35,7 @@ const GearCard: VFC<Props> = ({ gear, removeGear }) => {
             objectFit='contain'
           />
         </div>
-        <div className='space-y-6 mt-8'>
+        <div className='space-y-4 mt-10'>
           <div>
             <p>製品</p>
             <h2 className='text-xl font-bold'>{gear?.name}</h2>
@@ -59,7 +63,7 @@ const GearCard: VFC<Props> = ({ gear, removeGear }) => {
                 </Menu.Button>
                 <Menu.Items
                   as='ul'
-                  className='absolute top-8 -right-16 w-44 border rounded-md drop-shadow-md py-1 bg-white '
+                  className='absolute w-44 border rounded-md drop-shadow-md py-1 bg-white '
                 >
                   {menuItems.map((item, index) => (
                     <Menu.Item as='li' className='py-1' key={index}>

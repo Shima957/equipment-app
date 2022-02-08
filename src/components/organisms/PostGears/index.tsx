@@ -31,6 +31,10 @@ const PostGears: VFC<Props> = ({ gears }) => {
     mutate('/api/get-post/-gear');
   };
 
+  const moveGearPage = (gearName: number | undefined) => {
+    route.push(`gear/${gearName}`);
+  };
+
   return (
     <>
       <Tab.Group>
@@ -44,6 +48,7 @@ const PostGears: VFC<Props> = ({ gears }) => {
             }
             tabPanels={GearCategory}
             removeGear={removeGear}
+            moveGearPage={moveGearPage}
           />
         </div>
       </Tab.Group>
