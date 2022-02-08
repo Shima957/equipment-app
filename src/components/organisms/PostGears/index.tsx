@@ -9,12 +9,14 @@ import { useRecoilValue } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
 import useGear from '@/hooks/useGear';
 import { useSWRConfig } from 'swr';
+import { useRouter } from 'next/router';
 
 type Props = {
   gears: (gears | null)[];
 };
 
 const PostGears: VFC<Props> = ({ gears }) => {
+  const route = useRouter();
   const loginUser = useRecoilValue(LoginUserState);
   const { data } = useGear(loginUser?.user_id);
   const { mutate } = useSWRConfig();
@@ -35,7 +37,11 @@ const PostGears: VFC<Props> = ({ gears }) => {
         <TabList tabLists={GearCategory} />
         <div className='w-1/2 mx-auto'>
           <TabPanel
-            gears={loginUser ? data : gears}
+            gears={
+              loginUser && loginUser.user_id === route.query.userId
+                ? data
+                : gears
+            }
             tabPanels={GearCategory}
             removeGear={removeGear}
           />
