@@ -19,6 +19,13 @@ export type GearFormValue = {
   img: File[]
 }
 
+export type UpdateProfielFormValue = {
+  name: string;
+  twitterId: string;
+  soundCloudId: string;
+  img: File[];
+};
+
 export type MenuItems = {
   title: string | undefined | null;
   onClick?: (args?: any) => any

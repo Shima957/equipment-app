@@ -9,10 +9,11 @@ import Modal from '../../molecules/Modal/index';
 import GearCategory from '@/util/GearCategory';
 import { FormProvider, useForm } from 'react-hook-form';
 import { GearFormValue } from '@/types';
-import { supabase } from '@/lib/supabase';
 import axios from 'axios';
 import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import { XIcon } from '@heroicons/react/outline';
+import { uploadImg } from '@/util/uploadImg';
+import { getPublicUrl } from '@/util/getPublicUrl';
 
 const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
@@ -36,30 +37,10 @@ const CreateGear = () => {
     await axios.post('/api/create-gear', sendData);
   };
 
-  const uploadImage = async (formData: GearFormValue) => {
-    if (formData.img.length === 0) {
-      return { fileName: undefined };
-    } else {
-      const fileExt = formData.img[0].name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      await supabase.storage.from('gears').upload(fileName, formData.img[0]);
-
-      return { fileName };
-    }
-  };
-
-  const getPublicUrl = async (fileName: string) => {
-    const { data } = await supabase.storage
-      .from('gears')
-      .getPublicUrl(fileName);
-
-    return { publicUrl: data?.publicURL };
-  };
-
   const onSubmit = async (data: GearFormValue) => {
-    const { fileName } = await uploadImage(data);
-    if (fileName) {
-      const { publicUrl } = await getPublicUrl(fileName);
+    if (data.img.length === 0) {
+      const { fileName } = await uploadImg(data, 'gears');
+      const { publicUrl } = await getPublicUrl(fileName, 'gears');
       post(data, publicUrl);
     } else {
       post(data, undefined);
