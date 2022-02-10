@@ -6,8 +6,8 @@ import LoginUserState from '@/globalState/LoginUser';
 import NewEmailInput from '@/components/atoms/Input/Auth/NewEmailInput';
 import axios from 'axios';
 import { auth } from '@/lib/supabase';
-import { useState } from 'react';
 import SuccessToast from '@/components/atoms/Toast/SuccessToast';
+import useToast from '@/hooks/useToast';
 
 type FormValue = {
   email: string;
@@ -23,17 +23,14 @@ const ChangeEmail = () => {
   } = methods;
   const loginUser = useRecoilValue(LoginUserState);
   const updateLoginUser = useSetRecoilState(LoginUserState);
-  const [toastState, setToastState] = useState(false);
+  const { toastState, toggleToast, closeToast } = useToast();
   const onSubmit = async (data: FormValue) => {
     if (data.email === loginUser?.email) {
       const { user } = await auth.update({ email: data.newEmail });
       await axios.post('/api/change-email', data);
       const res = await axios.get(`/api/get-login-user/${user?.id}`);
       updateLoginUser(res.data);
-      setToastState(true);
-      setInterval(() => {
-        setToastState(false);
-      }, 4000);
+      toggleToast();
       reset();
     } else {
       alert('現在のメールアドレスが正しくありません');
@@ -64,7 +61,7 @@ const ChangeEmail = () => {
           </div>
         </form>
       </FormProvider>
-      <SuccessToast toastState={toastState}>
+      <SuccessToast toastState={toastState} closeToast={closeToast}>
         メールアドレスを変更しました
       </SuccessToast>
     </div>

@@ -12,12 +12,15 @@ import { useRouter } from 'next/router';
 import { uploadImg } from '@/util/uploadImg';
 import { getPublicUrl } from '@/util/getPublicUrl';
 import { updateImg } from '@/util/updateImg';
+import useToast from '@/hooks/useToast';
+import SuccessToast from '@/components/atoms/Toast/SuccessToast';
 
 type Props = {
   gearData: gears | null;
 };
 
 const UpdateGear: VFC<Props> = ({ gearData }) => {
+  const { toastState, toggleToast, closeToast } = useToast();
   const methods = useForm<GearFormValue>();
   const {
     handleSubmit,
@@ -37,7 +40,8 @@ const UpdateGear: VFC<Props> = ({ gearData }) => {
       webUrl: formData.url ?? null,
       imgUrl: imgUrl ?? null,
     };
-    await axios.post('/api/update-gear', { sendData, gearId });
+    const { data } = await axios.post('/api/update-gear', { sendData, gearId });
+    data && toggleToast();
   };
 
   const onSubmit = async (
@@ -62,41 +66,50 @@ const UpdateGear: VFC<Props> = ({ gearData }) => {
   };
 
   return (
-    <div className='bg-white p-2 py-12 rounded-md drop-shadow-md'>
-      <div className='flex flex-col items-center space-y-6'>
-        <h1 className='font-bold text-2xl'>Gearを編集</h1>
-        <FormProvider {...methods}>
-          <form
-            className='space-y-8'
-            onSubmit={handleSubmit((data) => onSubmit(data, gearData?.imgUrl))}
-          >
-            <div className='space-y-4'>
-              <div className=' space-x-4 border-b border-x-gray-200 p-4'>
-                <label className='w-full'>
-                  <span>Gearカテゴリー</span>
-                  <Select options={GearCategory} registerName='category' />
-                </label>
+    <div>
+      <SuccessToast toastState={toastState} closeToast={closeToast}>
+        Gearを更新しました
+      </SuccessToast>
+      <div className='bg-white p-2 py-12 rounded-md drop-shadow-md'>
+        <div className='flex flex-col items-center space-y-6'>
+          <h1 className='font-bold text-2xl'>Gearを編集</h1>
+          <FormProvider {...methods}>
+            <form
+              className='space-y-8'
+              onSubmit={handleSubmit((data) =>
+                onSubmit(data, gearData?.imgUrl)
+              )}
+            >
+              <div className='space-y-4'>
+                <div className=' space-x-4 border-b border-x-gray-200 p-4'>
+                  <label className='w-full'>
+                    <span>Gearカテゴリー</span>
+                    <Select options={GearCategory} registerName='category' />
+                  </label>
+                </div>
+
+                <UpdateGearLabel defaultValue={gearData?.name} label='製品' />
+                <UpdateGearLabel
+                  defaultValue={gearData?.maker}
+                  label='メーカー'
+                />
+                <UpdateGearLabel
+                  defaultValue={gearData?.webUrl ?? undefined}
+                  label='製品Url'
+                />
+                <div>
+                  <UpdateGearImage
+                    gearImageUrl={gearData?.imgUrl ?? undefined}
+                  />
+                </div>
               </div>
 
-              <UpdateGearLabel defaultValue={gearData?.name} label='製品' />
-              <UpdateGearLabel
-                defaultValue={gearData?.maker}
-                label='メーカー'
-              />
-              <UpdateGearLabel
-                defaultValue={gearData?.webUrl ?? undefined}
-                label='製品Url'
-              />
-              <div>
-                <UpdateGearImage gearImageUrl={gearData?.imgUrl ?? undefined} />
-              </div>
-            </div>
-
-            <PrimaryButton buttonType='submit' isLoading={isSubmitting}>
-              確定
-            </PrimaryButton>
-          </form>
-        </FormProvider>
+              <PrimaryButton buttonType='submit' isLoading={isSubmitting}>
+                確定
+              </PrimaryButton>
+            </form>
+          </FormProvider>
+        </div>
       </div>
     </div>
   );

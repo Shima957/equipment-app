@@ -19,7 +19,7 @@ const PrimaryButton: FC<Props> = ({
   return (
     <button
       type={buttonType}
-      className={`flex justify-center py-2 rounded-md text-sm font-medium border-0  transition-color duration-200 text-white bg-sky-500 hover:bg-sky-600 active:bg-sky-600 focus:ring-sky-300 focus:outline-none focus:ring disabled:opacity-50
+      className={`flex justify-center py-2 rounded-md text-sm font-medium transition-color duration-200 text-white bg-sky-500 hover:bg-sky-600 active:bg-sky-600 focus:ring focus:ring-sky-300 focus:ring-offset-2 focus:outline-none disabled:opacity-50
       ${buttonSize(size)}
       `}
       disabled={isLoading}
