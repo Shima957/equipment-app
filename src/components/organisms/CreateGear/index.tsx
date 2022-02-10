@@ -27,6 +27,7 @@ const CreateGear = () => {
   } = methods;
 
   const post = async (data: GearFormValue, imageUrl: string | undefined) => {
+
     const sendData = {
       category: data.category,
       name: data.name,
