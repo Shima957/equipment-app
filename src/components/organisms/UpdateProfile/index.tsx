@@ -10,6 +10,7 @@ import { users } from '@prisma/client';
 import axios from 'axios';
 import { supabase } from '@/lib/supabase';
 import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
+import type { UpdateProfielFormValue } from '@/types';
 
 type Props = {
   user: users | null;
@@ -17,26 +18,19 @@ type Props = {
   closeModal: () => void;
 };
 
-type FormValue = {
-  name: string;
-  twitterId: string;
-  soundCloudId: string;
-  avatar: File[];
-};
-
 const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
   const displayName = user?.display_name ? user.display_name : undefined;
   const twitter = user?.twitter_id ? user?.twitter_id : undefined;
   const soundCloud = user?.soundcloud_id ? user.soundcloud_id : undefined;
 
-  const methods = useForm<FormValue>();
+  const methods = useForm<UpdateProfielFormValue>();
   const {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = methods;
 
-  const updateProfile = async (
-    data: FormValue,
+  const post = async (
+    data: UpdateProfielFormValue,
     fileName: string | undefined
   ) => {
     const sendData = {
@@ -50,35 +44,33 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
     await axios.post('/api/update-profile', sendData);
   };
 
-  const getImageUrl = async (fileName: string) => {
+  const uploadImage = async (formData: UpdateProfielFormValue) => {
+    if (formData.img.length === 0) {
+      return { fileName: undefined };
+    } else {
+      const fileExt = formData.img[0].name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      await supabase.storage.from('avatar').upload(fileName, formData.img[0]);
+
+      return { fileName };
+    }
+  };
+
+  const getPublicUrl = async (fileName: string) => {
     const { data } = await supabase.storage
       .from('avatar')
       .getPublicUrl(fileName);
 
-    return { imageUrl: data?.publicURL };
+    return { publicUrl: data?.publicURL };
   };
 
-  const uploadImage = async (formData: FormValue) => {
-    if (formData.avatar.length === 0) {
-      return { fileName: undefined };
-    } else {
-      const fileExtension = formData.avatar[0].name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExtension}`;
-      await supabase.storage
-        .from('avatar')
-        .upload(fileName, formData.avatar[0]);
-
-      return { fileName: fileName };
-    }
-  };
-
-  const onSubmit = async (data: FormValue) => {
+  const onSubmit = async (data: UpdateProfielFormValue) => {
     const { fileName } = await uploadImage(data);
     if (fileName) {
-      const { imageUrl } = await getImageUrl(fileName);
-      await updateProfile(data, imageUrl);
+      const { publicUrl } = await getPublicUrl(fileName);
+      post(data, publicUrl);
     } else {
-      await updateProfile(data, fileName);
+      post(data, undefined);
     }
     closeModal();
   };
@@ -131,7 +123,7 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
                 <span>アイコン画像</span>
                 <div
                   className={`border rounded-md p-2 shadow-sm ${
-                    errors.avatar?.[0]?.type === 'required'
+                    errors.img?.[0]?.type === 'required'
                       ? 'border-red-500'
                       : 'border-gray-300'
                   }`}

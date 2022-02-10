@@ -8,7 +8,7 @@ type Props = {
 const SoundCloudIcon: VFC<Props> = ({ soundCloudId }) => {
   return (
     <a
-      href={`https://twitter.com/${soundCloudId}`}
+      href={`https://soundcloud.com/${soundCloudId}`}
       target='_blank'
       rel='noreferrer'
     >

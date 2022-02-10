@@ -16,6 +16,10 @@ const middleware = async (req: NextRequest) => {
   if (!token && pathname === paths.setting) {
     return NextResponse.redirect(paths.home)
   }
+
+  if (!token && pathname.includes('/gear/')) {
+    return NextResponse.redirect(paths.home)
+  }
 }
 
 export default middleware

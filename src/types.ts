@@ -11,7 +11,7 @@ export type SignUpFormValue = {
   confirm: string;
 }
 
-export type CreateGearValue = {
+export type GearFormValue = {
   category: string;
   name: string;
   maker: string;
@@ -19,7 +19,16 @@ export type CreateGearValue = {
   img: File[]
 }
 
+export type UpdateProfielFormValue = {
+  name: string;
+  twitterId: string;
+  soundCloudId: string;
+  img: File[];
+};
+
 export type MenuItems = {
   title: string | undefined | null;
   onClick?: (args?: any) => any
 };
+
+export type GearLabel = '製品' | 'メーカー' | '製品Url'

@@ -8,14 +8,25 @@ type Props = {
   tabPanels: string[];
   gears: (gears | null)[] | undefined;
   removeGear: (gearId: number | undefined) => void;
+  moveGearPage: (gearId: number | undefined) => void;
 };
 
-const TabPanel: VFC<Props> = ({ tabPanels, gears, removeGear }) => {
+const TabPanel: VFC<Props> = ({
+  tabPanels,
+  gears,
+  removeGear,
+  moveGearPage,
+}) => {
   const filteredPanel = (tabPanel: string) => {
     return gears
       ?.filter((gear) => gear?.category === tabPanel)
       .map((data) => (
-        <GearCard gear={data} key={data?.id} removeGear={removeGear} />
+        <GearCard
+          gear={data}
+          key={data?.id}
+          removeGear={removeGear}
+          moveGearPage={moveGearPage}
+        />
       ));
   };
 

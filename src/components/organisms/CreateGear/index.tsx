@@ -8,64 +8,43 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Modal from '../../molecules/Modal/index';
 import GearCategory from '@/util/GearCategory';
 import { FormProvider, useForm } from 'react-hook-form';
-import { CreateGearValue } from '@/types';
-import { supabase } from '@/lib/supabase';
+import { GearFormValue } from '@/types';
 import axios from 'axios';
 import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import { XIcon } from '@heroicons/react/outline';
+import { uploadImg } from '@/util/uploadImg';
+import { getPublicUrl } from '@/util/getPublicUrl';
 
 const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
   const onClose = () => setModalState(false);
   const modalSate = useRecoilValue(createGearModalState);
 
-  const methods = useForm<CreateGearValue>();
+  const methods = useForm<GearFormValue>();
   const {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = methods;
 
-  const postGear = async (
-    data: CreateGearValue,
-    fileName: string | undefined
-  ) => {
+  const post = async (data: GearFormValue, imageUrl: string | undefined) => {
+
     const sendData = {
       category: data.category,
       name: data.name,
       maker: data.maker,
       webUrl: data.url ? data.url : null,
-      imgUrl: fileName,
+      imgUrl: imageUrl,
     };
     await axios.post('/api/create-gear', sendData);
   };
 
-  const getImageUrl = async (fileName: string) => {
-    const { data } = await supabase.storage
-      .from('gears')
-      .getPublicUrl(fileName);
-
-    return { imageUrl: data?.publicURL };
-  };
-
-  const uploadImage = async (fromData: CreateGearValue) => {
-    if (fromData.img.length === 0) {
-      return { fileName: undefined };
+  const onSubmit = async (data: GearFormValue) => {
+    if (data.img.length === 0) {
+      const { fileName } = await uploadImg(data, 'gears');
+      const { publicUrl } = await getPublicUrl(fileName, 'gears');
+      post(data, publicUrl);
     } else {
-      const fileExtension = fromData.img[0].name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExtension}`;
-      await supabase.storage.from('gears').upload(fileName, fromData.img[0]);
-
-      return { fileName: fileName };
-    }
-  };
-
-  const onSubmit = async (data: CreateGearValue) => {
-    const { fileName } = await uploadImage(data);
-    if (fileName) {
-      const { imageUrl } = await getImageUrl(fileName);
-      await postGear(data, imageUrl);
-    } else {
-      await postGear(data, fileName);
+      post(data, undefined);
     }
     onClose();
   };
@@ -86,11 +65,15 @@ const CreateGear = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col space-y-6'>
             <label>
-              <span>Gearカテゴリー</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                Gearカテゴリー
+              </span>
               <Select options={GearCategory} registerName='category'></Select>
             </label>
             <label>
-              <span>Gear名</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                Gear名
+              </span>
               <TextInput
                 registerName='name'
                 required='Gear名は必須です'
@@ -101,7 +84,9 @@ const CreateGear = () => {
               )}
             </label>
             <label>
-              <span>メーカー</span>
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
+                メーカー
+              </span>
               <TextInput
                 registerName='maker'
                 required='メーカーは必須です'
