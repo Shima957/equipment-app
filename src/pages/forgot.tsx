@@ -3,6 +3,7 @@ import SecondaryButton from '@/components/atoms/Button/SecondaryButton';
 import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
 import ErrorToast from '@/components/atoms/Toast/ErrorToast';
 import SuccessToast from '@/components/atoms/Toast/SuccessToast';
+import useToast from '@/hooks/useToast';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
 import Head from 'next/head';
@@ -12,7 +13,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 const Forgot = () => {
   const route = useRouter();
-  const [toastState, setToastState] = useState(false);
+  const { toastState, toggleToast, closeToast } = useToast();
   const [errorToastState, setErrorToastState] = useState(false);
   const methods = useForm<{ email: string }>();
   const {
@@ -26,10 +27,7 @@ const Forgot = () => {
     });
 
     if (!error) {
-      setToastState(true);
-      setInterval(() => {
-        setToastState(false);
-      }, 4000);
+      toggleToast();
     } else {
       setErrorToastState(true);
       setInterval(() => {
@@ -67,7 +65,9 @@ const Forgot = () => {
           </div>
         </form>
       </FormProvider>
-      <SuccessToast toastState={toastState}>送信しました</SuccessToast>
+      <SuccessToast toastState={toastState} closeToast={closeToast}>
+        送信しました
+      </SuccessToast>
       <ErrorToast toastState={errorToastState}>送信に失敗しました</ErrorToast>
     </div>
   );

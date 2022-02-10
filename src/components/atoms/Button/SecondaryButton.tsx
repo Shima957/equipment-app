@@ -16,7 +16,7 @@ const SecondaryButton: FC<Props> = ({
   return (
     <button
       type={buttonType}
-      className={`flex justify-center items-center py-1 rounded-md border-2 font-bold text-gray-600 transition-colors duration-200 hover:bg-gray-300 focus:ring focus:outline-none focus:ring-gray-300
+      className={`flex justify-center items-center py-1 rounded-md border-2 font-bold text-gray-600 transition-colors duration-200 hover:bg-gray-300 focus:ring focus:outline-none focus:ring-gray-300 focus:ring-offset-2
       ${buttonSize(size)}
       `}
       onClick={onClick}

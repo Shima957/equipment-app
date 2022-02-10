@@ -3,8 +3,8 @@ import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
 import ConfirmPassword from '@/components/atoms/Input/Auth/ConfirmPassword';
 import PasswordInput from '@/components/atoms/Input/Auth/PasswordInput';
 import { auth } from '@/lib/supabase';
-import { useState } from 'react';
 import SuccessToast from '@/components/atoms/Toast/SuccessToast';
+import useToast from '@/hooks/useToast';
 
 type FormValue = {
   password: string;
@@ -12,7 +12,7 @@ type FormValue = {
 };
 
 const ChangePassowrd = () => {
-  const [toastState, setToastState] = useState(false);
+  const { toastState, toggleToast, closeToast } = useToast();
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
@@ -23,10 +23,7 @@ const ChangePassowrd = () => {
   const onSubmit = async (data: FormValue) => {
     await auth.update({ password: data.confirm });
     reset();
-    setToastState(true);
-    setInterval(() => {
-      setToastState(false);
-    }, 4000);
+    toggleToast();
   };
 
   return (
@@ -53,7 +50,7 @@ const ChangePassowrd = () => {
           </div>
         </form>
       </FormProvider>
-      <SuccessToast toastState={toastState}>
+      <SuccessToast toastState={toastState} closeToast={closeToast}>
         パスワードを変更しました
       </SuccessToast>
     </div>

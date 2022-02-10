@@ -19,7 +19,7 @@ const DengerButton: FC<Props> = ({
   return (
     <button
       type={buttonType}
-      className={`flex justify-center py-2 rounded-md text-sm font-medium border-0  transition-color duration-200 text-white bg-red-500 hover:bg-red-600 active:bg-red-600 focus:ring-red-300 focus:outline-none focus:ring disabled:opacity-50
+      className={`flex justify-center py-2 rounded-md text-sm font-medium border-0  transition-color duration-200 text-white bg-red-500 hover:bg-red-600 active:bg-red-600 focus:ring-red-300 focus:outline-none focus:ring focus:ring-offset-2 disabled:opacity-50
       ${buttonSize(size)}
       `}
       disabled={isLoading}
