@@ -27,24 +27,23 @@ const CreateGear = () => {
   } = methods;
 
   const post = async (data: GearFormValue, imageUrl: string | undefined) => {
-
     const sendData = {
       category: data.category,
       name: data.name,
       maker: data.maker,
       webUrl: data.url ? data.url : null,
-      imgUrl: imageUrl,
+      imgUrl: imageUrl ?? null,
     };
     await axios.post('/api/create-gear', sendData);
   };
 
   const onSubmit = async (data: GearFormValue) => {
     if (data.img.length === 0) {
+      post(data, undefined);
+    } else {
       const { fileName } = await uploadImg(data, 'gears');
       const { publicUrl } = await getPublicUrl(fileName, 'gears');
       post(data, publicUrl);
-    } else {
-      post(data, undefined);
     }
     onClose();
   };

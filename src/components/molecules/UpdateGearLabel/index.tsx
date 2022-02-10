@@ -12,7 +12,7 @@ const UpdateGearLabel: VFC<Props> = ({ defaultValue, label }) => {
   return (
     <div className='space-x-4 border-b border-gray-200 p-4'>
       <label className='w-full'>
-        <span>{label}</span>
+        <span className='font-bold'>{label}</span>
         <TextInput
           registerName={translateGearLabel(label) as string}
           defaultValue={defaultValue}

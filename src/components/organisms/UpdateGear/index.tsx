@@ -83,7 +83,7 @@ const UpdateGear: VFC<Props> = ({ gearData }) => {
               <div className='space-y-4'>
                 <div className=' space-x-4 border-b border-x-gray-200 p-4'>
                   <label className='w-full'>
-                    <span>Gearカテゴリー</span>
+                    <span className='font-bold'>Gearカテゴリー</span>
                     <Select options={GearCategory} registerName='category' />
                   </label>
                 </div>

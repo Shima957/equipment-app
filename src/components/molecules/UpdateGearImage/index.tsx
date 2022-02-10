@@ -20,7 +20,7 @@ const UpdateGearImage: VFC<Props> = ({ gearImageUrl }) => {
   return (
     <div className='max-w[300px] space-y-2'>
       <div className='flex justify-start px-4 cursor-default'>
-        <span>Gear画像</span>
+        <span className='font-bold'>Gear画像</span>
       </div>
       <div className='flex flex-col items-center space-y-4'>
         <label className='space-y-2 flex flex-col items-center'>
