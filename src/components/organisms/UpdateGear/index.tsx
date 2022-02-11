@@ -14,6 +14,7 @@ import { getPublicUrl } from '@/util/getPublicUrl';
 import { updateImg } from '@/util/updateImg';
 import useToast from '@/hooks/useToast';
 import SuccessToast from '@/components/atoms/Toast/SuccessToast';
+import { compressionImg } from '@/util/compressionImg';
 
 type Props = {
   gearData: gears | null;
@@ -54,13 +55,15 @@ const UpdateGear: VFC<Props> = ({ gearData }) => {
     }
     if (!currentImgUrl && data.img.length === 1) {
       // 新しく画像をアップロードする場合
-      const { fileName } = await uploadImg(data, 'gears');
+      const { compressedImg } = await compressionImg(data.img[0]);
+      const { fileName } = await uploadImg(compressedImg, 'gears');
       const { publicUrl } = await getPublicUrl(fileName, 'gears');
       await updateGear(data, publicUrl);
     }
     if (currentImgUrl && data.img.length === 1) {
       // すでに存在する画像を更新する
-      await updateImg('gears', currentImgUrl, data.img[0]);
+      const { compressedImg } = await compressionImg(data.img[0]);
+      await updateImg('gears', currentImgUrl, compressedImg);
       await updateGear(data, currentImgUrl);
     }
   };

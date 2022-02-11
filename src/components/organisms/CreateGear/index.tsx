@@ -14,6 +14,7 @@ import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import { XIcon } from '@heroicons/react/outline';
 import { uploadImg } from '@/util/uploadImg';
 import { getPublicUrl } from '@/util/getPublicUrl';
+import { compressionImg } from '@/util/compressionImg';
 
 const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
@@ -41,7 +42,8 @@ const CreateGear = () => {
     if (data.img.length === 0) {
       post(data, undefined);
     } else {
-      const { fileName } = await uploadImg(data, 'gears');
+      const { compressedImg } = await compressionImg(data.img[0]);
+      const { fileName } = await uploadImg(compressedImg, 'gears');
       const { publicUrl } = await getPublicUrl(fileName, 'gears');
       post(data, publicUrl);
     }
