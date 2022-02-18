@@ -1,6 +1,6 @@
 import paths from '@/paths';
 import Link from 'next/link';
-import AccountNav from '../AccountNav';
+import HeaderNav from '../HeaderNav';
 import mountedState from '@/globalState/mounted';
 import { useRecoilValue } from 'recoil';
 
@@ -18,7 +18,7 @@ const Header = () => {
             mounted && 'opacity-100'
           }`}
         >
-          <AccountNav />
+          <HeaderNav />
         </div>
       </div>
     </header>
