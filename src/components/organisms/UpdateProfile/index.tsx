@@ -8,9 +8,11 @@ import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
 import FileInput from '@/components/atoms/Input/FileInput';
 import { users } from '@prisma/client';
 import axios from 'axios';
-import { supabase } from '@/lib/supabase';
 import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
 import type { UpdateProfielFormValue } from '@/types';
+import { uploadImg } from '@/util/uploadImg';
+import { getPublicUrl } from '@/util/getPublicUrl';
+import { updateImg } from '@/util/updateImg';
 
 type Props = {
   user: users | null;
@@ -22,6 +24,7 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
   const displayName = user?.display_name ? user.display_name : undefined;
   const twitter = user?.twitter_id ? user?.twitter_id : undefined;
   const soundCloud = user?.soundcloud_id ? user.soundcloud_id : undefined;
+  const currentImgUrl = user?.avatar_url ? user.avatar_url : undefined;
 
   const methods = useForm<UpdateProfielFormValue>();
   const {
@@ -29,7 +32,7 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
     formState: { errors, isSubmitting },
   } = methods;
 
-  const post = async (
+  const updateProfile = async (
     data: UpdateProfielFormValue,
     fileName: string | undefined
   ) => {
@@ -44,33 +47,21 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
     await axios.post('/api/update-profile', sendData);
   };
 
-  const uploadImage = async (formData: UpdateProfielFormValue) => {
-    if (formData.img.length === 0) {
-      return { fileName: undefined };
-    } else {
-      const fileExt = formData.img[0].name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      await supabase.storage.from('avatar').upload(fileName, formData.img[0]);
-
-      return { fileName };
-    }
-  };
-
-  const getPublicUrl = async (fileName: string) => {
-    const { data } = await supabase.storage
-      .from('avatar')
-      .getPublicUrl(fileName);
-
-    return { publicUrl: data?.publicURL };
-  };
-
   const onSubmit = async (data: UpdateProfielFormValue) => {
-    const { fileName } = await uploadImage(data);
-    if (fileName) {
-      const { publicUrl } = await getPublicUrl(fileName);
-      post(data, publicUrl);
-    } else {
-      post(data, undefined);
+    if (data.img.length === 0) {
+      // 画像は更新しない場合
+      updateProfile(data, currentImgUrl);
+    }
+    if (!currentImgUrl && data.img.length === 1) {
+      // 新しく画像をアップロードする場合
+      const { fileName } = await uploadImg(data, 'avatar');
+      const { publicUrl } = await getPublicUrl(fileName, 'avatar');
+      await updateProfile(data, publicUrl);
+    }
+    if (currentImgUrl && data.img.length === 1) {
+      // すでに存在する画像を更新する
+      await updateImg('avatar', currentImgUrl, data.img[0]);
+      await updateProfile(data, currentImgUrl);
     }
     closeModal();
   };
@@ -128,7 +119,7 @@ const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
                       : 'border-gray-300'
                   }`}
                 >
-                  <FileInput registerName='avatar' />
+                  <FileInput registerName='img' />
                 </div>
               </label>
               <div className='flex justify-end space-x-2'>
