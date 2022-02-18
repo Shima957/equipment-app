@@ -13,7 +13,7 @@ import addGearModalState from '@/globalState/addGearModalState';
 import CreateGear from '../../organisms/CreateGear';
 import AddUsingGear from '../../organisms/AddUsingGear';
 
-const AccountNav = () => {
+const HeaderNav = () => {
   const route = useRouter();
   const loginUser = useRecoilValue(LoginUserState);
   const onOpenCreateGearModal = useSetRecoilState(createGearModalState);
@@ -69,4 +69,4 @@ const AccountNav = () => {
   );
 };
 
-export default AccountNav;
+export default HeaderNav;
