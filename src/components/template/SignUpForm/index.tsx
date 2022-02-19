@@ -1,24 +1,23 @@
-import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
-import PasswordInput from '../../atoms/Input/Auth/PasswordInput';
-import UserIdInput from '../../atoms/Input/Auth/UserIdInput';
 import Link from 'next/link';
-import PrimaryButton from '../../atoms/Button/PrimaryButton';
 import paths from '@/paths';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
-import ConfirmPassword from '../../atoms/Input/Auth/ConfirmPassword';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SignUpFormValue } from '@/types';
-import UserNameInput from '../../atoms/Input/Auth/UserNameInput';
+import { Form } from '@/components/atoms/Form';
+import { FormField } from '@/components/atoms/FormField';
+import { Input } from '@/components/atoms/Input';
+import { Button } from '@/components/atoms/Button';
 
 const SignUpForm = () => {
   const route = useRouter();
   const methods = useForm<SignUpFormValue>();
   const {
+    register,
     handleSubmit,
     reset,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
 
   const onSubmit = async (data: SignUpFormValue) => {
@@ -51,51 +50,51 @@ const SignUpForm = () => {
   return (
     <div className='space-y-8 w-full border-2 border-gray-200 rounded-md p-10 bg-white'>
       <h2 className='text-xl font-bold text-gray-700 text-center'>新規登録</h2>
-
-      <FormProvider {...methods}>
-        <form
-          className='flex flex-col items-center space-y-8 w-full'
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <label>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              ユーザネーム
-            </span>
-            <UserNameInput />
-          </label>
-          <label>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              ユーザーID
-            </span>
-            <UserIdInput />
-          </label>
-          <label>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              メールアドレス
-            </span>
-            <EmailInput />
-          </label>
-
-          <label>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              パスワード
-            </span>
-            <PasswordInput />
-          </label>
-
-          <label>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              パスワードの確認
-            </span>
-            <ConfirmPassword />
-          </label>
-
-          <PrimaryButton buttonType='submit' isLoading={isSubmitting} size='lg'>
-            登録
-          </PrimaryButton>
-        </form>
-      </FormProvider>
-
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormField label='ユーザーネーム' error={errors.displayName} required>
+          <Input
+            type='text'
+            placeholder='ユーザーネーム'
+            registeration={register('displayName', {
+              required: 'ユーザーネームは必須です',
+            })}
+            error={errors.displayName}
+          />
+        </FormField>
+        <FormField label='ユーザーID' error={errors.userId} required>
+          <Input
+            type='text'
+            placeholder='ユーザーID'
+            registeration={register('userId', {
+              required: 'ユーザーIDは必須です',
+            })}
+            error={errors.userId}
+          />
+        </FormField>
+        <FormField label='メールアドレス' error={errors.email} required>
+          <Input
+            type='email'
+            placeholder='メールアドレス'
+            registeration={register('email', {
+              required: 'メールアドレスは必須です',
+            })}
+            error={errors.email}
+          />
+        </FormField>
+        <FormField label='パスワード' error={errors.password} required>
+          <Input
+            type='password'
+            placeholder='パスワード'
+            registeration={register('password', {
+              required: 'パスワードは必須です',
+            })}
+            error={errors.password}
+          />
+        </FormField>
+        <Button type='submit' size='full' isLoading={isSubmitting}>
+          登録
+        </Button>
+      </Form>
       <div className='text-center'>
         <Link href={paths.signIn}>
           <a className='text-sm text-blue-400 underline hover:text-blue-500'>

@@ -6,7 +6,7 @@ import LoginUserState from '@/globalState/LoginUser';
 import { useRouter } from 'next/router';
 import { auth } from '@/lib/supabase';
 import paths from '@/paths';
-import PrimaryButton from '../../atoms/Button/PrimaryButton';
+import { Button } from '../../atoms/Button';
 import PrimaryLink from '../../atoms/Button/LinkButton/PrimaryLink';
 import createGearModalState from '@/globalState/createGearModalState';
 import addGearModalState from '@/globalState/addGearModalState';
@@ -39,20 +39,20 @@ const HeaderNav = () => {
       ) : null}
       {loginUser && (
         <div className='flex items-center space-x-2 transition-opacity duration-500'>
-          <PrimaryButton
-            buttonType='button'
+          <Button
+            type='button'
             onClick={() => onOpenAddGearModal(true)}
             size='md'
           >
             Gearを追加
-          </PrimaryButton>
-          <PrimaryButton
-            buttonType='button'
+          </Button>
+          <Button
+            type='button'
             onClick={() => onOpenCreateGearModal(true)}
             size='md'
           >
             Gearを作成
-          </PrimaryButton>
+          </Button>
           <Menu as='div' className='relative'>
             <Menu.Button className='rounded-full p-2 bg-slate-400'>
               <UserIcon className=' text-white h-6 w-6' />

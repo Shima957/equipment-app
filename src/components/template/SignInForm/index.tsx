@@ -1,11 +1,12 @@
-import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
-import PasswordInput from '../../atoms/Input/Auth/PasswordInput';
 import Link from 'next/link';
-import PrimaryButton from '../../atoms/Button/PrimaryButton';
 import paths from '@/paths';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
 import { useRouter } from 'next/router';
+import { Form } from '@/components/atoms/Form';
+import { FormField } from '@/components/atoms/FormField';
+import { Input } from '@/components/atoms/Input';
+import { Button } from '@/components/atoms/Button';
 
 export type FormValue = {
   email: string;
@@ -16,8 +17,9 @@ const SignInForm = () => {
   const route = useRouter();
   const methods = useForm<FormValue>();
   const {
+    register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
 
   const onSubmit = async (data: FormValue) => {
@@ -35,31 +37,31 @@ const SignInForm = () => {
   return (
     <div className='space-y-8 w-full border-2 border-gray-200 rounded-md p-10 bg-white'>
       <h2 className='text-xl font-bold text-gray-700 text-center'>ログイン</h2>
-
-      <FormProvider {...methods}>
-        <form
-          className='flex flex-col items-center space-y-8 w-full'
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <label>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              メールアドレス
-            </span>
-            <EmailInput />
-          </label>
-
-          <label>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
-              パスワード
-            </span>
-            <PasswordInput />
-          </label>
-
-          <PrimaryButton buttonType='submit' isLoading={isSubmitting} size='lg'>
-            ログイン
-          </PrimaryButton>
-        </form>
-      </FormProvider>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormField label='メールアドレス' error={errors.email} required>
+          <Input
+            type='email'
+            placeholder='メールアドレス'
+            registeration={register('email', {
+              required: 'メールアドレスを入力して下さい',
+            })}
+            error={errors.email}
+          />
+        </FormField>
+        <FormField label='パスワード' error={errors.password} required>
+          <Input
+            type='password'
+            placeholder='パスワード'
+            registeration={register('password', {
+              required: 'パスワードを入力して下さい',
+            })}
+            error={errors.password}
+          />
+        </FormField>
+        <Button type='submit' size='full' isLoading={isSubmitting}>
+          ログイン
+        </Button>
+      </Form>
 
       <div className='text-center'>
         <Link href={paths.forgot}>

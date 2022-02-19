@@ -1,10 +1,11 @@
-import { FormProvider, useForm } from 'react-hook-form';
-import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
-import ConfirmPassword from '@/components/atoms/Input/Auth/ConfirmPassword';
-import PasswordInput from '@/components/atoms/Input/Auth/PasswordInput';
+import { useForm } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
 import SuccessToast from '@/components/atoms/Toast/SuccessToast';
 import useToast from '@/hooks/useToast';
+import { Button } from '@/components/atoms/Button';
+import { FormField } from '@/components/atoms/FormField';
+import { Input } from '@/components/atoms/Input';
+import { Form } from '@/components/atoms/Form';
 
 type FormValue = {
   password: string;
@@ -13,12 +14,13 @@ type FormValue = {
 
 const ChangePassowrd = () => {
   const { toastState, toggleToast, closeToast } = useToast();
-  const methods = useForm<FormValue>();
   const {
+    register,
+    getValues,
     handleSubmit,
     reset,
-    formState: { isSubmitting },
-  } = methods;
+    formState: { isSubmitting, errors },
+  } = useForm<FormValue>();
 
   const onSubmit = async (data: FormValue) => {
     await auth.update({ password: data.confirm });
@@ -27,29 +29,37 @@ const ChangePassowrd = () => {
   };
 
   return (
-    <div>
+    <div className='w-[400px]'>
       <h2 className='font-bold text-lg'>パスワードの変更</h2>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex flex-col items-center space-y-3'>
-            <label className='flex flex-col'>
-              <span className='ml-1'>新しいパスワード</span>
-              <PasswordInput />
-            </label>
-            <label className='flex flex-col'>
-              <span className='ml-1'>確認のためもう一度入力して下さい</span>
-              <ConfirmPassword />
-            </label>
-            <PrimaryButton
-              buttonType='submit'
-              size='md'
-              isLoading={isSubmitting}
-            >
-              パスワードを変更する
-            </PrimaryButton>
-          </div>
-        </form>
-      </FormProvider>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormField label='新しいパスワード'>
+          <Input
+            type='password'
+            placeholder='新しいパスワード'
+            registeration={register('password', {
+              required: '新しいパスワードを入力して下さい',
+            })}
+            error={errors.password}
+          />
+        </FormField>
+        <FormField label='確認パスワード'>
+          <Input
+            type='password'
+            placeholder='パスワードの確認'
+            registeration={register('confirm', {
+              required: '確認用パスワードを入力して下さい',
+              validate: (value) =>
+                value === getValues('password')
+                  ? undefined
+                  : 'パスワードが一致しません',
+            })}
+            error={errors.confirm}
+          />
+        </FormField>
+        <Button type='submit' isLoading={isSubmitting}>
+          パスワードを変更する
+        </Button>
+      </Form>
       <SuccessToast toastState={toastState} closeToast={closeToast}>
         パスワードを変更しました
       </SuccessToast>
