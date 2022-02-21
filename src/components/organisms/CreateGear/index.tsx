@@ -14,6 +14,7 @@ import { getPublicUrl } from '@/util/getPublicUrl';
 import { Form } from '@/components/atoms/Form';
 import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
+import { compressionImg } from '@/util/compressionImg';
 
 export const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
@@ -41,7 +42,8 @@ export const CreateGear = () => {
     if (data.img.length === 0) {
       post(data, undefined);
     } else {
-      const { fileName } = await uploadImg(data, 'gears');
+      const { compressedImg } = await compressionImg(data.img[0]);
+      const { fileName } = await uploadImg(compressedImg, 'gears');
       const { publicUrl } = await getPublicUrl(fileName, 'gears');
       post(data, publicUrl);
     }
