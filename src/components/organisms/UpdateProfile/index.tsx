@@ -54,7 +54,7 @@ export const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
     }
     if (!currentImgUrl && data.img.length === 1) {
       // 新しく画像をアップロードする場合
-      const { fileName } = await uploadImg(data, 'avatar');
+      const { fileName } = await uploadImg(data.img[0], 'avatar');
       const { publicUrl } = await getPublicUrl(fileName, 'avatar');
       await updateProfile(data, publicUrl);
     }
