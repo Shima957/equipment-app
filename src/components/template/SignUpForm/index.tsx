@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import paths from '@/paths';
+import { Link } from '@/components/atoms/RouterLink';
+import { paths } from '@/paths';
 import { useForm } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
 import { Button } from '@/components/atoms/Button';
 
-const SignUpForm = () => {
+export const SignUpForm = () => {
   const route = useRouter();
   const methods = useForm<SignUpFormValue>();
   const {
@@ -105,5 +105,3 @@ const SignUpForm = () => {
     </div>
   );
 };
-
-export default SignUpForm;

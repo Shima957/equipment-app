@@ -6,7 +6,7 @@ type Props = {
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
-const Select: VFC<Props> = ({ options, registeration, onChange }) => {
+export const Select: VFC<Props> = ({ options, registeration, onChange }) => {
   return (
     <div className='relative inline-block w-full text-gray-700'>
       <select
@@ -32,5 +32,3 @@ const Select: VFC<Props> = ({ options, registeration, onChange }) => {
     </div>
   );
 };
-
-export default Select;

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import paths from '@/paths';
+import { paths } from '@/paths';
 import { useForm } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
 import { useRouter } from 'next/router';
@@ -13,7 +13,7 @@ export type FormValue = {
   password: string;
 };
 
-const SignInForm = () => {
+export const SignInForm = () => {
   const route = useRouter();
   const methods = useForm<FormValue>();
   const {
@@ -73,5 +73,3 @@ const SignInForm = () => {
     </div>
   );
 };
-
-export default SignInForm;

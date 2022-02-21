@@ -1,28 +1,31 @@
-import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
-import UpdateGearImage from '@/components/molecules/UpdateGearImage';
-import UpdateGearLabel from '@/components/molecules/UpdateGearLabel';
+import { Button } from '@/components/atoms/Button';
+import { UpdateGearImage } from '@/components/molecules/UpdateGearImage';
 import { GearFormValue } from '@/types';
 import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import Select from '@/components/atoms/Select';
+import { Select } from '@/components/atoms/Select';
 import GearCategory from '@/util/GearCategory';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { uploadImg } from '@/util/uploadImg';
 import { getPublicUrl } from '@/util/getPublicUrl';
 import { updateImg } from '@/util/updateImg';
-import useToast from '@/hooks/useToast';
-import SuccessToast from '@/components/atoms/Toast/SuccessToast';
+import { useToast } from '@/hooks';
+import { SuccessToast } from '@/components/atoms/Toast';
+import { FormField } from '@/components/atoms/FormField';
+import { Form } from '@/components/atoms/Form';
+import { Input } from '@/components/atoms/Input';
 
 type Props = {
   gearData: gears | null;
 };
 
-const UpdateGear: VFC<Props> = ({ gearData }) => {
+export const UpdateGear: VFC<Props> = ({ gearData }) => {
   const { toastState, toggleToast, closeToast } = useToast();
   const methods = useForm<GearFormValue>();
   const {
+    register,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
@@ -74,29 +77,43 @@ const UpdateGear: VFC<Props> = ({ gearData }) => {
         <div className='flex flex-col items-center space-y-6'>
           <h1 className='font-bold text-2xl'>Gearを編集</h1>
           <FormProvider {...methods}>
-            <form
-              className='space-y-8'
+            <Form
               onSubmit={handleSubmit((data) =>
                 onSubmit(data, gearData?.imgUrl)
               )}
             >
               <div className='space-y-4'>
-                <div className=' space-x-4 border-b border-x-gray-200 p-4'>
-                  <label className='w-full'>
-                    <span className='font-bold'>Gearカテゴリー</span>
-                    <Select options={GearCategory} registerName='category' />
-                  </label>
-                </div>
+                <FormField label='Gearカテゴリー'>
+                  <Select
+                    options={GearCategory}
+                    registeration={register('category')}
+                  />
+                </FormField>
 
-                <UpdateGearLabel defaultValue={gearData?.name} label='製品' />
-                <UpdateGearLabel
-                  defaultValue={gearData?.maker}
-                  label='メーカー'
-                />
-                <UpdateGearLabel
-                  defaultValue={gearData?.webUrl ?? undefined}
-                  label='製品Url'
-                />
+                <FormField label='製品'>
+                  <Input
+                    defaultValue={gearData?.name}
+                    type='text'
+                    registeration={register('name')}
+                  />
+                </FormField>
+
+                <FormField label='メーカー'>
+                  <Input
+                    defaultValue={gearData?.maker}
+                    type='text'
+                    registeration={register('maker')}
+                  />
+                </FormField>
+
+                <FormField label='製品Url'>
+                  <Input
+                    defaultValue={gearData?.webUrl ?? undefined}
+                    type='text'
+                    registeration={register('url')}
+                  />
+                </FormField>
+
                 <div>
                   <UpdateGearImage
                     gearImageUrl={gearData?.imgUrl ?? undefined}
@@ -104,15 +121,13 @@ const UpdateGear: VFC<Props> = ({ gearData }) => {
                 </div>
               </div>
 
-              <PrimaryButton buttonType='submit' isLoading={isSubmitting}>
+              <Button type='submit' isLoading={isSubmitting}>
                 確定
-              </PrimaryButton>
-            </form>
+              </Button>
+            </Form>
           </FormProvider>
         </div>
       </div>
     </div>
   );
 };
-
-export default UpdateGear;

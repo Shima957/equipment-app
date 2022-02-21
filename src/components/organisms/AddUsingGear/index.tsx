@@ -1,5 +1,5 @@
-import Modal from '@/components/molecules/Modal';
-import Select from '@/components/atoms/Select';
+import { Modal } from '@/components/molecules/Modal';
+import { Select } from '@/components/atoms/Select';
 import addGearModalState from '@/globalState/addGearModalState';
 import GearCategory from '@/util/GearCategory';
 import { useForm } from 'react-hook-form';
@@ -7,18 +7,18 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Button } from '@/components/atoms/Button';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import FormErrorMessage from '@/components/atoms/Text/FormErrorMessage';
+import { FormErrorMessage } from '@/components/atoms/Text/FormErrorMessage';
 import LoginUserState from '@/globalState/LoginUser';
 import { gears } from '@prisma/client';
 import { XIcon } from '@heroicons/react/outline';
 import { useSWRConfig } from 'swr';
-import useGear from '@/hooks/useGear';
+import { useGear } from '@/hooks';
 import { Form } from '@/components/atoms/Form';
 import { FormField } from '@/components/atoms/FormField';
 
 type FormValue = { category: string; name: string };
 
-const AddUsingGear = () => {
+export const AddUsingGear = () => {
   const setModalState = useSetRecoilState(addGearModalState);
   const onClose = () => setModalState(false);
   const modalState = useRecoilValue(addGearModalState);
@@ -150,5 +150,3 @@ const AddUsingGear = () => {
     </Modal>
   );
 };
-
-export default AddUsingGear;

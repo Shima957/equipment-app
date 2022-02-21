@@ -6,7 +6,7 @@ type Props = {
   user: users | null;
 };
 
-const Avatar: VFC<Props> = ({ user }) => {
+export const Avatar: VFC<Props> = ({ user }) => {
   return (
     <Image
       src={user?.avatar_url ?? '/user.png'}
@@ -18,5 +18,3 @@ const Avatar: VFC<Props> = ({ user }) => {
     />
   );
 };
-
-export default Avatar;

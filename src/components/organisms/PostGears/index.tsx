@@ -3,11 +3,11 @@ import { VFC } from 'react';
 import { Tab } from '@headlessui/react';
 import GearCategory from '@/util/GearCategory';
 import axios from 'axios';
-import TabList from '@/components/molecules/TabList';
-import TabPanel from '@/components/molecules/TabIPanel';
+import { TabList } from '@/components/molecules/TabList';
+import { TabPanel } from '@/components/molecules/TabIPanel';
 import { useRecoilValue } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
-import useGear from '@/hooks/useGear';
+import { useGear } from '@/hooks';
 import { useSWRConfig } from 'swr';
 import { useRouter } from 'next/router';
 
@@ -15,7 +15,7 @@ type Props = {
   gears: (gears | null)[];
 };
 
-const PostGears: VFC<Props> = ({ gears }) => {
+export const PostGears: VFC<Props> = ({ gears }) => {
   const route = useRouter();
   const loginUser = useRecoilValue(LoginUserState);
   const { data } = useGear(loginUser?.user_id);
@@ -55,5 +55,3 @@ const PostGears: VFC<Props> = ({ gears }) => {
     </>
   );
 };
-
-export default PostGears;

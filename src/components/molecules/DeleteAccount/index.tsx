@@ -3,7 +3,7 @@ import { auth } from '@/lib/supabase';
 import axios from 'axios';
 import { FormProvider, useForm } from 'react-hook-form';
 
-const DeleteAccount = () => {
+export const DeleteAccount = () => {
   const methods = useForm();
   const {
     handleSubmit,
@@ -33,5 +33,3 @@ const DeleteAccount = () => {
     </FormProvider>
   );
 };
-
-export default DeleteAccount;

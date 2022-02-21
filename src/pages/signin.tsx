@@ -1,7 +1,7 @@
-import SignInForm from '@/components/template/SignInForm';
-import GreenButton from '@/components/atoms/Button/LinkButton/GreenButton';
-import paths from '@/paths';
+import { SignInForm } from '@/components/template/SignInForm';
+import { paths } from '@/paths';
 import Head from 'next/head';
+import { ButtonLink } from '@/components/atoms/ButtonLink/ButtonLink';
 
 const SignIn = () => {
   return (
@@ -11,7 +11,11 @@ const SignIn = () => {
       </Head>
       <SignInForm />
       <div className='mt-10 w-1/2 mx-auto'>
-        <GreenButton href={paths.signUp}>アカウント作成</GreenButton>
+        <ButtonLink
+          title='アカウント作成'
+          variant='green'
+          href={paths.signUp}
+        />
       </div>
     </div>
   );

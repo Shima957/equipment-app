@@ -1,19 +1,19 @@
 import { UserIcon } from '@heroicons/react/outline';
 import { Menu } from '@headlessui/react';
-import DropDown from '../DropDown';
+import { DropDown } from '../DropDown';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
 import { useRouter } from 'next/router';
 import { auth } from '@/lib/supabase';
-import paths from '@/paths';
+import { paths } from '@/paths';
 import { Button } from '../../atoms/Button';
-import PrimaryLink from '../../atoms/Button/LinkButton/PrimaryLink';
+import { ButtonLink } from '@/components/atoms/ButtonLink';
 import createGearModalState from '@/globalState/createGearModalState';
 import addGearModalState from '@/globalState/addGearModalState';
-import CreateGear from '../../organisms/CreateGear';
-import AddUsingGear from '../../organisms/AddUsingGear';
+import { CreateGear } from '../../organisms/CreateGear';
+import { AddUsingGear } from '../../organisms/AddUsingGear';
 
-const HeaderNav = () => {
+export const HeaderNav = () => {
   const route = useRouter();
   const loginUser = useRecoilValue(LoginUserState);
   const onOpenCreateGearModal = useSetRecoilState(createGearModalState);
@@ -33,9 +33,12 @@ const HeaderNav = () => {
   return (
     <nav className='flex items-center space-x-2'>
       {!loginUser ? (
-        <PrimaryLink href={paths.signIn} size='md'>
-          ログイン
-        </PrimaryLink>
+        <ButtonLink
+          href={paths.signIn}
+          variant='primary'
+          title='ログイン'
+          size='md'
+        />
       ) : null}
       {loginUser && (
         <div className='flex items-center space-x-2 transition-opacity duration-500'>
@@ -68,5 +71,3 @@ const HeaderNav = () => {
     </nav>
   );
 };
-
-export default HeaderNav;

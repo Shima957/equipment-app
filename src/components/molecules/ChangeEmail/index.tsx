@@ -3,8 +3,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import LoginUserState from '@/globalState/LoginUser';
 import axios from 'axios';
 import { auth } from '@/lib/supabase';
-import SuccessToast from '@/components/atoms/Toast/SuccessToast';
-import useToast from '@/hooks/useToast';
+import { SuccessToast } from '@/components/atoms/Toast';
+import { useToast } from '@/hooks';
 import { Form } from '@/components/atoms/Form';
 import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
@@ -15,7 +15,7 @@ type FormValue = {
   newEmail: string;
 };
 
-const ChangeEmail = () => {
+export const ChangeEmail = () => {
   const {
     register,
     handleSubmit,
@@ -72,5 +72,3 @@ const ChangeEmail = () => {
     </div>
   );
 };
-
-export default ChangeEmail;

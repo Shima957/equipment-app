@@ -7,7 +7,7 @@ type Props = {
   gearImageUrl: string | undefined;
 };
 
-const UpdateGearImage: VFC<Props> = ({ gearImageUrl }) => {
+export const UpdateGearImage: VFC<Props> = ({ gearImageUrl }) => {
   const { register } = useFormContext();
   const [previewImg, setPreviewImg] = useState(gearImageUrl);
   const changeFile = (event: ChangeEvent<HTMLInputElement>) => {
@@ -51,5 +51,3 @@ const UpdateGearImage: VFC<Props> = ({ gearImageUrl }) => {
     </div>
   );
 };
-
-export default UpdateGearImage;

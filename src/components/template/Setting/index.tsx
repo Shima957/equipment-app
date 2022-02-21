@@ -1,9 +1,9 @@
 import { Tab } from '@headlessui/react';
-import ChangeEmail from '../../molecules/ChangeEmail';
-import ChangePassowrd from '../../molecules/ChangePassword';
-import DeleteAccount from '../../molecules/DeleteAccount';
+import { ChangeEmail } from '../../molecules/ChangeEmail';
+import { ChangePassowrd } from '../../molecules/ChangePassword';
+import { DeleteAccount } from '../../molecules/DeleteAccount';
 
-const SettingLyout = () => {
+export const SettingLyout = () => {
   const tabList = [
     { title: 'メールアドレスを変更する' },
     { title: 'パスワードを変更する' },
@@ -41,5 +41,3 @@ const SettingLyout = () => {
     </Tab.Group>
   );
 };
-
-export default SettingLyout;

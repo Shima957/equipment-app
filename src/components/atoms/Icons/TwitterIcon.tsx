@@ -5,7 +5,7 @@ type Props = {
   tiwtterId: string;
 };
 
-const TwitterIcon: VFC<Props> = ({ tiwtterId }) => {
+export const TwitterIcon: VFC<Props> = ({ tiwtterId }) => {
   return (
     <a
       href={`https://twitter.com/${tiwtterId}`}
@@ -16,5 +16,3 @@ const TwitterIcon: VFC<Props> = ({ tiwtterId }) => {
     </a>
   );
 };
-
-export default TwitterIcon;

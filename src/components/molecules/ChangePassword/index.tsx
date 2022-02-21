@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { auth } from '@/lib/supabase';
-import SuccessToast from '@/components/atoms/Toast/SuccessToast';
-import useToast from '@/hooks/useToast';
+import { SuccessToast } from '@/components/atoms/Toast';
+import { useToast } from '@/hooks';
 import { Button } from '@/components/atoms/Button';
 import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
@@ -12,7 +12,7 @@ type FormValue = {
   confirm: string;
 };
 
-const ChangePassowrd = () => {
+export const ChangePassowrd = () => {
   const { toastState, toggleToast, closeToast } = useToast();
   const {
     register,
@@ -66,5 +66,3 @@ const ChangePassowrd = () => {
     </div>
   );
 };
-
-export default ChangePassowrd;

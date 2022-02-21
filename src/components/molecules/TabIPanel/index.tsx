@@ -1,7 +1,7 @@
 import { Tab } from '@headlessui/react';
 import { gears } from '@prisma/client';
 import { VFC } from 'react';
-import GearCard from '@/components/molecules/GearCard';
+import { GearCard } from '@/components/molecules/GearCard';
 import Skeleton from '../GearCard/Skeleton';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
   moveGearPage: (gearId: number | undefined) => void;
 };
 
-const TabPanel: VFC<Props> = ({
+export const TabPanel: VFC<Props> = ({
   tabPanels,
   gears,
   removeGear,
@@ -50,5 +50,3 @@ const TabPanel: VFC<Props> = ({
     </Tab.Panels>
   );
 };
-
-export default TabPanel;

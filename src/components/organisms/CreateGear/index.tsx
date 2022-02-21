@@ -1,9 +1,9 @@
 import { Button } from '@/components/atoms/Button';
 import { FileInput } from '@/components/atoms/FileInput';
-import Select from '@/components/atoms/Select';
+import { Select } from '@/components/atoms/Select';
 import createGearModalState from '@/globalState/createGearModalState';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import Modal from '../../molecules/Modal/index';
+import { Modal } from '../../molecules/Modal/index';
 import GearCategory from '@/util/GearCategory';
 import { useForm } from 'react-hook-form';
 import { GearFormValue } from '@/types';
@@ -15,7 +15,7 @@ import { Form } from '@/components/atoms/Form';
 import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
 
-const CreateGear = () => {
+export const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);
   const onClose = () => setModalState(false);
   const modalSate = useRecoilValue(createGearModalState);
@@ -124,5 +124,3 @@ const CreateGear = () => {
     </Modal>
   );
 };
-
-export default CreateGear;

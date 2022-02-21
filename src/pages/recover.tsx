@@ -1,4 +1,4 @@
-import ChangePassowrd from '@/components/molecules/ChangePassword';
+import { ChangePassowrd } from '@/components/molecules/ChangePassword';
 import Head from 'next/head';
 
 const Recover = () => {

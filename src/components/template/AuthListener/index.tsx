@@ -1,6 +1,6 @@
 import userState from '@/globalState/LoginUser';
 import { auth } from '@/lib/supabase';
-import paths from '@/paths';
+import { paths } from '@/paths';
 import { users } from '@prisma/client';
 import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
@@ -8,7 +8,7 @@ import { FC, useEffect, useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import mountedState from '@/globalState/mounted';
 
-const AuthListener: FC = ({ children }) => {
+export const AuthListener: FC = ({ children }) => {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const setMounted = useSetRecoilState(mountedState);
@@ -47,5 +47,3 @@ const AuthListener: FC = ({ children }) => {
 
   return <div>{children}</div>;
 };
-
-export default AuthListener;
