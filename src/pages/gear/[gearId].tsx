@@ -1,4 +1,4 @@
-import UpdateGear from '@/components/organisms/UpdateGear';
+import { UpdateGear } from '@/components/organisms/UpdateGear';
 import prisma from '@/lib/prisma';
 import { gears } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps } from 'next';

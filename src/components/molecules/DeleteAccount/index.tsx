@@ -1,9 +1,9 @@
-import DengerButton from '@/components/atoms/Button/DengerButton';
+import { Button } from '@/components/atoms/Button';
 import { auth } from '@/lib/supabase';
 import axios from 'axios';
 import { FormProvider, useForm } from 'react-hook-form';
 
-const DeleteAccount = () => {
+export const DeleteAccount = () => {
   const methods = useForm();
   const {
     handleSubmit,
@@ -24,18 +24,12 @@ const DeleteAccount = () => {
             <h2 className='font-bold text-lg'>アカウントの削除</h2>
             <p>データの復元は出来ません。</p>
 
-            <DengerButton
-              buttonType='submit'
-              size='md'
-              isLoading={isSubmitting}
-            >
+            <Button type='submit' variant='danger' isLoading={isSubmitting}>
               アカウントを削除
-            </DengerButton>
+            </Button>
           </div>
         </div>
       </form>
     </FormProvider>
   );
 };
-
-export default DeleteAccount;

@@ -1,4 +1,4 @@
-import paths from "@/paths";
+import { paths } from "@/paths";
 import { NextRequest, NextResponse } from "next/server";
 
 const middleware = async (req: NextRequest) => {

@@ -5,7 +5,7 @@ type Props = {
   toastState: boolean;
 };
 
-const ErrorToast: FC<Props> = ({ toastState, children }) => {
+export const ErrorToast: FC<Props> = ({ toastState, children }) => {
   return (
     <Transition appear show={toastState} as={Fragment}>
       <div className='fixed inset-y-20 left-2 z-10'>
@@ -38,5 +38,3 @@ const ErrorToast: FC<Props> = ({ toastState, children }) => {
     </Transition>
   );
 };
-
-export default ErrorToast;

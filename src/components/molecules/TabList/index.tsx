@@ -5,7 +5,7 @@ type Props = {
   tabLists: string[];
 };
 
-const TabList: VFC<Props> = ({ tabLists }) => {
+export const TabList: VFC<Props> = ({ tabLists }) => {
   return (
     <Tab.List className='flex p-2 space-x-2 bg-blue-900/20 rounded-xl whitespace-nowrap overflow-x-scroll overflow-y-hidden scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-300'>
       {tabLists.map((tabList, index) => (
@@ -24,5 +24,3 @@ const TabList: VFC<Props> = ({ tabLists }) => {
     </Tab.List>
   );
 };
-
-export default TabList;

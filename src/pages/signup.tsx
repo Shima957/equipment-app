@@ -1,4 +1,4 @@
-import SignUpForm from '@/components/template/SignUpForm';
+import { SignUpForm } from '@/components/template/SignUpForm';
 import Head from 'next/head';
 
 const SignUp = () => {

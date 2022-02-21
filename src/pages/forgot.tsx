@@ -1,25 +1,24 @@
-import PrimaryButton from '@/components/atoms/Button/PrimaryButton';
-import SecondaryButton from '@/components/atoms/Button/SecondaryButton';
-import EmailInput from '@/components/atoms/Input/Auth/EmailInput';
-import ErrorToast from '@/components/atoms/Toast/ErrorToast';
-import SuccessToast from '@/components/atoms/Toast/SuccessToast';
-import useToast from '@/hooks/useToast';
+import { Button } from '@/components/atoms/Button';
+import { Form } from '@/components/atoms/Form';
+import { Input } from '@/components/atoms/Input';
+import { ErrorToast, SuccessToast } from '@/components/atoms/Toast';
+import { useToast } from '@/hooks';
 import { auth } from '@/lib/supabase';
-import paths from '@/paths';
+import { paths } from '@/paths';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 const Forgot = () => {
   const route = useRouter();
   const { toastState, toggleToast, closeToast } = useToast();
   const [errorToastState, setErrorToastState] = useState(false);
-  const methods = useForm<{ email: string }>();
   const {
+    register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+    formState: { isSubmitting, errors },
+  } = useForm<{ email: string }>();
 
   const onSubmit = async (data: { email: string }) => {
     const { error } = await auth.api.resetPasswordForEmail(data.email, {
@@ -37,34 +36,35 @@ const Forgot = () => {
   };
 
   return (
-    <div className='flex flex-col items-center w-1/2 mx-auto bg-white p-4 space-y-4'>
+    <div className='items-center w-1/2 mx-auto bg-white py-4 px-12 rounded-md space-y-4'>
       <Head>
         <title>パスワードをリセット | My U Gear</title>
       </Head>
       <h2 className='text-xl font-bold'>パスワードを再設定</h2>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex flex-col items-center space-y-4'>
-            <EmailInput />
-            <div className='flex justify-end space-x-2 w-full'>
-              <SecondaryButton
-                buttonType='button'
-                size='min'
-                onClick={() => route.push(paths.signIn)}
-              >
-                キャンセル
-              </SecondaryButton>
-              <PrimaryButton
-                buttonType='submit'
-                size='min'
-                isLoading={isSubmitting}
-              >
-                送信
-              </PrimaryButton>
-            </div>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <div className='flex flex-col items-center space-y-4'>
+          <Input
+            type='email'
+            registeration={register('email', {
+              required: 'メールアドレスを入力して下さい',
+            })}
+            error={errors.email}
+          />
+          <div className='flex justify-end space-x-2 w-full'>
+            <Button
+              type='button'
+              size='sm'
+              variant='secondary'
+              onClick={() => route.push(paths.signIn)}
+            >
+              キャンセル
+            </Button>
+            <Button type='submit' size='sm' isLoading={isSubmitting}>
+              送信
+            </Button>
           </div>
-        </form>
-      </FormProvider>
+        </div>
+      </Form>
       <SuccessToast toastState={toastState} closeToast={closeToast}>
         送信しました
       </SuccessToast>

@@ -6,7 +6,7 @@ type Props = {
   menuItems: MenuItems[];
 };
 
-const DropDown: VFC<Props> = ({ menuItems }) => {
+export const DropDown: VFC<Props> = ({ menuItems }) => {
   return (
     <Menu.Items
       as='ul'
@@ -30,5 +30,3 @@ const DropDown: VFC<Props> = ({ menuItems }) => {
     </Menu.Items>
   );
 };
-
-export default DropDown;

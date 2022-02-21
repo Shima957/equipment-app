@@ -1,4 +1,4 @@
-const paths = {
+export const paths = {
   home: '/',
   signIn: '/signin',
   signUp: '/signup',
@@ -8,5 +8,3 @@ const paths = {
   recoverPass: '/recover',
   contact: '/contact'
 }
-
-export default paths

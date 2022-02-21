@@ -6,7 +6,7 @@ type Props = {
   closeModal: () => void;
 };
 
-const Modal: FC<Props> = ({ children, modalSate, closeModal }) => {
+export const Modal: FC<Props> = ({ children, modalSate, closeModal }) => {
   return (
     <Transition appear show={modalSate} as={Fragment}>
       <Dialog
@@ -44,5 +44,3 @@ const Modal: FC<Props> = ({ children, modalSate, closeModal }) => {
     </Transition>
   );
 };
-
-export default Modal;

@@ -1,5 +1,6 @@
-import GreenBotton from '@/components/atoms/Button/LinkButton/GreenButton';
+import { ButtonLink } from '@/components/atoms/ButtonLink';
 import Head from 'next/head';
+import { paths } from '@/paths';
 
 const Custom404 = () => {
   return (
@@ -12,9 +13,12 @@ const Custom404 = () => {
         <p>お探しのページは見つかりませんでした</p>
       </div>
       <div className='pt-6 flex justify-center'>
-        <GreenBotton href='/' size='md'>
-          ホームへ
-        </GreenBotton>
+        <ButtonLink
+          title='ホームへ'
+          size='md'
+          variant='green'
+          href={paths.home}
+        />
       </div>
     </div>
   );

@@ -7,7 +7,11 @@ type Props = {
   closeToast: () => void;
 };
 
-const SuccessToast: FC<Props> = ({ toastState, children, closeToast }) => {
+export const SuccessToast: FC<Props> = ({
+  toastState,
+  children,
+  closeToast,
+}) => {
   return (
     <Transition appear show={toastState} as={Fragment}>
       <div className='fixed inset-y-24 left-2 z-10'>
@@ -51,5 +55,3 @@ const SuccessToast: FC<Props> = ({ toastState, children, closeToast }) => {
     </Transition>
   );
 };
-
-export default SuccessToast;

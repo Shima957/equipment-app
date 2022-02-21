@@ -1,5 +1,5 @@
 import { users } from '@prisma/client';
-import Link from 'next/link';
+import { Link } from '@/components/atoms/RouterLink';
 import { VFC } from 'react';
 import Image from 'next/image';
 
@@ -7,7 +7,7 @@ type Props = {
   users: (users | null)[];
 };
 
-const PostList: VFC<Props> = ({ users }) => {
+export const PostList: VFC<Props> = ({ users }) => {
   return (
     <div>
       <div className='mb-4'>
@@ -35,5 +35,3 @@ const PostList: VFC<Props> = ({ users }) => {
     </div>
   );
 };
-
-export default PostList;

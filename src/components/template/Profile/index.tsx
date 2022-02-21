@@ -2,20 +2,19 @@ import LoginUserState from '@/globalState/LoginUser';
 import { gears, users } from '@prisma/client';
 import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
-import SecondaryButton from '../../atoms/Button/SecondaryButton';
-import UpdateProfile from '../../organisms/UpdateProfile';
-import Avatar from '../../atoms/Avatar';
-import PostGears from '../../organisms/PostGears';
-import useModal from '@/hooks/useModal';
-import TwitterIcon from '@/components/atoms/Icons/TwitterIcon';
-import SoundCloudIcon from '@/components/atoms/Icons/SoundCloudIcon';
+import { Button } from '@/components/atoms/Button';
+import { UpdateProfile } from '@/components/organisms/UpdateProfile';
+import { Avatar } from '@/components/atoms/Avatar';
+import { PostGears } from '@/components/organisms/PostGears';
+import { useModal } from '@/hooks';
+import { TwitterIcon, SoundCloudIcon } from '@/components/atoms/Icons';
 
 type Props = {
   user: users | null;
   gears: (gears | null)[];
 };
 
-const Profile: VFC<Props> = ({ user, gears }) => {
+export const Profile: VFC<Props> = ({ user, gears }) => {
   const { modalState, openModal, closeModal } = useModal();
   const loginUser = useRecoilValue(LoginUserState);
 
@@ -36,9 +35,14 @@ const Profile: VFC<Props> = ({ user, gears }) => {
         </div>
         <div className='flex justify-center md:justify-end'>
           {loginUser?.user_id === user?.user_id && (
-            <SecondaryButton buttonType='button' size='md' onClick={openModal}>
+            <Button
+              type='button'
+              size='md'
+              onClick={openModal}
+              variant='secondary'
+            >
               プロフィールを更新
-            </SecondaryButton>
+            </Button>
           )}
         </div>
       </div>
@@ -51,5 +55,3 @@ const Profile: VFC<Props> = ({ user, gears }) => {
     </div>
   );
 };
-
-export default Profile;

@@ -5,7 +5,7 @@ type Props = {
   soundCloudId: string;
 };
 
-const SoundCloudIcon: VFC<Props> = ({ soundCloudId }) => {
+export const SoundCloudIcon: VFC<Props> = ({ soundCloudId }) => {
   return (
     <a
       href={`https://soundcloud.com/${soundCloudId}`}
@@ -16,5 +16,3 @@ const SoundCloudIcon: VFC<Props> = ({ soundCloudId }) => {
     </a>
   );
 };
-
-export default SoundCloudIcon;

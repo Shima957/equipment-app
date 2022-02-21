@@ -1,4 +1,4 @@
-import Profile from '@/components/template/Profile';
+import { Profile } from '@/components/template/Profile';
 import prisma from '@/lib/prisma';
 import { gears, users } from '@prisma/client';
 import { GetStaticPaths, GetStaticProps } from 'next';

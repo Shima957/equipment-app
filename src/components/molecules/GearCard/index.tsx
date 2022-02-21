@@ -12,7 +12,7 @@ type Props = {
   moveGearPage: (gearId: number | undefined) => void;
 };
 
-const GearCard: VFC<Props> = ({ gear, removeGear, moveGearPage }) => {
+export const GearCard: VFC<Props> = ({ gear, removeGear, moveGearPage }) => {
   const LoginUser = useRecoilValue(LoginUserState);
 
   const menuItems = [
@@ -89,5 +89,3 @@ const GearCard: VFC<Props> = ({ gear, removeGear, moveGearPage }) => {
     </div>
   );
 };
-
-export default GearCard;

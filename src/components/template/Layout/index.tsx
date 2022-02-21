@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import Footer from '../../molecules/Footer';
-import Header from '../../molecules/Header';
+import { Footer } from '../../molecules/Footer';
+import { Header } from '../../molecules/Header';
 
-const Layout: FC = ({ children }) => {
+export const Layout: FC = ({ children }) => {
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />
@@ -13,5 +13,3 @@ const Layout: FC = ({ children }) => {
     </div>
   );
 };
-
-export default Layout;

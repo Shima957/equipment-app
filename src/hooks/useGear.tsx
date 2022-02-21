@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { gears } from '@prisma/client';
 import { useRouter } from 'next/router';
 
-const useGear = (userId: string | undefined) => {
+export const useGear = (userId: string | undefined) => {
   const route = useRouter();
   const fetcher = useCallback(
     async (url: string) => {
@@ -21,4 +21,3 @@ const useGear = (userId: string | undefined) => {
 
   return { data };
 };
-export default useGear;

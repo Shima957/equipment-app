@@ -1,5 +1,5 @@
-import PrimaryLink from '@/components/atoms/Button/LinkButton/PrimaryLink';
-import paths from '@/paths';
+import { ButtonLink } from '@/components/atoms/ButtonLink';
+import { paths } from '@/paths';
 import Head from 'next/head';
 
 const SendConfirmEmail = () => {
@@ -10,7 +10,12 @@ const SendConfirmEmail = () => {
       </Head>
       <h1>登録ありがとうございました。</h1>
       <h2>確認メールを送信しました。</h2>
-      <PrimaryLink href={paths.home}>ホームへ</PrimaryLink>
+      <ButtonLink
+        href={paths.home}
+        size='md'
+        title='ホームへ'
+        variant='primary'
+      />
     </div>
   );
 };

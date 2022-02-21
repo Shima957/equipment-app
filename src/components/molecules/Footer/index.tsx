@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import paths from '@/paths';
+import { paths } from '@/paths';
+import { Link } from '@/components/atoms/RouterLink';
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className='bg-white py-6 px-4 '>
       <div className='max-w-screen-xl mx-auto flex items-center justify-between'>
@@ -15,5 +15,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
