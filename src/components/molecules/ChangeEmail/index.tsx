@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import LoginUserState from '@/globalState/LoginUser';
+import { SetterOrUpdater } from 'recoil';
 import axios from 'axios';
 import { auth } from '@/lib/supabase';
 import { SuccessToast } from '@/components/atoms/Toast';
@@ -9,21 +8,26 @@ import { Form } from '@/components/atoms/Form';
 import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
 import { Button } from '@/components/atoms/Button';
+import { VFC } from 'react';
+import { users } from '@prisma/client';
 
 type FormValue = {
   email: string;
   newEmail: string;
 };
 
-export const ChangeEmail = () => {
+type Props = {
+  loginUser: users | null;
+  updateLoginUser: SetterOrUpdater<users | null>;
+};
+
+export const ChangeEmail: VFC<Props> = ({ loginUser, updateLoginUser }) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting, errors },
   } = useForm<FormValue>();
-  const loginUser = useRecoilValue(LoginUserState);
-  const updateLoginUser = useSetRecoilState(LoginUserState);
   const { toastState, toggleToast, closeToast } = useToast();
   const onSubmit = async (data: FormValue) => {
     if (data.email === loginUser?.email) {

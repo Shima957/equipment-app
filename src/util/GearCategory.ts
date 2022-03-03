@@ -1,4 +1,4 @@
-const GearCategory = [
+export const GearCategory = [
   "DAW",
   "オーディオインターフェース",
   "スピーカー",
@@ -14,5 +14,3 @@ const GearCategory = [
   "Mastering",
   "その他"
 ]
-
-export default GearCategory

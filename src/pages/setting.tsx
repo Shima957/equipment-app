@@ -1,4 +1,4 @@
-import { SettingLyout } from '@/components/template/Setting';
+import { UserSetting } from '@/components/template/UserSetting';
 import Head from 'next/head';
 
 const Setting = () => {
@@ -7,7 +7,7 @@ const Setting = () => {
       <Head>
         <title>アカウント設定 | My U Gear</title>
       </Head>
-      <SettingLyout />
+      <UserSetting />
     </div>
   );
 };

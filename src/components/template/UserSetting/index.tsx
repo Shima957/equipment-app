@@ -1,17 +1,25 @@
+import { LoginUserState } from '@/globalState/LoginUser';
 import { Tab } from '@headlessui/react';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { ChangeEmail } from '../../molecules/ChangeEmail';
 import { ChangePassowrd } from '../../molecules/ChangePassword';
 import { DeleteAccount } from '../../molecules/DeleteAccount';
 
-export const SettingLyout = () => {
+export const UserSetting = () => {
   const tabList = [
     { title: 'メールアドレスを変更する' },
     { title: 'パスワードを変更する' },
     { title: 'アカウントを削除する' },
   ];
+  const loginUser = useRecoilValue(LoginUserState);
+  const updateLoginUser = useSetRecoilState(LoginUserState);
 
   const tabPanel = [
-    <ChangeEmail key='email' />,
+    <ChangeEmail
+      key='email'
+      loginUser={loginUser}
+      updateLoginUser={updateLoginUser}
+    />,
     <ChangePassowrd key='password' />,
     <DeleteAccount key='delete' />,
   ];
