@@ -1,20 +1,20 @@
 import { Button } from '@/components/atoms/Button';
 import { FileInput } from '@/components/atoms/FileInput';
 import { Select } from '@/components/atoms/Select';
-import createGearModalState from '@/globalState/createGearModalState';
+import { createGearModalState } from '@/globalState/createGearModalState';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Modal } from '../../molecules/Modal/index';
-import GearCategory from '@/util/GearCategory';
+import { GearCategory } from '@/util';
 import { useForm } from 'react-hook-form';
 import { GearFormValue } from '@/types';
 import axios from 'axios';
 import { XIcon } from '@heroicons/react/outline';
-import { uploadImg } from '@/util/uploadImg';
-import { getPublicUrl } from '@/util/getPublicUrl';
+import { uploadImg } from '@/util';
+import { getPublicUrl } from '@/util';
 import { Form } from '@/components/atoms/Form';
 import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
-import { compressionImg } from '@/util/compressionImg';
+import { compressionImg } from '@/util';
 
 export const CreateGear = () => {
   const setModalState = useSetRecoilState(createGearModalState);

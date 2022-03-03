@@ -1,4 +1,4 @@
-import LoginUserState from '@/globalState/LoginUser';
+import { LoginUserState } from '@/globalState/LoginUser';
 import { gears, users } from '@prisma/client';
 import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';

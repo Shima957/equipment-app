@@ -7,9 +7,9 @@ import { FileInput } from '@/components/atoms/FileInput';
 import { users } from '@prisma/client';
 import axios from 'axios';
 import type { UpdateProfielFormValue } from '@/types';
-import { uploadImg } from '@/util/uploadImg';
-import { getPublicUrl } from '@/util/getPublicUrl';
-import { updateImg } from '@/util/updateImg';
+import { uploadImg } from '@/util';
+import { getPublicUrl } from '@/util';
+import { updateImg } from '@/util';
 import { Form } from '@/components/atoms/Form';
 import { FormField } from '@/components/atoms/FormField';
 import { Input } from '@/components/atoms/Input';
@@ -54,7 +54,7 @@ export const UpdateProfile: VFC<Props> = ({ user, modalState, closeModal }) => {
     }
     if (!currentImgUrl && data.img.length === 1) {
       // 新しく画像をアップロードする場合
-      const { fileName } = await uploadImg(data, 'avatar');
+      const { fileName } = await uploadImg(data.img[0], 'avatar');
       const { publicUrl } = await getPublicUrl(fileName, 'avatar');
       await updateProfile(data, publicUrl);
     }

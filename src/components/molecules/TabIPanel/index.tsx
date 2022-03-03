@@ -3,6 +3,8 @@ import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import { GearCard } from '@/components/molecules/GearCard';
 import Skeleton from '../GearCard/Skeleton';
+import { useRecoilValue } from 'recoil';
+import { LoginUserState } from '@/globalState/LoginUser';
 
 type Props = {
   tabPanels: string[];
@@ -17,6 +19,7 @@ export const TabPanel: VFC<Props> = ({
   removeGear,
   moveGearPage,
 }) => {
+  const loginUser = useRecoilValue(LoginUserState);
   const filteredPanel = (tabPanel: string) => {
     return gears
       ?.filter((gear) => gear?.category === tabPanel)
@@ -26,6 +29,7 @@ export const TabPanel: VFC<Props> = ({
           key={data?.id}
           removeGear={removeGear}
           moveGearPage={moveGearPage}
+          LoginUser={loginUser}
         />
       ));
   };

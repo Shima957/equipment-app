@@ -1,14 +1,14 @@
 import { Modal } from '@/components/molecules/Modal';
 import { Select } from '@/components/atoms/Select';
-import addGearModalState from '@/globalState/addGearModalState';
-import GearCategory from '@/util/GearCategory';
+import { addGearModalState } from '@/globalState/addGearModalState';
+import { GearCategory } from '@/util';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Button } from '@/components/atoms/Button';
 import { useState, ChangeEvent, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { FormErrorMessage } from '@/components/atoms/Text/FormErrorMessage';
-import LoginUserState from '@/globalState/LoginUser';
+import { LoginUserState } from '@/globalState/LoginUser';
 import { gears } from '@prisma/client';
 import { XIcon } from '@heroicons/react/outline';
 import { useSWRConfig } from 'swr';

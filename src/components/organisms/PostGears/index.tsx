@@ -1,12 +1,12 @@
 import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import { Tab } from '@headlessui/react';
-import GearCategory from '@/util/GearCategory';
+import { GearCategory } from '@/util';
 import axios from 'axios';
 import { TabList } from '@/components/molecules/TabList';
 import { TabPanel } from '@/components/molecules/TabIPanel';
 import { useRecoilValue } from 'recoil';
-import LoginUserState from '@/globalState/LoginUser';
+import { LoginUserState } from '@/globalState/LoginUser';
 import { useGear } from '@/hooks';
 import { useSWRConfig } from 'swr';
 import { useRouter } from 'next/router';

@@ -1,25 +1,33 @@
 import { UserIcon } from '@heroicons/react/outline';
 import { Menu } from '@headlessui/react';
 import { DropDown } from '../DropDown';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import LoginUserState from '@/globalState/LoginUser';
+import { SetterOrUpdater } from 'recoil';
 import { useRouter } from 'next/router';
 import { auth } from '@/lib/supabase';
 import { paths } from '@/paths';
 import { Button } from '../../atoms/Button';
 import { ButtonLink } from '@/components/atoms/ButtonLink';
-import createGearModalState from '@/globalState/createGearModalState';
-import addGearModalState from '@/globalState/addGearModalState';
 import { CreateGear } from '../../organisms/CreateGear';
 import { AddUsingGear } from '../../organisms/AddUsingGear';
+import { VFC } from 'react';
+import { users } from '@prisma/client';
 
-export const HeaderNav = () => {
+type Props = {
+  loginUser: users | null;
+  onOpenCreateGearModal: SetterOrUpdater<boolean>;
+  onOpenAddGearModal: SetterOrUpdater<boolean>;
+  createModalState: boolean;
+  addModalState: boolean;
+};
+
+export const HeaderNav: VFC<Props> = ({
+  loginUser,
+  onOpenCreateGearModal,
+  onOpenAddGearModal,
+  createModalState,
+  addModalState,
+}) => {
   const route = useRouter();
-  const loginUser = useRecoilValue(LoginUserState);
-  const onOpenCreateGearModal = useSetRecoilState(createGearModalState);
-  const onOpenAddGearModal = useSetRecoilState(addGearModalState);
-  const createModalState = useRecoilValue(createGearModalState);
-  const addModalState = useRecoilValue(addGearModalState);
 
   const menuItems = [
     {

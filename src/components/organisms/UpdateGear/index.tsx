@@ -5,18 +5,18 @@ import { gears } from '@prisma/client';
 import { VFC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Select } from '@/components/atoms/Select';
-import GearCategory from '@/util/GearCategory';
+import { GearCategory } from '@/util';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { uploadImg } from '@/util/uploadImg';
-import { getPublicUrl } from '@/util/getPublicUrl';
-import { updateImg } from '@/util/updateImg';
+import { uploadImg } from '@/util';
+import { getPublicUrl } from '@/util';
+import { updateImg } from '@/util';
 import { useToast } from '@/hooks';
 import { SuccessToast } from '@/components/atoms/Toast';
 import { FormField } from '@/components/atoms/FormField';
 import { Form } from '@/components/atoms/Form';
 import { Input } from '@/components/atoms/Input';
-import { compressionImg } from '@/util/compressionImg';
+import { compressionImg } from '@/util';
 
 type Props = {
   gearData: gears | null;
