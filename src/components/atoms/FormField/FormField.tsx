@@ -10,7 +10,7 @@ type Props = {
 export const FormField: FC<Props> = ({ label, required, error, children }) => {
   return (
     <div className='space-y-2'>
-      <label>
+      <label className='space-y-1'>
         {required ? (
           <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-700 pb-1">
             {label}
@@ -18,8 +18,8 @@ export const FormField: FC<Props> = ({ label, required, error, children }) => {
         ) : (
           <span>{label}</span>
         )}
+        <div>{children}</div>
       </label>
-      <div>{children}</div>
       {error?.message && (
         <div
           role='alert'
