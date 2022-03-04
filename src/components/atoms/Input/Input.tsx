@@ -6,7 +6,7 @@ type Props = {
   defaultValue?: string;
   placeholder?: string;
   registeration?: Partial<UseFormRegisterReturn>;
-  error?: FieldError | undefined;
+  error?: FieldError | boolean | undefined;
 };
 
 const styles = {
