@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   typescript: { reactDocgen: false },
   stories: ['../src/components/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -19,4 +21,19 @@ module.exports = {
     builder: 'webpack5',
   },
   staticDirs: ['../public'],
+  webpackFinal: async (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, '../src'),
+    };
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+        },
+      },
+    };
+  },
 };
