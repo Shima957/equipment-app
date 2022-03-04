@@ -1,7 +1,7 @@
 import { ChangeEvent, VFC } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 type Props = {
-  options: string[];
+  options: string[] | undefined;
   registeration?: Partial<UseFormRegisterReturn>;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
@@ -10,11 +10,11 @@ export const Select: VFC<Props> = ({ options, registeration, onChange }) => {
   return (
     <div className='relative inline-block w-full text-gray-700'>
       <select
-        className='w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md appearance-none focus:ring-1 focus:border-sky-500 focus:ring-sky-500 focus:outline-none'
+        className='w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md appearance-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500 focus:ring-offset-2 focus:outline-none'
         {...registeration}
         onChange={onChange}
       >
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <option key={index} value={option}>
             {option}
           </option>
