@@ -12,7 +12,7 @@ const renderInputs = (Input: VFC<InputProps>) => {
       </dd>
       <dt>Email</dt>
       <dd className='space-y-4 w-60'>
-        <Input type='email' defaultValue='sample@sample' />
+        <Input type='email' defaultValue='sample@sample.com' />
       </dd>
       <dt>Password</dt>
       <dd className='space-y-4 w-60'>
