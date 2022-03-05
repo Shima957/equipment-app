@@ -27,6 +27,7 @@ export const Button: FC<Props> = ({
   variant = 'primary',
   type = 'button',
   isLoading = false,
+  disabled = false,
   onClick,
   children,
 }) => {
@@ -34,7 +35,7 @@ export const Button: FC<Props> = ({
     <button
       type={type}
       onClick={onClick}
-      disabled={isLoading}
+      disabled={disabled || isLoading}
       className={`flex justify-center items-center h-10 px-2 space-x-2 rounded-md font-bold disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring focus:ring-offset-2
       ${variants[variant]} ${sizes[size]}`}
     >
