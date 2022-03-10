@@ -13,12 +13,9 @@ const Custom404 = () => {
         <p>お探しのページは見つかりませんでした</p>
       </div>
       <div className='pt-6 flex justify-center'>
-        <ButtonLink
-          title='ホームへ'
-          size='md'
-          variant='green'
-          href={paths.home}
-        />
+        <ButtonLink size='md' variant='green' href={paths.home}>
+          ホームへ
+        </ButtonLink>
       </div>
     </div>
   );
