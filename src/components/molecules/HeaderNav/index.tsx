@@ -41,12 +41,9 @@ export const HeaderNav: VFC<Props> = ({
   return (
     <nav className='flex items-center space-x-2'>
       {!loginUser ? (
-        <ButtonLink
-          href={paths.signIn}
-          variant='primary'
-          title='ログイン'
-          size='md'
-        />
+        <ButtonLink href={paths.signIn} variant='primary' size='md'>
+          ログイン
+        </ButtonLink>
       ) : null}
       {loginUser && (
         <div className='flex items-center space-x-2 transition-opacity duration-500'>

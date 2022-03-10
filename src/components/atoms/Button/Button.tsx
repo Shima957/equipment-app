@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 import { Spiner } from '@/components/atoms/Loading';
 
-const variants = {
+export const variants = {
   primary: 'bg-sky-500 text-white hover:bg-sky-600 focus:ring-sky-300',
   secondary: 'border border-gray-300 text-gray-600 focus:ring-gray-300',
   danger:
