@@ -11,11 +11,9 @@ const SignIn = () => {
       </Head>
       <SignInForm />
       <div className='mt-10 w-1/2 mx-auto'>
-        <ButtonLink
-          title='アカウント作成'
-          variant='green'
-          href={paths.signUp}
-        />
+        <ButtonLink variant='green' href={paths.signUp}>
+          アカウント作成
+        </ButtonLink>
       </div>
     </div>
   );

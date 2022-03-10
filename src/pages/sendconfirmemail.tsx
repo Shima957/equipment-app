@@ -10,12 +10,9 @@ const SendConfirmEmail = () => {
       </Head>
       <h1>登録ありがとうございました。</h1>
       <h2>確認メールを送信しました。</h2>
-      <ButtonLink
-        href={paths.home}
-        size='md'
-        title='ホームへ'
-        variant='primary'
-      />
+      <ButtonLink href={paths.home} size='md' variant='primary'>
+        ホームへ
+      </ButtonLink>
     </div>
   );
 };

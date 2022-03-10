@@ -1,7 +1,7 @@
 import { Link } from '@/components/atoms/RouterLink';
-import { VFC } from 'react';
+import { FC } from 'react';
 
-const variants = {
+export const variants = {
   primary: 'bg-sky-500 text-white hover:bg-sky-600 focus:ring-sky-300',
   secondary: 'border border-gray-300 text-gray-600 focus:ring-gray-300',
   green:
@@ -17,14 +17,13 @@ const sizes = {
 
 type Props = {
   href: string;
-  title: string;
   variant: keyof typeof variants;
   size?: keyof typeof sizes;
 };
 
-export const ButtonLink: VFC<Props> = ({
+export const ButtonLink: FC<Props> = ({
   href,
-  title,
+  children,
   variant = 'primary',
   size = 'full',
 }) => {
@@ -35,7 +34,7 @@ export const ButtonLink: VFC<Props> = ({
         ${variants[variant]} ${sizes[size]}
         `}
       >
-        {title}
+        {children}
       </a>
     </Link>
   );
