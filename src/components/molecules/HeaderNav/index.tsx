@@ -1,6 +1,6 @@
 import { UserIcon } from '@heroicons/react/outline';
 import { Menu } from '@headlessui/react';
-import { DropDown } from '../DropDown';
+import { DropDown } from '../../atoms/DropDown';
 import { SetterOrUpdater } from 'recoil';
 import { useRouter } from 'next/router';
 import { auth } from '@/lib/supabase';
