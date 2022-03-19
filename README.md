@@ -3,3 +3,8 @@
 
 # 仕様技術
 言語：JavaScript, TypeScript
+フレームワーク： Next.js
+レンダリング手法：ISR（ユーザー自身のページはSPA）
+ライブラリ：axios, Prisma, Storybook, React Hook Form, Recoil, SWR, Husky, lint-stage, zod
+CSS: Tailwind CSS
+Bass: Supabase
